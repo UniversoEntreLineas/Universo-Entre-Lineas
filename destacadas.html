@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Destacadas | Universo Entre Líneas</title>
+
+<style>
+:root {
+  --paper: #F7F1E8;
+  --wine: #713847;
+  --dark: #30272C;
+  --beige: #D8C8B8;
+  --gold: #B69A70;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--dark);
+  font-family: Georgia, serif;
+}
+
+header {
+  text-align: center;
+  padding: 35px 20px 25px;
+  border-bottom: 1px solid var(--beige);
+}
+
+header h1 {
+  color: var(--wine);
+  font-size: 34px;
+  margin: 0 0 10px;
+}
+
+header p {
+  color: #75636A;
+  font-style: italic;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 23px;
+  padding: 18px;
+  border-bottom: 1px solid var(--beige);
+}
+
+nav a {
+  color: var(--wine);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+main {
+  max-width: 1050px;
+  width: 90%;
+  margin: auto;
+  padding: 45px 0 60px;
+}
+
+.intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 45px;
+}
+
+.intro h2 {
+  color: var(--wine);
+  font-size: 36px;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+
+.intro p {
+  color: #75636A;
+  line-height: 1.8;
+}
+
+.featured {
+  background: var(--dark);
+  color: var(--paper);
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px;
+  padding: 30px;
+  align-items: center;
+}
+
+.cover {
+  min-height: 300px;
+  background: linear-gradient(145deg, #713847, #30272C);
+  border: 1px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 25px;
+}
+
+.cover span {
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.cover h3 {
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 1.3;
+  margin: 25px 0;
+}
+
+.featured-info small {
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.featured-info h2 {
+  font-size: 31px;
+  font-weight: normal;
+  margin: 15px 0;
+}
+
+.featured-info p {
+  color: #E4D8D0;
+  line-height: 1.9;
+  font-size: 14px;
+}
+
+.featured-info a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 20px;
+  background: var(--paper);
+  color: var(--wine);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.section-title {
+  text-align: center;
+  color: var(--wine);
+  font-size: 29px;
+  font-weight: normal;
+  margin: 60px 0 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #FFFCF7;
+  border: 1px solid var(--beige);
+  padding: 25px;
+}
+
+.card .category {
+  color: var(--gold);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.card h3 {
+  color: var(--wine);
+  font-size: 22px;
+  font-weight: normal;
+  margin: 15px 0 10px;
+}
+
+.card p {
+  color: #75636A;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.card a {
+  color: var(--wine);
+  font-size: 13px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 3px;
+}
+
+.note {
+  margin-top: 45px;
+  padding: 22px;
+  background: #EFE6DA;
+  border-left: 3px solid var(--gold);
+  color: #75636A;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  border-top: 1px solid var(--beige);
+  color: #75636A;
+  font-size: 13px;
+}
+
+@media (max-width: 650px) {
+  header h1 {
+    font-size: 27px;
+  }
+
+  .featured {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .cover {
+    min-height: 240px;
+  }
+
+  .intro h2 {
+    font-size: 29px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Universo Entre Líneas</h1>
+  <p>Un lugar para cada historia</p>
+</header>
+
+<nav>
+  <a href="index.html">Inicio</a>
+  <a href="historias.html">Historias</a>
+  <a href="categorias.html">Categorías</a>
+  <a href="comunidad.html">Comunidad</a>
+  <a href="destacadas.html">Destacadas</a>
+  <a href="nosotros.html">Nosotros</a>
+</nav>
+
+<main>
+
+<section class="intro">
+  <h2>Historias destacadas</h2>
+  <p>
+    Algunas historias encuentran su lugar entre muchas otras.
+    Esta selección reúne obras que merecen ser descubiertas,
+    leídas y recordadas.
+  </p>
+</section>
+
+<section class="featured">
+
+  <div class="cover">
+    <span>Selección editorial</span>
+    <h3>Donde mueren las estrellas</h3>
+    <span>Universo Entre Líneas</span>
+  </div>
+
+  <div class="featured-info">
+    <small>Obra de muestra</small>
+    <h2>Donde mueren las estrellas</h2>
+    <p>
+      Una historia presentada como ejemplo de la selección editorial
+      de la plataforma. Su ficha y contenido definitivo podrán
+      incorporarse cuando se publique oficialmente.
+    </p>
+    <a href="historia.html">Ver ficha de la obra</a>
+  </div>
+
+</section>
+
+<h2 class="section-title">Más espacios por descubrir</h2>
+
+<section class="grid">
+
+  <article class="card">
+    <span class="category">Selección mensual</span>
+    <h3>La historia del mes</h3>
+    <p>
+      Un espacio para destacar una obra elegida por su originalidad,
+      narrativa y recepción entre los lectores.
+    </p>
+  </article>
+
+  <article class="card">
+    <span class="category">Nuevos talentos</span>
+    <h3>Autores por descubrir</h3>
+    <p>
+      Un rincón dedicado a escritores que comienzan a compartir
+      sus primeros mundos con la comunidad.
+    </p>
+  </article>
+
+  <article class="card">
+    <span class="category">Favoritas</span>
+    <h3>Las más leídas</h3>
+    <p>
+      Una futura clasificación de las obras que despierten
+      mayor interés entre los lectores.
+    </p>
+  </article>
+
+</section>
+
+<div class="note">
+  <strong>Nota:</strong> Las selecciones, clasificaciones y recomendaciones
+  todavía no son automáticas. Se habilitarán cuando la plataforma
+  cuente con las herramientas necesarias para registrar publicaciones
+  e interacciones.
+</div>
+
+</main>
+
+<footer>
+  Universo Entre Líneas · Un lugar para cada historia
+</footer>
+
+</body>
+</html>
