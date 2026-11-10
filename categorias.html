@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categorías | Universo Entre Líneas</title>
+
+<style>
+:root {
+  --paper: #F7F1E8;
+  --wine: #713847;
+  --dark: #30272C;
+  --beige: #D8C8B8;
+  --gold: #B69A70;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--dark);
+  font-family: Georgia, serif;
+}
+
+header {
+  text-align: center;
+  padding: 35px 20px 25px;
+  border-bottom: 1px solid var(--beige);
+}
+
+header h1 {
+  color: var(--wine);
+  font-size: 34px;
+  letter-spacing: 2px;
+  margin: 0 0 10px;
+}
+
+header p {
+  font-style: italic;
+  color: #75636A;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 18px;
+  border-bottom: 1px solid var(--beige);
+}
+
+nav a {
+  color: var(--wine);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 55px 25px;
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.intro h2 {
+  color: var(--wine);
+  font-size: 32px;
+  font-weight: normal;
+}
+
+.intro p {
+  color: #75636A;
+  line-height: 1.8;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.category {
+  display: block;
+  padding: 28px 22px;
+  background: #FFFCF7;
+  border: 1px solid var(--beige);
+  text-decoration: none;
+  color: var(--dark);
+  transition: 0.2s;
+}
+
+.category:hover {
+  border-color: var(--wine);
+  transform: translateY(-3px);
+}
+
+.category h3 {
+  color: var(--wine);
+  font-size: 23px;
+  font-weight: normal;
+  margin: 0 0 12px;
+}
+
+.category p {
+  color: #75636A;
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  border-top: 1px solid var(--beige);
+  color: #75636A;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 27px;
+  }
+
+  nav {
+    gap: 15px;
+  }
+
+  main {
+    padding: 35px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Universo Entre Líneas</h1>
+  <p>Un lugar para cada historia</p>
+</header>
+
+<nav>
+  <a href="index.html">Inicio</a>
+  <a href="historias.html">Historias</a>
+  <a href="categorias.html">Categorías</a>
+  <a href="comunidad.html">Comunidad</a>
+  <a href="destacadas.html">Destacadas</a>
+  <a href="nosotros.html">Nosotros</a>
+</nav>
+
+<main>
+
+  <section class="intro">
+    <h2>Explora por categorías</h2>
+    <p>
+      Cada historia pertenece a un universo diferente.
+      Encuentra el género que más te guste y descubre nuevas lecturas.
+    </p>
+  </section>
+
+  <section class="categories">
+
+    <a class="category" href="historias.html?genero=Romance">
+      <h3>Romance</h3>
+      <p>Amores, encuentros, despedidas y sentimientos que dejan huella.</p>
+    </a>
+
+    <a class="category" href="historias.html?genero=Fantasía">
+      <h3>Fantasía</h3>
+      <p>Magia, criaturas extraordinarias y mundos imposibles.</p>
+    </a>
+
+    <a class="category" href="historias.html?genero=Misterio">
+      <h3>Misterio</h3>
+      <p>Secretos, enigmas y verdades que esperan ser descubiertas.</p>
+    </a>
+
+    <a class="category" href="historias.html?genero=Terror">
+      <h3>Terror</h3>
+      <p>Historias inquietantes, oscuras y llenas de suspenso.</p>
+    </a>
+
+    <a class="category" href="historias.html?genero=Drama">
+      <h3>Drama</h3>
+      <p>Conflictos, pérdidas y decisiones que cambian una vida.</p>
+    </a>
+
+    <a class="category" href="historias.html?genero=Ciencia%20ficción">
+      <h3>Ciencia ficción</h3>
+      <p>Futuros posibles, tecnología y realidades desconocidas.</p>
+    </a>
+
+    <a class="category" href="historias.html">
+      <h3>Aventura</h3>
+      <p>Viajes, desafíos y experiencias extraordinarias.</p>
+    </a>
+
+    <a class="category" href="historias.html">
+      <h3>Otros géneros</h3>
+      <p>Otras formas de imaginar, contar y compartir historias.</p>
+    </a>
+
+  </section>
+
+</main>
+
+<footer>
+  Universo Entre Líneas · Un lugar para cada historia
+</footer>
+
+</body>
+</html>
