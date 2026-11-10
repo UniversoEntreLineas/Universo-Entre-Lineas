@@ -18,7 +18,9 @@
   --gold: #b69a70;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -27,7 +29,10 @@ body {
   font-family: Georgia, serif;
 }
 
-a { color: inherit; text-decoration: none; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
 header {
   padding: 30px 15px;
@@ -59,7 +64,9 @@ nav {
   font: 13px Arial, sans-serif;
 }
 
-nav a:hover { color: var(--wine); }
+nav a:hover {
+  color: var(--wine);
+}
 
 .hero {
   padding: 65px 20px;
@@ -158,6 +165,11 @@ input, select {
   cursor: pointer;
 }
 
+.reset:hover {
+  background: var(--wine);
+  color: white;
+}
+
 .results-header {
   display: flex;
   justify-content: space-between;
@@ -219,6 +231,10 @@ input, select {
   font-weight: normal;
 }
 
+.book h3 a:hover {
+  text-decoration: underline;
+}
+
 .author {
   color: var(--muted);
   font: 12px Arial, sans-serif;
@@ -261,16 +277,35 @@ footer {
 }
 
 @media(max-width: 750px) {
-  .layout { grid-template-columns: 1fr; }
-  .books { grid-template-columns: 1fr; }
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .books {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media(max-width: 450px) {
-  .book { grid-template-columns: 85px 1fr; }
-  .hero h1 { font-size: 35px; }
-  nav { gap: 15px; }
-  .search { flex-direction: column; }
-  .search button { padding: 13px; }
+  .book {
+    grid-template-columns: 85px 1fr;
+  }
+
+  .hero h1 {
+    font-size: 35px;
+  }
+
+  nav {
+    gap: 15px;
+  }
+
+  .search {
+    flex-direction: column;
+  }
+
+  .search button {
+    padding: 13px;
+  }
 }
 </style>
 </head>
@@ -282,7 +317,6 @@ footer {
   <div class="subtitle">UN LUGAR PARA CADA HISTORIA</div>
 </header>
 
-
 <nav>
   <a href="index.html">Inicio</a>
   <a href="historias.html">Historias</a>
@@ -291,7 +325,6 @@ footer {
   <a href="destacadas.html">Destacadas</a>
   <a href="nosotros.html">Nosotros</a>
 </nav>
-
 
 <div class="hero">
   <small>LA BIBLIOTECA</small>
@@ -302,8 +335,11 @@ footer {
 <main>
 
   <div class="search">
-    <input id="search" type="search"
-      placeholder="Buscar por título o autor...">
+    <input
+      id="search"
+      type="search"
+      placeholder="Buscar por título o autor..."
+    >
     <button onclick="filterBooks()">Buscar</button>
   </div>
 
@@ -323,14 +359,97 @@ footer {
 
       <div class="filter-group">
         <label for="genre">Género</label>
+
         <select id="genre">
           <option value="">Todos los géneros</option>
-          <option value="Romance">Romance</option>
-          <option value="Fantasía">Fantasía</option>
-          <option value="Misterio">Misterio</option>
-          <option value="Terror">Terror</option>
-          <option value="Drama">Drama</option>
-          <option value="Ciencia ficción">Ciencia ficción</option>
+
+          <optgroup label="Romance">
+            <option value="Romance">Romance</option>
+            <option value="Romance contemporáneo">Romance contemporáneo</option>
+            <option value="Romance histórico">Romance histórico</option>
+            <option value="Romance paranormal">Romance paranormal</option>
+            <option value="Romance oscuro">Romance oscuro</option>
+            <option value="Romance juvenil">Romance juvenil</option>
+            <option value="Romance fantástico">Romance fantástico</option>
+          </optgroup>
+
+          <optgroup label="Fantasía">
+            <option value="Fantasía">Fantasía</option>
+            <option value="Fantasía épica">Fantasía épica</option>
+            <option value="Fantasía urbana">Fantasía urbana</option>
+            <option value="Fantasía oscura">Fantasía oscura</option>
+            <option value="Alta fantasía">Alta fantasía</option>
+            <option value="Baja fantasía">Baja fantasía</option>
+            <option value="Cuentos de hadas">Cuentos de hadas</option>
+          </optgroup>
+
+          <optgroup label="Ciencia ficción">
+            <option value="Ciencia ficción">Ciencia ficción</option>
+            <option value="Ciencia ficción espacial">Ciencia ficción espacial</option>
+            <option value="Cyberpunk">Cyberpunk</option>
+            <option value="Steampunk">Steampunk</option>
+            <option value="Distopía">Distopía</option>
+            <option value="Utopía">Utopía</option>
+          </optgroup>
+
+          <optgroup label="Misterio y crimen">
+            <option value="Misterio">Misterio</option>
+            <option value="Policial">Policial</option>
+            <option value="Novela negra">Novela negra</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Suspense">Suspense</option>
+            <option value="Crimen y detectives">Crimen y detectives</option>
+          </optgroup>
+
+          <optgroup label="Terror y sobrenatural">
+            <option value="Terror">Terror</option>
+            <option value="Terror psicológico">Terror psicológico</option>
+            <option value="Terror sobrenatural">Terror sobrenatural</option>
+            <option value="Gótico">Gótico</option>
+            <option value="Paranormal">Paranormal</option>
+            <option value="Sobrenatural">Sobrenatural</option>
+          </optgroup>
+
+          <optgroup label="Drama y emociones">
+            <option value="Drama">Drama</option>
+            <option value="Tragedia">Tragedia</option>
+            <option value="Drama psicológico">Drama psicológico</option>
+            <option value="Melodrama">Melodrama</option>
+            <option value="Vida cotidiana">Vida cotidiana</option>
+          </optgroup>
+
+          <optgroup label="Aventura y acción">
+            <option value="Aventura">Aventura</option>
+            <option value="Acción">Acción</option>
+            <option value="Supervivencia">Supervivencia</option>
+            <option value="Viajes">Viajes</option>
+            <option value="Artes marciales">Artes marciales</option>
+          </optgroup>
+
+          <optgroup label="Historia y mitología">
+            <option value="Histórico">Histórico</option>
+            <option value="Mitología">Mitología</option>
+            <option value="Retelling mitológico">Retelling mitológico</option>
+            <option value="Biográfico">Biográfico</option>
+          </optgroup>
+
+          <optgroup label="Humor y juventud">
+            <option value="Comedia">Comedia</option>
+            <option value="Humor">Humor</option>
+            <option value="Sátira">Sátira</option>
+            <option value="Juvenil">Juvenil</option>
+            <option value="Coming of Age">Coming of Age (crecimiento personal)</option>
+          </optgroup>
+
+          <optgroup label="Literatura y otros">
+            <option value="Poesía">Poesía</option>
+            <option value="Cuento">Cuento</option>
+            <option value="Novela">Novela</option>
+            <option value="Fábula">Fábula</option>
+            <option value="Erótico">Erótico</option>
+            <option value="Experimental">Experimental</option>
+          </optgroup>
+
         </select>
       </div>
 
@@ -366,12 +485,18 @@ footer {
 </footer>
 
 <script>
+
+// ======================================
+// HISTORIAS DE EJEMPLO
+// ======================================
+
 const stories = [
   {
     title: "Donde mueren las estrellas",
     author: "Autora de ejemplo",
     type: "Original",
-    genre: "Drama",
+    mainGenre: "Drama",
+    secondaryGenres: ["Romance", "Tragedia"],
     status: "En curso",
     description: "Hay despedidas que parecen escritas mucho antes de suceder.",
     tags: ["Estrellas", "Emocional"]
@@ -380,7 +505,8 @@ const stories = [
     title: "El jardín de los secretos",
     author: "Escritor de ejemplo",
     type: "Original",
-    genre: "Misterio",
+    mainGenre: "Misterio",
+    secondaryGenres: ["Thriller", "Suspense"],
     status: "Completa",
     description: "Una casa antigua guarda secretos que nadie quiere recordar.",
     tags: ["Secretos", "Suspenso"]
@@ -389,7 +515,8 @@ const stories = [
     title: "El reino olvidado",
     author: "Autora de ejemplo",
     type: "Original",
-    genre: "Fantasía",
+    mainGenre: "Fantasía",
+    secondaryGenres: ["Aventura", "Mitología"],
     status: "En curso",
     description: "Un reino desaparecido y una promesa que aún sigue vigente.",
     tags: ["Magia", "Aventura"]
@@ -398,7 +525,8 @@ const stories = [
     title: "Después de medianoche",
     author: "Escritor de ejemplo",
     type: "Fanfiction",
-    genre: "Romance",
+    mainGenre: "Romance",
+    secondaryGenres: ["Juvenil", "Drama"],
     status: "Completa",
     description: "Una historia alternativa en un universo conocido.",
     tags: ["Romance", "Alternativo"]
@@ -407,7 +535,8 @@ const stories = [
     title: "La última habitación",
     author: "Autora de ejemplo",
     type: "Original",
-    genre: "Terror",
+    mainGenre: "Terror",
+    secondaryGenres: ["Terror psicológico", "Suspense"],
     status: "En curso",
     description: "Nadie debería abrir la puerta del último pasillo.",
     tags: ["Oscuro", "Suspenso"]
@@ -416,15 +545,26 @@ const stories = [
     title: "Horizonte de ceniza",
     author: "Escritor de ejemplo",
     type: "Original",
-    genre: "Ciencia ficción",
+    mainGenre: "Ciencia ficción",
+    secondaryGenres: ["Distopía", "Supervivencia"],
     status: "Completa",
     description: "El futuro de la humanidad comienza con una decisión.",
     tags: ["Futuro", "Tecnología"]
   }
 ];
 
+
+// ======================================
+// ELEMENTOS DE LA PÁGINA
+// ======================================
+
 const books = document.getElementById("books");
 const count = document.getElementById("count");
+
+
+// ======================================
+// MOSTRAR LAS HISTORIAS
+// ======================================
 
 function renderBooks(list) {
   books.innerHTML = "";
@@ -450,13 +590,15 @@ function renderBooks(list) {
 
     const type = document.createElement("small");
     type.textContent = story.type;
-    
+
     const title = document.createElement("h3");
     const link = document.createElement("a");
+
     link.href = "historia.html";
     link.textContent = story.title;
+
     title.appendChild(link);
-       
+
     const author = document.createElement("div");
     author.className = "author";
     author.textContent = "Por " + story.author;
@@ -465,10 +607,18 @@ function renderBooks(list) {
     description.className = "description";
     description.textContent = story.description;
 
+    // Mostrar género principal, secundarios,
+    // estado y etiquetas de la historia.
+
     const tags = document.createElement("div");
     tags.className = "tags";
 
-    [story.genre, story.status, ...story.tags].forEach(value => {
+    [
+      story.mainGenre,
+      ...story.secondaryGenres,
+      story.status,
+      ...story.tags
+    ].forEach(value => {
       const tag = document.createElement("span");
       tag.className = "tag";
       tag.textContent = value;
@@ -481,6 +631,11 @@ function renderBooks(list) {
   });
 }
 
+
+// ======================================
+// FILTRAR HISTORIAS
+// ======================================
+
 function filterBooks() {
   const query = document.getElementById("search")
     .value.toLowerCase().trim();
@@ -490,33 +645,59 @@ function filterBooks() {
   const status = document.getElementById("status").value;
 
   const filtered = stories.filter(story => {
+
     const matchesQuery =
       story.title.toLowerCase().includes(query) ||
       story.author.toLowerCase().includes(query);
 
+    // Reunir el género principal y los secundarios.
+    const allGenres = [
+      story.mainGenre,
+      ...story.secondaryGenres
+    ];
+
+    // Una historia aparece si coincide con cualquiera
+    // de sus géneros, no solamente con el principal.
+    const matchesGenre =
+      !genre || allGenres.includes(genre);
+
     return matchesQuery &&
       (!type || story.type === type) &&
-      (!genre || story.genre === genre) &&
+      matchesGenre &&
       (!status || story.status === status);
   });
 
   renderBooks(filtered);
 }
 
+
+// ======================================
+// LIMPIAR FILTROS
+// ======================================
+
 function resetFilters() {
   document.getElementById("search").value = "";
   document.getElementById("type").value = "";
   document.getElementById("genre").value = "";
   document.getElementById("status").value = "";
+
   filterBooks();
 }
 
+
+// ======================================
+// ACTIVAR LOS FILTROS
+// ======================================
 
 ["search", "type", "genre", "status"].forEach(id => {
   document.getElementById(id).addEventListener("input", filterBooks);
 });
 
-// Leer la categoría seleccionada desde la dirección web
+
+// ======================================
+// LEER EL GÉNERO DESDE LA DIRECCIÓN WEB
+// ======================================
+
 const parameters = new URLSearchParams(window.location.search);
 const selectedGenre = parameters.get("genero");
 
@@ -524,8 +705,8 @@ if (selectedGenre) {
   const genreSelect = document.getElementById("genre");
 
   const matchingOption = Array.from(genreSelect.options).find(option =>
-    option.value.toLowerCase() === selectedGenre.toLowerCase() ||
-    option.textContent.trim().toLowerCase() === selectedGenre.toLowerCase()
+    option.value.toLowerCase() === selectedGenre.trim().toLowerCase() ||
+    option.textContent.trim().toLowerCase() === selectedGenre.trim().toLowerCase()
   );
 
   if (matchingOption) {
@@ -533,7 +714,11 @@ if (selectedGenre) {
   }
 }
 
-// Mostrar las historias con el filtro correspondiente
+
+// ======================================
+// MOSTRAR EL CATÁLOGO INICIAL
+// ======================================
+
 filterBooks();
 
 </script>
