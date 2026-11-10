@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Universo Entre Líneas: un espacio para descubrir, leer y compartir historias.">
+  <title>Universo Entre Líneas</title>
+
+  <style>
+    :root {
+      --fondo: #f7f3ed;
+      --papel: #fffdf9;
+      --bordo: #713847;
+      --texto: #30282b;
+      --suave: #84777a;
+      --borde: #e8ddd7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: Georgia, serif;
+    }
+
+    header {
+      background: var(--papel);
+      border-bottom: 1px solid var(--borde);
+      padding: 22px 7%;
+    }
+
+    .marca {
+      color: var(--bordo);
+      font-size: 27px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .submarca {
+      text-align: center;
+      color: var(--suave);
+      font-size: 12px;
+      margin-top: 6px;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 28px;
+      padding: 17px;
+      background: var(--papel);
+    }
+
+    nav a {
+      color: var(--texto);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: var(--bordo);
+    }
+
+    .portada {
+      text-align: center;
+      padding: 85px 20px;
+      background: #eee5df;
+    }
+
+    .portada h1 {
+      color: var(--bordo);
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: normal;
+      margin-bottom: 15px;
+    }
+
+    .portada p {
+      color: #665b5d;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .boton {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 13px 27px;
+      background: var(--bordo);
+      color: white;
+      text-decoration: none;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 55px 25px;
+    }
+
+    .seccion-titulo {
+      text-align: center;
+      color: var(--bordo);
+      font-size: 29px;
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+
+    .introduccion {
+      text-align: center;
+      color: var(--suave);
+      margin-bottom: 35px;
+      line-height: 1.6;
+    }
+
+    .historias {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+    }
+
+    .historia {
+      background: var(--papel);
+      border: 1px solid var(--borde);
+      padding: 24px;
+    }
+
+    .historia small {
+      color: var(--bordo);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .historia h3 {
+      font-weight: normal;
+      font-size: 22px;
+      margin: 13px 0 8px;
+    }
+
+    .historia p {
+      color: var(--suave);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      background: #30272c;
+      color: #eee5df;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 16px;
+      }
+
+      .portada {
+        padding: 65px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="marca">Universo Entre Líneas</div>
+    <div class="submarca">UN LUGAR PARA CADA HISTORIA</div>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="#historias">Historias</a>
+    <a href="#explorar">Explorar</a>
+    <a href="#comunidad">Comunidad</a>
+    <a href="#nosotros">Sobre nosotros</a>
+  </nav>
+
+  <section class="portada">
+    <h1>Cada historia merece ser descubierta.</h1>
+    <p>
+      Un universo de historias originales y fanfiction,<br>
+      creado por escritores y descubierto por lectores.
+    </p>
+    <a class="boton" href="#historias">Descubrir historias</a>
+  </section>
+
+  <main>
+    <section id="historias">
+      <h2 class="seccion-titulo">Un universo por explorar</h2>
+      <p class="introduccion">
+        Historias que esperan encontrar a sus lectores.
+      </p>
+
+      <div class="historias">
+        <article class="historia">
+          <small>Próximamente</small>
+          <h3>Nuevas historias</h3>
+          <p>Descubre relatos originales y mundos por conocer.</p>
+        </article>
+
+        <article class="historia">
+          <small>Próximamente</small>
+          <h3>Fanfiction</h3>
+          <p>Regresa a tus universos favoritos a través de nuevas historias.</p>
+        </article>
+
+        <article class="historia">
+          <small>Próximamente</small>
+          <h3>Autores</h3>
+          <p>Conoce a quienes dan vida a cada historia.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="explorar" style="text-align:center; padding-top:65px;">
+      <h2 class="seccion-titulo">Encuentra tu próximo mundo</h2>
+      <p class="introduccion">
+        Romance, fantasía, misterio, terror y muchos universos más.
+      </p>
+    </section>
+
+    <section id="comunidad" style="text-align:center; padding-top:35px;">
+      <h2 class="seccion-titulo">Una comunidad de escritores y lectores</h2>
+      <p class="introduccion">
+        Un espacio para compartir historias y descubrir nuevas perspectivas.
+      </p>
+    </section>
+
+    <section id="nosotros" style="text-align:center; padding-top:35px;">
+      <h2 class="seccion-titulo">Sobre Universo Entre Líneas</h2>
+      <p class="introduccion">
+        Cada persona tiene una historia que merece ser leída.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    Universo Entre Líneas · Cada historia deja una huella.
+  </footer>
+
+</body>
+</html>
