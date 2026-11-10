@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Capítulo 1 | Universo Entre Líneas</title>
+
+<style>
+:root {
+  --background: #F7F1E8;
+  --paper: #FFFCF7;
+  --text: #30272C;
+  --wine: #713847;
+  --muted: #806B68;
+  --border: #D8C8B8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: Georgia, serif;
+  transition: background .3s, color .3s;
+}
+
+body.dark {
+  --background: #211D20;
+  --paper: #30272C;
+  --text: #F1E8DF;
+  --wine: #D5A9B3;
+  --muted: #C4AEB0;
+  --border: #59434A;
+}
+
+header {
+  text-align: center;
+  padding: 25px 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  color: var(--wine);
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.subtitle {
+  margin-top: 7px;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.top-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+a {
+  color: var(--wine);
+  text-decoration: none;
+}
+
+.top-links a {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.reader {
+  max-width: 850px;
+  width: 90%;
+  margin: 45px auto;
+}
+
+.back {
+  font-size: 14px;
+}
+
+.book-info {
+  text-align: center;
+  margin: 45px 0 30px;
+}
+
+.book-info small {
+  color: var(--wine);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.book-info h1 {
+  font-size: 32px;
+  font-weight: normal;
+  margin: 15px 0 8px;
+}
+
+.book-info p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 15px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.toolbar button {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 8px 13px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 14px;
+}
+
+.toolbar button:hover {
+  background: var(--wine);
+  color: white;
+}
+
+.reading-area {
+  background: var(--paper);
+  padding: 55px 75px;
+  margin-top: 25px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 25px #30272C0D;
+}
+
+.chapter-number {
+  text-align: center;
+  color: var(--wine);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.reading-area h2 {
+  text-align: center;
+  font-size: 29px;
+  font-weight: normal;
+  margin: 20px 0 40px;
+}
+
+.chapter-text {
+  font-size: 19px;
+  line-height: 1.95;
+}
+
+.chapter-text p {
+  margin: 0 0 25px;
+  text-align: justify;
+}
+
+.chapter-text .placeholder {
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.navigation a {
+  border: 1px solid var(--border);
+  padding: 12px 18px;
+  font-size: 13px;
+}
+
+.navigation a:hover {
+  background: var(--wine);
+  color: white;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  margin-top: 60px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .reading-area {
+    padding: 35px 22px;
+  }
+
+  .book-info h1 {
+    font-size: 26px;
+  }
+
+  .reading-area h2 {
+    font-size: 25px;
+  }
+
+  .chapter-text {
+    font-size: 17px;
+  }
+
+  .navigation a {
+    padding: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">Universo Entre Líneas</div>
+  <div class="subtitle">UN LUGAR PARA CADA HISTORIA</div>
+</header>
+
+<nav class="top-links">
+  <a href="index.html">Inicio</a>
+  <a href="historias.html">Biblioteca</a>
+  <a href="historia.html">Ficha de la obra</a>
+</nav>
+
+<main class="reader">
+
+  <a class="back" href="historia.html">← Volver a la historia</a>
+
+  <section class="book-info">
+    <small>Donde mueren las estrellas</small>
+    <h1>Capítulo 1</h1>
+    <p>Una historia de Universo Entre Líneas</p>
+  </section>
+
+  <div class="toolbar">
+    <button onclick="changeSize(-1)">A−</button>
+    <button onclick="changeSize(1)">A+</button>
+    <button onclick="toggleTheme()">☾ Modo oscuro</button>
+  </div>
+
+  <article class="reading-area">
+
+    <div class="chapter-number">Capítulo primero</div>
+
+    <h2>El comienzo</h2>
+
+    <div class="chapter-text" id="chapterText">
+      <p class="placeholder">
+        Aquí aparecerá el contenido del capítulo.
+        Este espacio está preparado para la lectura
+        de las historias publicadas en Universo Entre Líneas.
+      </p>
+    </div>
+
+  </article>
+
+  <nav class="navigation">
+    <a href="historia.html">← Índice de la obra</a>
+    <a href="historia.html">Siguiente capítulo →</a>
+  </nav>
+
+</main>
+
+<footer>
+  Universo Entre Líneas · Un lugar para cada historia
+</footer>
+
+<script>
+let fontSize = 19;
+
+function changeSize(amount) {
+  fontSize += amount;
+
+  if (fontSize < 14) fontSize = 14;
+  if (fontSize > 28) fontSize = 28;
+
+  document.getElementById("chapterText").style.fontSize =
+    fontSize + "px";
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>
