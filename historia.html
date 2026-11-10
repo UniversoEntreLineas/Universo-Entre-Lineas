@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donde mueren las estrellas | Universo Entre Líneas</title>
+
+<style>
+:root {
+  --cream: #F7F1E8;
+  --wine: #713847;
+  --dark: #30272C;
+  --beige: #D8C8B8;
+  --gold: #B69A70;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--dark);
+  font-family: Georgia, serif;
+}
+
+header {
+  text-align: center;
+  padding: 30px 15px 20px;
+}
+
+.brand {
+  color: var(--wine);
+  font-size: 29px;
+  font-weight: bold;
+}
+
+.subtitle {
+  margin-top: 7px;
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 15px;
+  border-top: 1px solid var(--beige);
+  border-bottom: 1px solid var(--beige);
+}
+
+nav a {
+  color: var(--dark);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: var(--wine);
+}
+
+.container {
+  width: min(1000px, 90%);
+  margin: 55px auto;
+}
+
+.back {
+  color: var(--wine);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.book {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 45px;
+  margin-top: 35px;
+  align-items: start;
+}
+
+.cover {
+  min-height: 390px;
+  background: linear-gradient(145deg, #30272C, #713847);
+  color: #F7F1E8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 25px;
+  border: 7px double var(--gold);
+  box-shadow: 0 12px 25px #30272C30;
+}
+
+.cover small {
+  color: #D8C8B8;
+  letter-spacing: 3px;
+  font-size: 10px;
+}
+
+.cover h2 {
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 1.3;
+  margin: 35px 0;
+}
+
+.cover span {
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.info .category {
+  color: var(--wine);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+
+.info h1 {
+  font-size: 39px;
+  font-weight: normal;
+  line-height: 1.2;
+  margin: 15px 0;
+}
+
+.author {
+  color: #806B68;
+  font-size: 15px;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.9;
+  margin-top: 28px;
+}
+
+.details {
+  border-top: 1px solid var(--beige);
+  border-bottom: 1px solid var(--beige);
+  padding: 17px 0;
+  margin-top: 25px;
+  line-height: 2;
+  font-size: 14px;
+}
+
+.button {
+  display: inline-block;
+  background: var(--wine);
+  color: white;
+  padding: 13px 25px;
+  margin-top: 25px;
+  text-decoration: none;
+  border-radius: 2px;
+}
+
+.button:hover {
+  background: var(--dark);
+}
+
+.chapters {
+  margin-top: 70px;
+  border-top: 1px solid var(--beige);
+  padding-top: 30px;
+}
+
+.chapters h2 {
+  color: var(--wine);
+  font-size: 27px;
+  font-weight: normal;
+}
+
+.chapter {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 18px 5px;
+  border-bottom: 1px solid var(--beige);
+  color: var(--dark);
+  text-decoration: none;
+}
+
+.chapter:hover {
+  color: var(--wine);
+}
+
+.chapter small {
+  color: #806B68;
+}
+
+footer {
+  text-align: center;
+  border-top: 1px solid var(--beige);
+  padding: 30px 15px;
+  margin-top: 70px;
+  font-size: 12px;
+  color: #806B68;
+}
+
+@media (max-width: 650px) {
+  .book {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .cover {
+    width: 230px;
+    min-height: 330px;
+    margin: auto;
+  }
+
+  .info h1 {
+    font-size: 32px;
+  }
+
+  .container {
+    margin-top: 35px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">Universo Entre Líneas</div>
+  <div class="subtitle">UN LUGAR PARA CADA HISTORIA</div>
+</header>
+
+<nav>
+  <a href="index.html">Inicio</a>
+  <a href="historias.html">Historias</a>
+  <a href="index.html#categorias">Categorías</a>
+  <a href="index.html#comunidad">Comunidad</a>
+</nav>
+
+<main class="container">
+
+  <a class="back" href="historias.html">← Volver a la biblioteca</a>
+
+  <section class="book">
+
+    <div class="cover">
+      <small>UNIVERSO ENTRE LÍNEAS</small>
+      <h2>Donde mueren las estrellas</h2>
+      <span>UNA HISTORIA</span>
+    </div>
+
+    <div class="info">
+      <div class="category">Original · Drama</div>
+
+      <h1>Donde mueren las estrellas</h1>
+
+      <p class="author">Por Autora de ejemplo</p>
+
+      <div class="description">
+        Hay despedidas que parecen escritas mucho antes de suceder.
+        Algunas historias comienzan con un encuentro. Otras, con una
+        pérdida que cambia todo lo que creíamos conocer.
+      </div>
+
+      <div class="details">
+        <div><strong>Tipo:</strong> Historia original</div>
+        <div><strong>Género:</strong> Drama</div>
+        <div><strong>Estado:</strong> En curso</div>
+        <div><strong>Clasificación:</strong> Pendiente de definir</div>
+      </div>
+
+      <a class="button" href="#capitulos">Comenzar a leer</a>
+    </div>
+
+  </section>
+
+  <section class="chapters" id="capitulos">
+    <h2>Capítulos</h2>
+    <p>Elige un capítulo para comenzar la lectura.</p>
+
+    <a class="chapter" href="#">
+      <span>01. Próximamente</span>
+      <small>No publicado</small>
+    </a>
+
+    <a class="chapter" href="#">
+      <span>02. Próximamente</span>
+      <small>No publicado</small>
+    </a>
+
+  </section>
+
+</main>
+
+<footer>
+  Universo Entre Líneas · Un lugar para cada historia
+</footer>
+
+</body>
+</html>
