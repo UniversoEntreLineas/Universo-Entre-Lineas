@@ -71,7 +71,7 @@ main {
 
 .intro {
   text-align: center;
-  margin-bottom: 45px;
+  margin-bottom: 50px;
 }
 
 .intro h2 {
@@ -85,15 +85,41 @@ main {
   line-height: 1.8;
 }
 
+.family {
+  margin-bottom: 48px;
+}
+
+.family-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--beige);
+}
+
+.family-header h3 {
+  color: var(--wine);
+  font-size: 25px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.family-header span {
+  color: #927E78;
+  font-size: 13px;
+  font-style: italic;
+}
+
 .categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
 }
 
 .category {
   display: block;
-  padding: 28px 22px;
+  padding: 20px;
   background: #FFFCF7;
   border: 1px solid var(--beige);
   text-decoration: none;
@@ -104,20 +130,26 @@ main {
 .category:hover {
   border-color: var(--wine);
   transform: translateY(-3px);
+  background: #FFFDFB;
 }
 
-.category h3 {
+.category h4 {
   color: var(--wine);
-  font-size: 23px;
+  font-size: 18px;
   font-weight: normal;
-  margin: 0 0 12px;
+  margin: 0;
 }
 
-.category p {
-  color: #75636A;
-  line-height: 1.6;
-  font-size: 14px;
-  margin: 0;
+.category::after {
+  content: "Explorar historias →";
+  display: block;
+  color: #927E78;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.category:hover::after {
+  color: var(--gold);
 }
 
 footer {
@@ -139,6 +171,11 @@ footer {
 
   main {
     padding: 35px 18px;
+  }
+
+  .family-header {
+    align-items: baseline;
+    flex-wrap: wrap;
   }
 }
 </style>
@@ -170,55 +207,195 @@ footer {
     </p>
   </section>
 
-  <section class="categories">
-
-    <a class="category" href="historias.html?genero=Romance">
-      <h3>Romance</h3>
-      <p>Amores, encuentros, despedidas y sentimientos que dejan huella.</p>
-    </a>
-
-    <a class="category" href="historias.html?genero=Fantasía">
-      <h3>Fantasía</h3>
-      <p>Magia, criaturas extraordinarias y mundos imposibles.</p>
-    </a>
-
-    <a class="category" href="historias.html?genero=Misterio">
-      <h3>Misterio</h3>
-      <p>Secretos, enigmas y verdades que esperan ser descubiertas.</p>
-    </a>
-
-    <a class="category" href="historias.html?genero=Terror">
-      <h3>Terror</h3>
-      <p>Historias inquietantes, oscuras y llenas de suspenso.</p>
-    </a>
-
-    <a class="category" href="historias.html?genero=Drama">
-      <h3>Drama</h3>
-      <p>Conflictos, pérdidas y decisiones que cambian una vida.</p>
-    </a>
-
-    <a class="category" href="historias.html?genero=Ciencia%20ficción">
-      <h3>Ciencia ficción</h3>
-      <p>Futuros posibles, tecnología y realidades desconocidas.</p>
-    </a>
-
-    <a class="category" href="historias.html">
-      <h3>Aventura</h3>
-      <p>Viajes, desafíos y experiencias extraordinarias.</p>
-    </a>
-
-    <a class="category" href="historias.html">
-      <h3>Otros géneros</h3>
-      <p>Otras formas de imaginar, contar y compartir historias.</p>
-    </a>
-
-  </section>
+  <div id="categoryFamilies"></div>
 
 </main>
 
 <footer>
   Universo Entre Líneas · Un lugar para cada historia
 </footer>
+
+<script>
+
+const genreFamilies = [
+
+  {
+    name: "Romance",
+    description: "Historias de amor y sentimientos.",
+    genres: [
+      "Romance",
+      "Romance contemporáneo",
+      "Romance histórico",
+      "Romance paranormal",
+      "Romance oscuro",
+      "Romance juvenil",
+      "Romance fantástico"
+    ]
+  },
+
+  {
+    name: "Fantasía",
+    description: "Mundos mágicos y criaturas extraordinarias.",
+    genres: [
+      "Fantasía",
+      "Fantasía épica",
+      "Fantasía urbana",
+      "Fantasía oscura",
+      "Alta fantasía",
+      "Baja fantasía",
+      "Cuentos de hadas"
+    ]
+  },
+
+  {
+    name: "Ciencia ficción",
+    description: "Tecnología, futuros posibles y otros mundos.",
+    genres: [
+      "Ciencia ficción",
+      "Ciencia ficción espacial",
+      "Cyberpunk",
+      "Steampunk",
+      "Distopía",
+      "Utopía"
+    ]
+  },
+
+  {
+    name: "Misterio y crimen",
+    description: "Secretos, investigaciones y verdades ocultas.",
+    genres: [
+      "Misterio",
+      "Policial",
+      "Novela negra",
+      "Thriller",
+      "Suspense",
+      "Crimen y detectives"
+    ]
+  },
+
+  {
+    name: "Terror y sobrenatural",
+    description: "Lo inexplicable, lo oscuro y lo inquietante.",
+    genres: [
+      "Terror",
+      "Terror psicológico",
+      "Terror sobrenatural",
+      "Gótico",
+      "Paranormal",
+      "Sobrenatural"
+    ]
+  },
+
+  {
+    name: "Drama y emociones",
+    description: "Conflictos, pérdidas y experiencias humanas.",
+    genres: [
+      "Drama",
+      "Tragedia",
+      "Drama psicológico",
+      "Melodrama",
+      "Vida cotidiana"
+    ]
+  },
+
+  {
+    name: "Aventura y acción",
+    description: "Desafíos, viajes y grandes experiencias.",
+    genres: [
+      "Aventura",
+      "Acción",
+      "Supervivencia",
+      "Viajes",
+      "Artes marciales"
+    ]
+  },
+
+  {
+    name: "Historia y mitología",
+    description: "Épocas pasadas, leyendas y personajes históricos.",
+    genres: [
+      "Histórico",
+      "Mitología",
+      "Retelling mitológico",
+      "Biográfico"
+    ]
+  },
+
+  {
+    name: "Humor y juventud",
+    description: "Crecimiento, humor y experiencias juveniles.",
+    genres: [
+      "Comedia",
+      "Humor",
+      "Sátira",
+      "Juvenil",
+      "Coming of Age (crecimiento personal)"
+    ]
+  },
+
+  {
+    name: "Literatura y otros",
+    description: "Otras formas de narrar y experimentar con las palabras.",
+    genres: [
+      "Poesía",
+      "Cuento",
+      "Novela",
+      "Fábula",
+      "Erótico",
+      "Experimental"
+    ]
+  }
+
+];
+
+const container = document.getElementById("categoryFamilies");
+
+genreFamilies.forEach(family => {
+
+  const section = document.createElement("section");
+  section.className = "family";
+
+  const heading = document.createElement("div");
+  heading.className = "family-header";
+
+  const title = document.createElement("h3");
+  title.textContent = family.name;
+
+  const description = document.createElement("span");
+  description.textContent = family.description;
+
+  heading.appendChild(title);
+  heading.appendChild(description);
+
+  const grid = document.createElement("div");
+  grid.className = "categories";
+
+  family.genres.forEach(genre => {
+
+    const link = document.createElement("a");
+    link.className = "category";
+
+    const params = new URLSearchParams();
+    params.set("genero", genre);
+
+    link.href = "historias.html?" + params.toString();
+
+    const name = document.createElement("h4");
+    name.textContent = genre;
+
+    link.appendChild(name);
+    grid.appendChild(link);
+
+  });
+
+  section.appendChild(heading);
+  section.appendChild(grid);
+
+  container.appendChild(section);
+
+});
+
+</script>
 
 </body>
 </html>
