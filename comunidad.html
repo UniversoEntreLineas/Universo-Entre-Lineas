@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comunidad | Universo Entre Líneas</title>
+
+<style>
+:root {
+  --paper: #F7F1E8;
+  --wine: #713847;
+  --dark: #30272C;
+  --beige: #D8C8B8;
+  --gold: #B69A70;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--dark);
+  font-family: Georgia, serif;
+}
+
+header {
+  text-align: center;
+  padding: 35px 20px 25px;
+  border-bottom: 1px solid var(--beige);
+}
+
+header h1 {
+  color: var(--wine);
+  font-size: 34px;
+  margin: 0 0 10px;
+}
+
+header p {
+  color: #75636A;
+  font-style: italic;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 23px;
+  padding: 18px;
+  border-bottom: 1px solid var(--beige);
+}
+
+nav a {
+  color: var(--wine);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+main {
+  max-width: 1050px;
+  width: 90%;
+  margin: auto;
+  padding: 50px 0;
+}
+
+.hero {
+  background: var(--wine);
+  color: var(--paper);
+  padding: 55px 30px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 36px;
+  font-weight: normal;
+  margin: 0 0 18px;
+}
+
+.hero p {
+  max-width: 650px;
+  margin: auto;
+  line-height: 1.8;
+  color: #F0E3DA;
+}
+
+.section-title {
+  text-align: center;
+  color: var(--wine);
+  font-size: 29px;
+  font-weight: normal;
+  margin: 55px 0 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #FFFCF7;
+  border: 1px solid var(--beige);
+  padding: 28px 23px;
+}
+
+.card h3 {
+  color: var(--wine);
+  font-size: 23px;
+  font-weight: normal;
+  margin-top: 0;
+}
+
+.card p {
+  color: #75636A;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.notice {
+  margin-top: 45px;
+  padding: 25px;
+  border-left: 3px solid var(--gold);
+  background: #EFE6DA;
+  line-height: 1.8;
+  color: var(--dark);
+}
+
+.rules {
+  line-height: 2;
+  color: #75636A;
+  padding-left: 22px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  border-top: 1px solid var(--beige);
+  color: #75636A;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 27px;
+  }
+
+  .hero h2 {
+    font-size: 29px;
+  }
+
+  .hero {
+    padding: 40px 22px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Universo Entre Líneas</h1>
+  <p>Un lugar para cada historia</p>
+</header>
+
+<nav>
+  <a href="index.html">Inicio</a>
+  <a href="historias.html">Historias</a>
+  <a href="categorias.html">Categorías</a>
+  <a href="comunidad.html">Comunidad</a>
+  <a href="destacadas.html">Destacadas</a>
+  <a href="nosotros.html">Nosotros</a>
+</nav>
+
+<main>
+
+  <section class="hero">
+    <h2>Una comunidad de historias</h2>
+    <p>
+      Detrás de cada historia existe alguien que decidió compartir
+      un mundo imaginario. Este espacio está dedicado a quienes
+      escriben, leen y encuentran compañía entre palabras.
+    </p>
+  </section>
+
+  <h2 class="section-title">Encuentra tu lugar</h2>
+
+  <section class="grid">
+
+    <article class="card">
+      <h3>Para lectores</h3>
+      <p>
+        Descubre nuevos autores, comparte tus impresiones y encuentra
+        historias que merezcan quedarse contigo.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>Para escritores</h3>
+      <p>
+        Comparte tus obras, desarrolla tus ideas y encuentra lectores
+        interesados en los mundos que creas.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>Encuentros literarios</h3>
+      <p>
+        Próximamente habrá actividades, desafíos de escritura,
+        encuentros temáticos y propuestas para crear.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>Recomendaciones</h3>
+      <p>
+        Un espacio para descubrir obras de otros miembros
+        y compartir lecturas que merecen ser conocidas.
+      </p>
+    </article>
+
+  </section>
+
+  <h2 class="section-title">Nuestras normas</h2>
+
+  <section>
+    <ul class="rules">
+      <li>Respeta a los demás miembros de la comunidad.</li>
+      <li>Critica las obras con educación y argumentos.</li>
+      <li>No publiques textos ajenos como si fueran propios.</li>
+      <li>No compartas información personal de otros usuarios.</li>
+      <li>Evita el acoso, los insultos y la discriminación.</li>
+      <li>Respeta las advertencias y clasificaciones de contenido.</li>
+    </ul>
+  </section>
+
+  <div class="notice">
+    <strong>Un espacio en construcción</strong>
+    <p>
+      Estamos preparando las herramientas para que lectores y escritores
+      puedan crear perfiles, comentar, seguir autores y participar
+      activamente en la comunidad.
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  Universo Entre Líneas · Un lugar para cada historia
+</footer>
+
+</body>
+</html>
