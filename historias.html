@@ -447,10 +447,13 @@ function renderBooks(list) {
 
     const type = document.createElement("small");
     type.textContent = story.type;
-
+    
     const title = document.createElement("h3");
-    title.textContent = story.title;
-
+    const link = document.createElement("a");
+    link.href = "historia.html";
+    link.textContent = story.title;
+    title.appendChild(link);
+       
     const author = document.createElement("div");
     author.className = "author";
     author.textContent = "Por " + story.author;
