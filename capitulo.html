@@ -107,32 +107,36 @@ a {
   font-size: 14px;
 }
 
+
 .toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 15px;
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    background: transparent;
+    border: none;
 }
 
 .toolbar button {
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text);
-  padding: 8px 13px;
-  cursor: pointer;
-  font-family: Georgia, serif;
-  font-size: 14px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    transition: all 0.2s ease;
 }
 
 .toolbar button:hover {
-  background: var(--wine);
-  color: white;
+    background: var(--wine);
+    color: white;
+    border-color: var(--wine);
 }
+
 
 .reading-area {
   background: var(--paper);
@@ -248,11 +252,13 @@ footer {
     <p>Una historia de Universo Entre Líneas</p>
   </section>
 
-  <div class="toolbar">
-    <button onclick="changeSize(-1)">A−</button>
-    <button onclick="changeSize(1)">A+</button>
-    <button onclick="toggleTheme()">☾ Modo oscuro</button>
-  </div>
+  
+<div class="toolbar">
+    <button class="reader-control" onclick="changeSize(-1)">A−</button>
+    <button class="reader-control" onclick="changeSize(1)">A+</button>
+    <button class="reader-control theme-control" onclick="toggleTheme()">◐ Tema</button>
+</div>
+
 
   <article class="reading-area">
 
