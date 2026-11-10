@@ -511,11 +511,31 @@ function resetFilters() {
   filterBooks();
 }
 
+
 ["search", "type", "genre", "status"].forEach(id => {
   document.getElementById(id).addEventListener("input", filterBooks);
 });
 
-renderBooks(stories);
+// Leer la categoría seleccionada desde la dirección web
+const parameters = new URLSearchParams(window.location.search);
+const selectedGenre = parameters.get("genero");
+
+if (selectedGenre) {
+  const genreSelect = document.getElementById("genre");
+
+  const matchingOption = Array.from(genreSelect.options).find(option =>
+    option.value.toLowerCase() === selectedGenre.toLowerCase() ||
+    option.textContent.trim().toLowerCase() === selectedGenre.toLowerCase()
+  );
+
+  if (matchingOption) {
+    genreSelect.value = matchingOption.value;
+  }
+}
+
+// Mostrar las historias con el filtro correspondiente
+filterBooks();
+
 </script>
 
 </body>
