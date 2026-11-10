@@ -10,11 +10,12 @@
 <style>
 :root {
   --background: #F7F1E8;
-  --paper: #FFFCF7;
+  --paper: transparent;
   --text: #30272C;
   --wine: #713847;
   --muted: #806B68;
   --border: #D8C8B8;
+  --control-bg: transparent;
 }
 
 * {
@@ -31,12 +32,15 @@ body {
 
 body.dark {
   --background: #211D20;
-  --paper: #30272C;
+  --paper: transparent;
   --text: #F1E8DF;
   --wine: #D5A9B3;
   --muted: #C4AEB0;
   --border: #59434A;
+  --control-bg: transparent;
 }
+
+/* ENCABEZADO */
 
 header {
   text-align: center;
@@ -54,7 +58,10 @@ header {
   margin-top: 7px;
   font-size: 10px;
   letter-spacing: 3px;
+  color: var(--muted);
 }
+
+/* NAVEGACIÓN PRINCIPAL */
 
 .top-links {
   display: flex;
@@ -73,7 +80,14 @@ a {
 .top-links a {
   color: var(--text);
   font-size: 13px;
+  transition: color .2s;
 }
+
+.top-links a:hover {
+  color: var(--wine);
+}
+
+/* CONTENEDOR DEL LECTOR */
 
 .reader {
   max-width: 850px;
@@ -81,19 +95,18 @@ a {
   margin: 45px auto;
 }
 
-.back {
-  font-size: 14px;
-}
+/* INFORMACIÓN DE LA OBRA */
 
 .book-info {
   text-align: center;
-  margin: 45px 0 30px;
+  margin: 45px 0 35px;
 }
 
 .book-info small {
   color: var(--wine);
   letter-spacing: 2px;
   text-transform: uppercase;
+  font-size: 11px;
 }
 
 .book-info h1 {
@@ -107,49 +120,61 @@ a {
   font-size: 14px;
 }
 
+/* HERRAMIENTAS DE LECTURA */
 
 .toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 10px;
-    background: transparent;
-    border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 13px;
+  padding: 13px 0;
+  margin: 25px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .toolbar button {
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-family: Georgia, serif;
-    font-size: 13px;
-    transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  padding: 7px 10px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 13px;
+  transition: color .2s, background .2s;
 }
 
 .toolbar button:hover {
-    background: var(--wine);
-    color: white;
-    border-color: var(--wine);
+  color: var(--wine);
+  background: rgba(113, 56, 71, .07);
 }
 
+.toolbar button:focus-visible {
+  outline: 1px solid var(--wine);
+  outline-offset: 3px;
+}
+
+.theme-control {
+  margin-left: 8px;
+  padding-left: 18px !important;
+  border-left: 1px solid var(--border) !important;
+}
+
+/* ÁREA DE LECTURA */
 
 .reading-area {
-  background: var(--paper);
-  padding: 55px 75px;
+  background: transparent;
+  padding: 45px 55px;
   margin-top: 25px;
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 25px #30272C0D;
+  border: none;
+  box-shadow: none;
 }
 
 .chapter-number {
   text-align: center;
   color: var(--wine);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
 }
@@ -158,17 +183,18 @@ a {
   text-align: center;
   font-size: 29px;
   font-weight: normal;
-  margin: 20px 0 40px;
+  margin: 20px 0 45px;
 }
 
 .chapter-text {
   font-size: 19px;
-  line-height: 1.95;
+  line-height: 2;
+  transition: font-size .2s;
 }
 
 .chapter-text p {
-  margin: 0 0 25px;
-  text-align: justify;
+  margin: 0 0 27px;
+  text-align: left;
 }
 
 .chapter-text .placeholder {
@@ -176,25 +202,43 @@ a {
   font-style: italic;
   text-align: center;
   margin-top: 50px;
+  line-height: 1.9;
 }
+
+/* NAVEGACIÓN ENTRE CAPÍTULOS */
 
 .navigation {
   display: flex;
   justify-content: space-between;
-  gap: 15px;
-  margin-top: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 45px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
 }
 
-.navigation a {
+.navigation a,
+.navigation button {
+  display: inline-block;
   border: 1px solid var(--border);
-  padding: 12px 18px;
-  font-size: 13px;
+  background: transparent;
+  color: var(--wine);
+  padding: 11px 16px;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .2s;
 }
 
-.navigation a:hover {
+.navigation a:hover,
+.navigation button:hover {
   background: var(--wine);
+  border-color: var(--wine);
   color: white;
 }
+
+/* PIE DE PÁGINA */
 
 footer {
   text-align: center;
@@ -205,9 +249,16 @@ footer {
   font-size: 12px;
 }
 
+/* DISEÑO PARA CELULARES */
+
 @media (max-width: 600px) {
+  .reader {
+    width: 92%;
+    margin: 30px auto;
+  }
+
   .reading-area {
-    padding: 35px 22px;
+    padding: 35px 8px;
   }
 
   .book-info h1 {
@@ -216,14 +267,25 @@ footer {
 
   .reading-area h2 {
     font-size: 25px;
+    margin-bottom: 35px;
   }
 
   .chapter-text {
     font-size: 17px;
+    line-height: 1.9;
   }
 
-  .navigation a {
-    padding: 10px;
+  .navigation {
+    justify-content: center;
+  }
+
+  .navigation a,
+  .navigation button {
+    padding: 10px 12px;
+  }
+
+  .top-links {
+    gap: 15px;
   }
 }
 </style>
@@ -236,7 +298,6 @@ footer {
   <div class="subtitle">UN LUGAR PARA CADA HISTORIA</div>
 </header>
 
-
 <nav class="top-links">
   <a href="index.html">Inicio</a>
   <a href="historias.html">Biblioteca</a>
@@ -248,20 +309,30 @@ footer {
 
 <main class="reader">
 
-
   <section class="book-info">
     <small>Donde mueren las estrellas</small>
     <h1>Capítulo 1</h1>
     <p>Una historia de Universo Entre Líneas</p>
   </section>
 
-  
-<div class="toolbar">
-    <button class="reader-control" onclick="changeSize(-1)">A−</button>
-    <button class="reader-control" onclick="changeSize(1)">A+</button>
-    <button class="reader-control theme-control" onclick="toggleTheme()">◐ Tema</button>
-</div>
+  <div class="toolbar">
+    <button type="button" onclick="changeSize(-1)" aria-label="Reducir tamaño de letra">
+      A−
+    </button>
 
+    <button type="button" onclick="changeSize(1)" aria-label="Aumentar tamaño de letra">
+      A+
+    </button>
+
+    <button
+      type="button"
+      class="theme-control"
+      onclick="toggleTheme()"
+      aria-label="Cambiar tema de lectura"
+    >
+      ◐ Tema
+    </button>
+  </div>
 
   <article class="reading-area">
 
@@ -279,17 +350,25 @@ footer {
 
   </article>
 
-  
-<nav class="navigation">
-    <a href="historia.html">← Índice de la obra</a>
-    <button type="button" onclick="alert('Todavía no hay un capítulo anterior publicado.')">
-        ← Capítulo anterior
-    </button>
-    <button type="button" onclick="alert('Este es el último capítulo publicado por ahora.')">
-        Siguiente capítulo →
-    </button>
-</nav>
+  <nav class="navigation">
 
+    <a href="historia.html">← Índice de la obra</a>
+
+    <button
+      type="button"
+      onclick="alert('Todavía no hay un capítulo anterior publicado.')"
+    >
+      ← Capítulo anterior
+    </button>
+
+    <button
+      type="button"
+      onclick="alert('Este es el último capítulo publicado por ahora.')"
+    >
+      Siguiente capítulo →
+    </button>
+
+  </nav>
 
 </main>
 
