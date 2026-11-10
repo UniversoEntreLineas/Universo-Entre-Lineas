@@ -4,166 +4,299 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Universo Entre Líneas: un espacio para descubrir, leer y compartir historias.">
+  <meta name="description" content="Universo Entre Líneas: biblioteca de historias originales y fanfiction.">
   <title>Universo Entre Líneas</title>
 
   <style>
     :root {
-      --fondo: #f7f3ed;
-      --papel: #fffdf9;
-      --bordo: #713847;
-      --texto: #30282b;
-      --suave: #84777a;
-      --borde: #e8ddd7;
+      --paper: #f7f1e8;
+      --white: #fffdf9;
+      --wine: #713847;
+      --wine-dark: #4d2934;
+      --ink: #30272c;
+      --muted: #81736e;
+      --line: #e5d9cc;
+      --gold: #b69a70;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      background: var(--fondo);
-      color: var(--texto);
-      font-family: Georgia, serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .top-line {
+      height: 5px;
+      background: var(--wine);
     }
 
     header {
-      background: var(--papel);
-      border-bottom: 1px solid var(--borde);
-      padding: 22px 7%;
+      text-align: center;
+      padding: 34px 20px 25px;
+      background: var(--white);
     }
 
-    .marca {
-      color: var(--bordo);
-      font-size: 27px;
-      text-align: center;
+    .brand {
+      font-size: clamp(28px, 5vw, 43px);
+      color: var(--wine);
       letter-spacing: 1px;
     }
 
-    .submarca {
-      text-align: center;
-      color: var(--suave);
-      font-size: 12px;
-      margin-top: 6px;
-      letter-spacing: 2px;
+    .brand-subtitle {
+      margin-top: 9px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
     }
 
     nav {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 28px;
-      padding: 17px;
-      background: var(--papel);
-    }
-
-    nav a {
-      color: var(--texto);
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    nav a:hover {
-      color: var(--bordo);
-    }
-
-    .portada {
-      text-align: center;
-      padding: 85px 20px;
-      background: #eee5df;
-    }
-
-    .portada h1 {
-      color: var(--bordo);
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: normal;
-      margin-bottom: 15px;
-    }
-
-    .portada p {
-      color: #665b5d;
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    .boton {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 13px 27px;
-      background: var(--bordo);
-      color: white;
-      text-decoration: none;
-      border-radius: 3px;
-      font-size: 14px;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 55px 25px;
-    }
-
-    .seccion-titulo {
-      text-align: center;
-      color: var(--bordo);
-      font-size: 29px;
-      font-weight: normal;
-      margin-bottom: 10px;
-    }
-
-    .introduccion {
-      text-align: center;
-      color: var(--suave);
-      margin-bottom: 35px;
-      line-height: 1.6;
-    }
-
-    .historias {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 22px;
-    }
-
-    .historia {
-      background: var(--papel);
-      border: 1px solid var(--borde);
-      padding: 24px;
-    }
-
-    .historia small {
-      color: var(--bordo);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .historia h3 {
-      font-weight: normal;
-      font-size: 22px;
-      margin: 13px 0 8px;
-    }
-
-    .historia p {
-      color: var(--suave);
-      line-height: 1.6;
-      font-size: 14px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 28px;
-      background: #30272c;
-      color: #eee5df;
+      gap: 30px;
+      padding: 17px 15px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+      font-family: Arial, sans-serif;
       font-size: 13px;
     }
 
-    @media (max-width: 600px) {
+    nav a:hover {
+      color: var(--wine);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 95px 20px 90px;
+      background: var(--wine-dark);
+      color: var(--white);
+    }
+
+    .eyebrow {
+      color: #d8c3ae;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      margin: 25px auto 17px;
+      font-size: clamp(36px, 6vw, 58px);
+      font-weight: normal;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      max-width: 540px;
+      margin: auto;
+      color: #e6d9d0;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .hero-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 13px 29px;
+      border: 1px solid #d8c3ae;
+      color: var(--white);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 1px;
+      transition: .2s;
+    }
+
+    .hero-button:hover {
+      background: var(--white);
+      color: var(--wine-dark);
+    }
+
+    main {
+      width: min(1050px, 90%);
+      margin: auto;
+    }
+
+    section {
+      padding: 65px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .section-heading span {
+      color: var(--gold);
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      margin: 12px 0;
+      color: var(--wine);
+      font-size: 32px;
+      font-weight: normal;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .featured {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 35px;
+      align-items: center;
+      padding: 28px;
+      background: var(--white);
+      border: 1px solid var(--line);
+    }
+
+    .book-placeholder {
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      background: #e9dfd3;
+      color: var(--wine);
+      text-align: center;
+      font-size: 24px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .featured small {
+      color: var(--gold);
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .featured h3 {
+      color: var(--wine);
+      font-size: 29px;
+      font-weight: normal;
+    }
+
+    .featured p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .text-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--wine);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      border-bottom: 1px solid var(--wine);
+      padding-bottom: 4px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .category {
+      padding: 25px 12px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      text-align: center;
+      color: var(--wine);
+      font-size: 18px;
+      transition: .2s;
+    }
+
+    .category:hover {
+      background: #eee4d9;
+    }
+
+    .category small {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+    }
+
+    .quote {
+      margin: 20px 0 65px;
+      padding: 38px 20px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+      color: var(--wine);
+      font-size: 23px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    footer {
+      padding: 38px 20px;
+      background: var(--ink);
+      color: #e9dfd5;
+      text-align: center;
+    }
+
+    footer p {
+      color: #c4b5ae;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 650px) {
       nav {
         gap: 16px;
+        font-size: 12px;
       }
 
-      .portada {
-        padding: 65px 20px;
+      .hero {
+        padding: 70px 20px;
+      }
+
+      .featured {
+        grid-template-columns: 1fr;
+        padding: 18px;
+      }
+
+      .book-placeholder {
+        min-height: 210px;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      section {
+        padding: 48px 0;
       }
     }
   </style>
@@ -171,80 +304,138 @@
 
 <body>
 
+  <div class="top-line"></div>
+
   <header>
-    <div class="marca">Universo Entre Líneas</div>
-    <div class="submarca">UN LUGAR PARA CADA HISTORIA</div>
+    <div class="brand">Universo Entre Líneas</div>
+    <div class="brand-subtitle">UN LUGAR PARA CADA HISTORIA</div>
   </header>
 
   <nav>
     <a href="index.html">Inicio</a>
-    <a href="#historias">Historias</a>
-    <a href="#explorar">Explorar</a>
+    <a href="#destacadas">Destacadas</a>
+    <a href="#categorias">Categorías</a>
     <a href="#comunidad">Comunidad</a>
-    <a href="#nosotros">Sobre nosotros</a>
+    <a href="#nosotros">Nosotros</a>
   </nav>
 
-  <section class="portada">
-    <h1>Cada historia merece ser descubierta.</h1>
+  <div class="hero">
+    <div class="eyebrow">Biblioteca literaria</div>
+
+    <h1>Hay mundos que solo existen entre líneas.</h1>
+
     <p>
-      Un universo de historias originales y fanfiction,<br>
-      creado por escritores y descubierto por lectores.
+      Historias originales, universos conocidos y nuevas
+      perspectivas esperan ser descubiertas.
     </p>
-    <a class="boton" href="#historias">Descubrir historias</a>
-  </section>
+
+    <a class="hero-button" href="#destacadas">
+      EXPLORAR LA BIBLIOTECA
+    </a>
+  </div>
 
   <main>
-    <section id="historias">
-      <h2 class="seccion-titulo">Un universo por explorar</h2>
-      <p class="introduccion">
-        Historias que esperan encontrar a sus lectores.
-      </p>
 
-      <div class="historias">
-        <article class="historia">
-          <small>Próximamente</small>
-          <h3>Nuevas historias</h3>
-          <p>Descubre relatos originales y mundos por conocer.</p>
-        </article>
+    <section id="destacadas">
+      <div class="section-heading">
+        <span>Una selección para comenzar</span>
+        <h2>Lecturas destacadas</h2>
+        <p>Algunas historias merecen una segunda mirada.</p>
+      </div>
 
-        <article class="historia">
-          <small>Próximamente</small>
-          <h3>Fanfiction</h3>
-          <p>Regresa a tus universos favoritos a través de nuevas historias.</p>
-        </article>
+      <div class="featured">
+        <div class="book-placeholder">
+          Un mundo por descubrir
+        </div>
 
-        <article class="historia">
-          <small>Próximamente</small>
-          <h3>Autores</h3>
-          <p>Conoce a quienes dan vida a cada historia.</p>
-        </article>
+        <div>
+          <small>Espacio editorial</small>
+          <h3>Una historia está por comenzar</h3>
+          <p>
+            Este espacio estará dedicado a las historias
+            seleccionadas de nuestra comunidad. Aquí
+            encontrarás nuevas voces, mundos y personajes.
+          </p>
+          <a class="text-link" href="#categorias">
+            DESCUBRIR CATEGORÍAS
+          </a>
+        </div>
       </div>
     </section>
 
-    <section id="explorar" style="text-align:center; padding-top:65px;">
-      <h2 class="seccion-titulo">Encuentra tu próximo mundo</h2>
-      <p class="introduccion">
-        Romance, fantasía, misterio, terror y muchos universos más.
-      </p>
+    <section id="categorias">
+      <div class="section-heading">
+        <span>Encuentra tu próximo universo</span>
+        <h2>Explora por género</h2>
+        <p>Cada lector tiene un mundo que está esperando encontrar.</p>
+      </div>
+
+      <div class="categories">
+        <a class="category" href="#destacadas">
+          Romance
+          <small>Historias de amor</small>
+        </a>
+
+        <a class="category" href="#destacadas">
+          Fantasía
+          <small>Mundos extraordinarios</small>
+        </a>
+
+        <a class="category" href="#destacadas">
+          Misterio
+          <small>Secretos por descubrir</small>
+        </a>
+
+        <a class="category" href="#destacadas">
+          Terror
+          <small>Historias inquietantes</small>
+        </a>
+
+        <a class="category" href="#destacadas">
+          Ciencia ficción
+          <small>Otros futuros</small>
+        </a>
+
+        <a class="category" href="#destacadas">
+          Drama
+          <small>Emociones y decisiones</small>
+        </a>
+      </div>
     </section>
 
-    <section id="comunidad" style="text-align:center; padding-top:35px;">
-      <h2 class="seccion-titulo">Una comunidad de escritores y lectores</h2>
-      <p class="introduccion">
-        Un espacio para compartir historias y descubrir nuevas perspectivas.
-      </p>
+    <div class="quote">
+      «Toda historia encuentra su lugar.
+      Toda palabra deja una huella».
+    </div>
+
+    <section id="comunidad">
+      <div class="section-heading">
+        <span>Un espacio compartido</span>
+        <h2>Lectores y escritores</h2>
+        <p>
+          Un lugar para compartir relatos, descubrir autores
+          y dar vida a nuevas historias.
+        </p>
+      </div>
     </section>
 
-    <section id="nosotros" style="text-align:center; padding-top:35px;">
-      <h2 class="seccion-titulo">Sobre Universo Entre Líneas</h2>
-      <p class="introduccion">
-        Cada persona tiene una historia que merece ser leída.
-      </p>
+    <section id="nosotros">
+      <div class="section-heading">
+        <span>Nuestra biblioteca</span>
+        <h2>Universo Entre Líneas</h2>
+        <p>
+          Creemos que cada historia merece ser descubierta,
+          sin importar quién la escriba o dónde comience.
+        </p>
+      </div>
     </section>
+
   </main>
 
   <footer>
-    Universo Entre Líneas · Cada historia deja una huella.
+    <div>Universo Entre Líneas</div>
+    <p>Un lugar para cada historia.</p>
+    <p>© 2026 · Biblioteca literaria</p>
   </footer>
 
 </body>
