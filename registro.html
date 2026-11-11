@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear cuenta | Universo Entre Líneas</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: #F7F1E8;
+    color: #30272C;
+    font-family: Georgia, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.contenedor {
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+}
+
+.volver {
+    display: inline-block;
+    color: #713847;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 35px;
+}
+
+.volver:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    color: #713847;
+    font-size: 32px;
+    font-weight: normal;
+    margin-bottom: 12px;
+}
+
+.subtitulo {
+    color: #76666A;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.formulario {
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #30272C;
+}
+
+input {
+    width: 100%;
+    padding: 13px 14px;
+    margin-bottom: 20px;
+    border: 1px solid #D8C8B8;
+    background: transparent;
+    color: #30272C;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #713847;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 8px;
+    border: none;
+    background: #713847;
+    color: #F7F1E8;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #59303B;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.mensaje {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.login {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #76666A;
+}
+
+.login a {
+    color: #713847;
+    text-decoration: none;
+}
+
+.login a:hover {
+    text-decoration: underline;
+}
+
+.decoracion {
+    color: #B69A70;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<main class="contenedor">
+
+    <a class="volver" href="index.html">← Volver al inicio</a>
+
+    <div class="decoracion">✦</div>
+
+    <h1>Un lugar para tus historias</h1>
+
+    <p class="subtitulo">
+        Crea tu cuenta y comienza a formar parte
+        de Universo Entre Líneas.
+    </p>
+
+    <form class="formulario" id="registroForm">
+
+        <label for="nombre">Nombre de usuario</label>
+        <input
+            type="text"
+            id="nombre"
+            placeholder="¿Cómo te llamarán los lectores?"
+            maxlength="40"
+            required
+        >
+
+        <label for="email">Correo electrónico</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="tu@email.com"
+            required
+        >
+
+        <label for="password">Contraseña</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="Mínimo 8 caracteres"
+            minlength="8"
+            required
+        >
+
+        <label for="confirmar">Confirmar contraseña</label>
+        <input
+            type="password"
+            id="confirmar"
+            placeholder="Escribe nuevamente tu contraseña"
+            minlength="8"
+            required
+        >
+
+        <button type="submit" id="botonRegistro">
+            CREAR MI CUENTA
+        </button>
+
+    </form>
+
+    <p class="mensaje" id="mensaje" aria-live="polite"></p>
+
+    <p class="login">
+        ¿Ya tienes una cuenta?
+        <a href="login.html">Inicia sesión</a>
+    </p>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+const formulario = document.getElementById("registroForm");
+const mensaje = document.getElementById("mensaje");
+const boton = document.getElementById("botonRegistro");
+
+formulario.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmar = document.getElementById("confirmar").value;
+
+    mensaje.textContent = "";
+    mensaje.style.color = "#713847";
+
+    if (nombre.length < 3) {
+        mensaje.textContent = "El nombre debe tener al menos 3 caracteres.";
+        return;
+    }
+
+    if (password !== confirmar) {
+        mensaje.textContent = "Las contraseñas no coinciden.";
+        return;
+    }
+
+    if (password.length < 8) {
+        mensaje.textContent = "La contraseña debe tener al menos 8 caracteres.";
+        return;
+    }
+
+    boton.disabled = true;
+    boton.textContent = "CREANDO CUENTA...";
+
+    try {
+        const { data, error } = await window.supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                emailRedirectTo: "https://universowntrelineas.github.io/Universo-Entre-Lineas/",
+                data: {
+                    display_name: nombre
+                }
+            }
+        });
+
+        if (error) {
+            throw error;
+        }
+
+        mensaje.style.color = "#416B50";
+        mensaje.textContent =
+            "¡Tu cuenta está casi lista! Revisa tu correo electrónico y confirma tu dirección para activar el acceso.";
+
+        formulario.reset();
+
+    } catch (error) {
+        mensaje.style.color = "#A33333";
+        mensaje.textContent = "No se pudo crear la cuenta: " + error.message;
+
+    } finally {
+        boton.disabled = false;
+        boton.textContent = "CREAR MI CUENTA";
+    }
+});
+</script>
+
+</body>
+</html>
