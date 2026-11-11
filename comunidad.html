@@ -13,6 +13,7 @@
   --dark: #30272C;
   --beige: #D8C8B8;
   --gold: #B69A70;
+  --white: #FFFCF7;
 }
 
 * {
@@ -60,6 +61,23 @@ nav a {
 
 nav a:hover {
   color: var(--gold);
+}
+
+.account-link {
+  color: var(--wine);
+  font-weight: bold;
+}
+
+.account-register {
+  padding: 8px 13px;
+  margin-top: -8px;
+  margin-bottom: -8px;
+  border: 1px solid var(--wine);
+}
+
+.account-register:hover {
+  background: var(--wine);
+  color: var(--white);
 }
 
 main {
@@ -150,6 +168,10 @@ footer {
     font-size: 27px;
   }
 
+  nav {
+    gap: 15px;
+  }
+
   .hero h2 {
     font-size: 29px;
   }
@@ -175,6 +197,8 @@ footer {
   <a href="comunidad.html">Comunidad</a>
   <a href="destacadas.html">Destacadas</a>
   <a href="nosotros.html">Nosotros</a>
+  <a class="account-link" href="login.html">Iniciar sesión</a>
+  <a class="account-link account-register" href="registro.html">Crear cuenta</a>
 </nav>
 
 <main>
