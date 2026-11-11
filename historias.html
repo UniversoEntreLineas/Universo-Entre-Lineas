@@ -56,7 +56,7 @@ nav {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 28px;
+  gap: 22px;
   padding: 16px;
   background: var(--white);
   border-top: 1px solid var(--line);
@@ -66,6 +66,23 @@ nav {
 
 nav a:hover {
   color: var(--wine);
+}
+
+.account-link {
+  color: var(--wine);
+  font-weight: bold;
+}
+
+.account-register {
+  padding: 7px 11px;
+  margin-top: -7px;
+  margin-bottom: -7px;
+  border: 1px solid var(--wine);
+}
+
+.account-register:hover {
+  background: var(--wine);
+  color: var(--white);
 }
 
 .hero {
@@ -303,7 +320,7 @@ footer {
   }
 
   nav {
-    gap: 15px;
+    gap: 13px;
   }
 
   .search {
@@ -320,7 +337,7 @@ footer {
 <body>
 
 <header>
-  <div class="title">UNIVERSO ENTRE LÍNEAS</div>
+  <div class="brand">UNIVERSO ENTRE LÍNEAS</div>
   <div class="subtitle">UN LUGAR PARA CADA HISTORIA</div>
 </header>
 
@@ -331,6 +348,8 @@ footer {
   <a href="comunidad.html">Comunidad</a>
   <a href="destacadas.html">Destacadas</a>
   <a href="nosotros.html">Nosotros</a>
+  <a class="account-link" href="login.html">Iniciar sesión</a>
+  <a class="account-link account-register" href="registro.html">Crear cuenta</a>
 </nav>
 
 <div class="hero">
@@ -613,9 +632,6 @@ function renderBooks(list) {
     description.className = "description";
     description.textContent = story.description;
 
-    // Mostrar género principal, secundarios,
-    // estado y etiquetas de la historia.
-
     const tags = document.createElement("div");
     tags.className = "tags";
 
@@ -656,14 +672,11 @@ function filterBooks() {
       story.title.toLowerCase().includes(query) ||
       story.author.toLowerCase().includes(query);
 
-    // Reunir el género principal y los secundarios.
     const allGenres = [
       story.mainGenre,
       ...story.secondaryGenres
     ];
 
-    // Una historia aparece si coincide con cualquiera
-    // de sus géneros, no solamente con el principal.
     const matchesGenre =
       !genre || allGenres.includes(genre);
 
@@ -728,8 +741,9 @@ if (selectedGenre) {
 filterBooks();
 
 </script>
-  
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+
 </body>
 </html>
