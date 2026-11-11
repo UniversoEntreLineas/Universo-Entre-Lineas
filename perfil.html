@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi perfil · Universo Entre Líneas</title>
+  <title>Perfil · Universo Entre Líneas</title>
 
   <style>
     :root {
@@ -34,172 +34,270 @@
       text-decoration: none;
     }
 
-    .top-line {
-      height: 5px;
-      background: var(--wine);
+    button {
+      font-family: inherit;
     }
 
-    header {
-      padding: 30px 20px 25px;
-      text-align: center;
-      background: var(--white);
-    }
+    /* Volver al inicio */
 
-    .brand {
-      color: var(--wine);
-      font-size: clamp(27px, 5vw, 40px);
-      letter-spacing: 1px;
-    }
-
-    .brand-subtitle {
-      margin-top: 9px;
+    .back-home {
+      position: absolute;
+      top: 24px;
+      left: 28px;
       color: var(--muted);
       font-family: Arial, sans-serif;
-      font-size: 10px;
-      letter-spacing: 4px;
+      font-size: 12px;
+      transition: .2s;
     }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 25px;
-      padding: 17px 15px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--white);
-      font-family: Arial, sans-serif;
-      font-size: 13px;
-    }
-
-    nav a:hover {
+    .back-home:hover {
       color: var(--wine);
     }
 
-    main {
-      width: min(760px, 90%);
-      margin: 55px auto 75px;
-    }
+    /* Perfil principal */
 
-    .profile-card {
-      padding: 40px;
+    .profile-header {
+      padding: 75px 20px 40px;
       background: var(--white);
-      border: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
       text-align: center;
     }
 
-    .profile-title {
-      margin: 0 0 30px;
+    .profile-avatar {
+      width: 125px;
+      height: 125px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e9dfd3;
+      border: 2px solid var(--line);
+    }
+
+    .avatar-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      background: var(--wine);
+      font-size: 46px;
+    }
+
+    .profile-name {
+      margin: 0;
       color: var(--wine);
       font-size: 32px;
       font-weight: normal;
     }
 
-    .avatar {
-      width: 125px;
-      height: 125px;
-      margin: 0 auto 20px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--line);
-      background: #e9dfd3;
-    }
-
-    .avatar-initial {
-      width: 125px;
-      height: 125px;
-      margin: 0 auto 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--wine);
-      color: var(--white);
-      font-size: 48px;
-    }
-
-    .display-name {
-      margin: 0;
-      color: var(--wine);
-      font-size: 27px;
-      font-weight: normal;
-    }
-
-    .username {
+    .profile-username {
       margin-top: 8px;
       color: var(--muted);
       font-family: Arial, sans-serif;
-      font-size: 13px;
+      font-size: 12px;
     }
 
-    .bio {
+    .profile-bio {
       max-width: 480px;
-      margin: 20px auto 30px;
+      margin: 17px auto 25px;
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.7;
-      white-space: pre-wrap;
+      font-size: 14px;
+      line-height: 1.8;
     }
 
-    .profile-details {
-      margin-top: 30px;
-      padding-top: 25px;
-      border-top: 1px solid var(--line);
-      text-align: left;
+    .profile-stats {
+      display: flex;
+      justify-content: center;
+      gap: 45px;
+      margin: 25px 0;
     }
 
-    .detail {
-      margin: 15px 0;
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .stat strong {
+      color: var(--wine);
+      font-size: 21px;
+      font-weight: normal;
+    }
+
+    .stat span {
+      color: var(--muted);
       font-family: Arial, sans-serif;
-      font-size: 13px;
-      line-height: 1.6;
+      font-size: 11px;
     }
 
-    .detail-label {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--gold);
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .detail-value {
-      color: var(--ink);
-      overflow-wrap: anywhere;
-    }
-
-    .logout-button {
-      margin-top: 30px;
-      padding: 12px 25px;
+    .edit-profile-button {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 10px 23px;
       border: 1px solid var(--wine);
       background: transparent;
       color: var(--wine);
-      cursor: pointer;
       font-family: Arial, sans-serif;
-      font-size: 12px;
-      font-weight: bold;
+      font-size: 11px;
+      letter-spacing: .5px;
+      cursor: pointer;
       transition: .2s;
     }
 
-    .logout-button:hover {
+    .edit-profile-button:hover {
       background: var(--wine);
       color: var(--white);
     }
 
-    .logout-button:disabled {
-      opacity: .6;
-      cursor: wait;
+    /* Contenido */
+
+    main {
+      width: min(1050px, 91%);
+      margin: 45px auto 80px;
     }
 
-    .message {
+    .section-title {
+      margin-bottom: 23px;
+      color: var(--wine);
+      font-size: 25px;
+      font-weight: normal;
+    }
+
+    .profile-navigation {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-bottom: 35px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tab-button {
+      padding: 14px 19px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: transparent;
       color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .tab-button:hover {
+      color: var(--wine);
+    }
+
+    .tab-button.active {
+      border-bottom-color: var(--wine);
+      color: var(--wine);
+      font-weight: bold;
+    }
+
+    .tab-content {
+      display: none;
+      animation: appear .25s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Obras */
+
+    .content-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .content-heading h2 {
+      margin: 0;
+      color: var(--wine);
+      font-size: 21px;
+      font-weight: normal;
+    }
+
+    .content-heading span {
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    .empty-state {
+      padding: 55px 20px;
+      border: 1px solid var(--line);
+      background: var(--white);
       text-align: center;
+    }
+
+    .empty-symbol {
+      margin-bottom: 15px;
+      color: var(--gold);
+      font-size: 30px;
+    }
+
+    .empty-state h3 {
+      margin: 0 0 10px;
+      color: var(--wine);
+      font-size: 19px;
+      font-weight: normal;
+    }
+
+    .empty-state p {
+      max-width: 420px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .privacy-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 11px;
       line-height: 1.7;
     }
 
+    /* Lecturas */
+
+    .reading-options {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    .reading-options select {
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--wine);
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    /* Pie */
+
     footer {
-      padding: 38px 20px;
+      padding: 35px 20px;
       background: var(--ink);
       color: #e9dfd5;
       text-align: center;
@@ -212,18 +310,59 @@
       line-height: 1.8;
     }
 
-    @media (max-width: 600px) {
-      nav {
-        gap: 16px;
-        font-size: 12px;
+    @media (max-width: 650px) {
+      .back-home {
+        top: 17px;
+        left: 15px;
+        font-size: 11px;
+      }
+
+      .profile-header {
+        padding: 65px 15px 30px;
+      }
+
+      .profile-avatar {
+        width: 105px;
+        height: 105px;
+      }
+
+      .profile-name {
+        font-size: 27px;
+      }
+
+      .profile-stats {
+        gap: 25px;
+      }
+
+      .stat strong {
+        font-size: 19px;
+      }
+
+      .stat span {
+        font-size: 10px;
       }
 
       main {
-        margin: 35px auto 50px;
+        margin-top: 30px;
       }
 
-      .profile-card {
-        padding: 28px 20px;
+      .profile-navigation {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+
+      .tab-button {
+        flex-shrink: 0;
+        padding: 13px 14px;
+        font-size: 11px;
+      }
+
+      .content-heading h2 {
+        font-size: 19px;
+      }
+
+      .empty-state {
+        padding: 42px 18px;
       }
     }
   </style>
@@ -231,27 +370,206 @@
 
 <body>
 
-  <div class="top-line"></div>
+  <a href="index.html" class="back-home">← Volver al inicio</a>
 
-  <header>
-    <div class="brand">Universo Entre Líneas</div>
-    <div class="brand-subtitle">UN LUGAR PARA CADA HISTORIA</div>
+  <header class="profile-header">
+
+    <div class="profile-avatar avatar-placeholder" id="profile-avatar">
+      L
+    </div>
+
+    <h1 class="profile-name" id="profile-name">Nombre del usuario</h1>
+
+    <div class="profile-username" id="profile-username">@nombre_de_usuario</div>
+
+    <p class="profile-bio" id="profile-bio">
+      Este espacio estará dedicado a contar un poco sobre quien escribe.
+    </p>
+
+    <div class="profile-stats">
+      <div class="stat" data-tab="publicaciones">
+        <strong id="posts-count">0</strong>
+        <span>Publicaciones</span>
+      </div>
+
+      <div class="stat" data-tab="seguidores">
+        <strong id="followers-count">0</strong>
+        <span>Seguidores</span>
+      </div>
+
+      <div class="stat" data-tab="seguidos">
+        <strong id="following-count">0</strong>
+        <span>Seguidos</span>
+      </div>
+    </div>
+
+    <button class="edit-profile-button" id="edit-profile-button">
+      EDITAR PERFIL
+    </button>
+
   </header>
 
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="historias.html">Biblioteca</a>
-    <a href="destacadas.html">Destacadas</a>
-    <a href="categorias.html">Categorías</a>
-    <a href="comunidad.html">Comunidad</a>
-    <a href="nosotros.html">Nosotros</a>
-  </nav>
-
   <main>
-    <div class="profile-card" id="profile-card">
-      <h1 class="profile-title">Mi perfil</h1>
-      <p class="message" id="profile-message">Cargando perfil...</p>
+
+    <div class="profile-navigation">
+
+      <button class="tab-button active" data-tab="obras">
+        Obras publicadas
+      </button>
+
+      <button class="tab-button" data-tab="proceso">
+        En proceso
+      </button>
+
+      <button class="tab-button" data-tab="lecturas">
+        Mis lecturas
+      </button>
+
+      <button class="tab-button" data-tab="publicaciones">
+        Publicaciones
+      </button>
+
+      <button class="tab-button" data-tab="seguidores">
+        Seguidores
+      </button>
+
+      <button class="tab-button" data-tab="seguidos">
+        Seguidos
+      </button>
+
     </div>
+
+    <!-- Obras publicadas -->
+
+    <section class="tab-content active" id="obras">
+
+      <div class="content-heading">
+        <h2>Obras publicadas</h2>
+        <span>Visibles para todos</span>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-symbol">✧</div>
+        <h3>El comienzo de una biblioteca</h3>
+        <p>
+          Aquí aparecerán las historias que este usuario haya publicado
+          para compartirlas con todos los lectores.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- Obras en proceso -->
+
+    <section class="tab-content" id="proceso">
+
+      <div class="content-heading">
+        <h2>Obras en proceso</h2>
+        <span>Solo visibles para el propietario</span>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-symbol">✎</div>
+        <h3>Historias que todavía están creciendo</h3>
+        <p>
+          Aquí estarán las obras que aún no han sido publicadas.
+          Solo el propietario de la cuenta podrá verlas.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- Lecturas -->
+
+    <section class="tab-content" id="lecturas">
+
+      <div class="content-heading">
+        <h2>Mis lecturas</h2>
+        <span>Biblioteca personal</span>
+      </div>
+
+      <div class="reading-options">
+        <label for="reading-privacy">Visibilidad:</label>
+        <select id="reading-privacy">
+          <option value="private">Privada</option>
+          <option value="public">Pública</option>
+        </select>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-symbol">♡</div>
+        <h3>Una colección de historias</h3>
+        <p>
+          Aquí aparecerán las obras que el usuario haya guardado
+          en su lista de lecturas.
+        </p>
+      </div>
+
+      <p class="privacy-note">
+        El propietario podrá decidir si su lista de lecturas
+        es visible para los demás o permanece privada.
+      </p>
+
+    </section>
+
+    <!-- Publicaciones -->
+
+    <section class="tab-content" id="publicaciones">
+
+      <div class="content-heading">
+        <h2>Publicaciones</h2>
+        <span>Actividad de la comunidad</span>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-symbol">✧</div>
+        <h3>Un espacio para compartir</h3>
+        <p>
+          Aquí aparecerán las publicaciones que el usuario
+          comparta con la comunidad.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- Seguidores -->
+
+    <section class="tab-content" id="seguidores">
+
+      <div class="content-heading">
+        <h2>Seguidores</h2>
+        <span>Personas que siguen este perfil</span>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-symbol">♧</div>
+        <h3>La comunidad crece poco a poco</h3>
+        <p>
+          Aquí aparecerán las personas que siguen a este usuario.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- Seguidos -->
+
+    <section class="tab-content" id="seguidos">
+
+      <div class="content-heading">
+        <h2>Seguidos</h2>
+        <span>Perfiles que sigue este usuario</span>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-symbol">♧</div>
+        <h3>Descubriendo nuevas voces</h3>
+        <p>
+          Aquí aparecerán los perfiles que este usuario haya decidido seguir.
+        </p>
+      </div>
+
+    </section>
+
   </main>
 
   <footer>
@@ -260,137 +578,40 @@
     <p>© 2026 · Biblioteca literaria</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
-
   <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-      const client = window.supabaseClient;
-      const profileCard = document.getElementById("profile-card");
-      const profileMessage = document.getElementById("profile-message");
+    // Navegación entre las secciones del perfil
 
-      if (!client) {
-        profileMessage.textContent = "No se pudo conectar con el servicio. Inténtalo nuevamente.";
-        return;
-      }
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabContents = document.querySelectorAll(".tab-content");
 
-      const { data: sessionData, error: sessionError } =
-        await client.auth.getSession();
-
-      if (sessionError || !sessionData?.session?.user) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      const user = sessionData.session.user;
-
-      const { data: profile, error: profileError } = await client
-        .from("profiles")
-        .select("display_name, username, bio, avatar_url")
-        .eq("id", user.id)
-        .maybeSingle();
-
-      if (profileError) {
-        console.error("No se pudo cargar el perfil:", profileError);
-        profileMessage.textContent = "No se pudo cargar la información del perfil.";
-        return;
-      }
-
-      const displayName =
-        profile?.display_name ||
-        user.user_metadata?.display_name ||
-        user.email?.split("@")[0] ||
-        "Usuario";
-
-      const username = profile?.username
-        ? "@" + profile.username
-        : "Todavía no tienes un nombre de usuario";
-
-      const bio = profile?.bio || "Este perfil todavía no tiene una presentación.";
-
-      let avatarHTML = "";
-
-      if (profile?.avatar_url) {
-        avatarHTML = `
-          <img
-            src="${escapeHTML(profile.avatar_url)}"
-            alt="Foto de perfil"
-            class="avatar"
-            id="profile-avatar"
-          >
-        `;
-      } else {
-        avatarHTML = `
-          <div class="avatar-initial">
-            ${escapeHTML(displayName.charAt(0).toUpperCase())}
-          </div>
-        `;
-      }
-
-      profileCard.innerHTML = `
-        <h1 class="profile-title">Mi perfil</h1>
-
-        ${avatarHTML}
-
-        <h2 class="display-name">${escapeHTML(displayName)}</h2>
-        <div class="username">${escapeHTML(username)}</div>
-
-        <p class="bio">${escapeHTML(bio)}</p>
-
-        <div class="profile-details">
-          <div class="detail">
-            <span class="detail-label">Correo electrónico</span>
-            <span class="detail-value">${escapeHTML(user.email || "")}</span>
-          </div>
-        </div>
-
-        <button type="button" id="logout-button" class="logout-button">
-          Cerrar sesión
-        </button>
-      `;
-
-      const avatar = document.getElementById("profile-avatar");
-
-      if (avatar) {
-        avatar.onerror = function () {
-          const fallback = document.createElement("div");
-          fallback.className = "avatar-initial";
-          fallback.textContent = displayName.charAt(0).toUpperCase();
-          avatar.replaceWith(fallback);
-        };
-      }
-
-      document.getElementById("logout-button").addEventListener("click", async function () {
-        const button = this;
-
-        button.disabled = true;
-        button.textContent = "Cerrando sesión...";
-
-        const { error } = await client.auth.signOut();
-
-        if (error) {
-          console.error("No se pudo cerrar la sesión:", error);
-          button.disabled = false;
-          button.textContent = "Cerrar sesión";
-          alert("No se pudo cerrar la sesión. Inténtalo nuevamente.");
-          return;
-        }
-
-        window.location.href = "index.html";
+    function showTab(tabName) {
+      tabButtons.forEach(button => {
+        button.classList.toggle("active", button.dataset.tab === tabName);
       });
 
-      function escapeHTML(value) {
-        return String(value).replace(/[&<>"']/g, function (character) {
-          return {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#039;"
-          }[character];
-        });
-      }
+      tabContents.forEach(content => {
+        content.classList.toggle("active", content.id === tabName);
+      });
+    }
+
+    tabButtons.forEach(button => {
+      button.addEventListener("click", function () {
+        showTab(this.dataset.tab);
+      });
     });
+
+    document.querySelectorAll(".stat").forEach(stat => {
+      stat.addEventListener("click", function () {
+        showTab(this.dataset.tab);
+      });
+    });
+
+    // Botón visual de edición, se conectará más adelante
+
+    document.getElementById("edit-profile-button")
+      .addEventListener("click", function () {
+        alert("La edición del perfil estará disponible próximamente.");
+      });
   </script>
 
 </body>
