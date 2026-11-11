@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi perfil · Universo Entre Líneas</title>
+
+  <style>
+    :root {
+      --paper: #f7f1e8;
+      --white: #fffdf9;
+      --wine: #713847;
+      --wine-dark: #4d2934;
+      --ink: #30272c;
+      --muted: #81736e;
+      --line: #e5d9cc;
+      --gold: #b69a70;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .top-line {
+      height: 5px;
+      background: var(--wine);
+    }
+
+    header {
+      padding: 30px 20px 25px;
+      text-align: center;
+      background: var(--white);
+    }
+
+    .brand {
+      color: var(--wine);
+      font-size: clamp(27px, 5vw, 40px);
+      letter-spacing: 1px;
+    }
+
+    .brand-subtitle {
+      margin-top: 9px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      padding: 17px 15px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    nav a:hover {
+      color: var(--wine);
+    }
+
+    main {
+      width: min(760px, 90%);
+      margin: 55px auto 75px;
+    }
+
+    .profile-card {
+      padding: 40px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .profile-title {
+      margin: 0 0 30px;
+      color: var(--wine);
+      font-size: 32px;
+      font-weight: normal;
+    }
+
+    .avatar {
+      width: 125px;
+      height: 125px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--line);
+      background: #e9dfd3;
+    }
+
+    .avatar-initial {
+      width: 125px;
+      height: 125px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--wine);
+      color: var(--white);
+      font-size: 48px;
+    }
+
+    .display-name {
+      margin: 0;
+      color: var(--wine);
+      font-size: 27px;
+      font-weight: normal;
+    }
+
+    .username {
+      margin-top: 8px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    .bio {
+      max-width: 480px;
+      margin: 20px auto 30px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .profile-details {
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .detail {
+      margin: 15px 0;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .detail-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .detail-value {
+      color: var(--ink);
+      overflow-wrap: anywhere;
+    }
+
+    .logout-button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      border: 1px solid var(--wine);
+      background: transparent;
+      color: var(--wine);
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      transition: .2s;
+    }
+
+    .logout-button:hover {
+      background: var(--wine);
+      color: var(--white);
+    }
+
+    .logout-button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .message {
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 38px 20px;
+      background: var(--ink);
+      color: #e9dfd5;
+      text-align: center;
+    }
+
+    footer p {
+      color: #c4b5ae;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 16px;
+        font-size: 12px;
+      }
+
+      main {
+        margin: 35px auto 50px;
+      }
+
+      .profile-card {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-line"></div>
+
+  <header>
+    <div class="brand">Universo Entre Líneas</div>
+    <div class="brand-subtitle">UN LUGAR PARA CADA HISTORIA</div>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="historias.html">Biblioteca</a>
+    <a href="destacadas.html">Destacadas</a>
+    <a href="categorias.html">Categorías</a>
+    <a href="comunidad.html">Comunidad</a>
+    <a href="nosotros.html">Nosotros</a>
+  </nav>
+
+  <main>
+    <div class="profile-card" id="profile-card">
+      <h1 class="profile-title">Mi perfil</h1>
+      <p class="message" id="profile-message">Cargando perfil...</p>
+    </div>
+  </main>
+
+  <footer>
+    <div>Universo Entre Líneas</div>
+    <p>Un lugar para cada historia.</p>
+    <p>© 2026 · Biblioteca literaria</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      const client = window.supabaseClient;
+      const profileCard = document.getElementById("profile-card");
+      const profileMessage = document.getElementById("profile-message");
+
+      if (!client) {
+        profileMessage.textContent = "No se pudo conectar con el servicio. Inténtalo nuevamente.";
+        return;
+      }
+
+      const { data: sessionData, error: sessionError } =
+        await client.auth.getSession();
+
+      if (sessionError || !sessionData?.session?.user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const user = sessionData.session.user;
+
+      const { data: profile, error: profileError } = await client
+        .from("profiles")
+        .select("display_name, username, bio, avatar_url")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (profileError) {
+        console.error("No se pudo cargar el perfil:", profileError);
+        profileMessage.textContent = "No se pudo cargar la información del perfil.";
+        return;
+      }
+
+      const displayName =
+        profile?.display_name ||
+        user.user_metadata?.display_name ||
+        user.email?.split("@")[0] ||
+        "Usuario";
+
+      const username = profile?.username
+        ? "@" + profile.username
+        : "Todavía no tienes un nombre de usuario";
+
+      const bio = profile?.bio || "Este perfil todavía no tiene una presentación.";
+
+      let avatarHTML = "";
+
+      if (profile?.avatar_url) {
+        avatarHTML = `
+          <img
+            src="${escapeHTML(profile.avatar_url)}"
+            alt="Foto de perfil"
+            class="avatar"
+            id="profile-avatar"
+          >
+        `;
+      } else {
+        avatarHTML = `
+          <div class="avatar-initial">
+            ${escapeHTML(displayName.charAt(0).toUpperCase())}
+          </div>
+        `;
+      }
+
+      profileCard.innerHTML = `
+        <h1 class="profile-title">Mi perfil</h1>
+
+        ${avatarHTML}
+
+        <h2 class="display-name">${escapeHTML(displayName)}</h2>
+        <div class="username">${escapeHTML(username)}</div>
+
+        <p class="bio">${escapeHTML(bio)}</p>
+
+        <div class="profile-details">
+          <div class="detail">
+            <span class="detail-label">Correo electrónico</span>
+            <span class="detail-value">${escapeHTML(user.email || "")}</span>
+          </div>
+        </div>
+
+        <button type="button" id="logout-button" class="logout-button">
+          Cerrar sesión
+        </button>
+      `;
+
+      const avatar = document.getElementById("profile-avatar");
+
+      if (avatar) {
+        avatar.onerror = function () {
+          const fallback = document.createElement("div");
+          fallback.className = "avatar-initial";
+          fallback.textContent = displayName.charAt(0).toUpperCase();
+          avatar.replaceWith(fallback);
+        };
+      }
+
+      document.getElementById("logout-button").addEventListener("click", async function () {
+        const button = this;
+
+        button.disabled = true;
+        button.textContent = "Cerrando sesión...";
+
+        const { error } = await client.auth.signOut();
+
+        if (error) {
+          console.error("No se pudo cerrar la sesión:", error);
+          button.disabled = false;
+          button.textContent = "Cerrar sesión";
+          alert("No se pudo cerrar la sesión. Inténtalo nuevamente.");
+          return;
+        }
+
+        window.location.href = "index.html";
+      });
+
+      function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, function (character) {
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+          }[character];
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
