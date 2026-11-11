@@ -63,6 +63,12 @@ nav a:hover {
   color: var(--gold);
 }
 
+.account-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .account-link {
   color: var(--wine);
   font-weight: bold;
@@ -78,6 +84,40 @@ nav a:hover {
 .account-register:hover {
   background: var(--wine);
   color: var(--white);
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--wine);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.profile-thumbnail {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--gold);
+  background: #e9dfd3;
+}
+
+.profile-initial {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--wine);
+  color: white;
+  font: bold 14px Arial, sans-serif;
+}
+
+#user-account {
+  display: none;
 }
 
 main {
@@ -244,6 +284,11 @@ footer {
     gap: 15px;
   }
 
+  .account-area {
+    width: 100%;
+    justify-content: center;
+  }
+
   .featured {
     grid-template-columns: 1fr;
     padding: 20px;
@@ -274,8 +319,20 @@ footer {
   <a href="comunidad.html">Comunidad</a>
   <a href="destacadas.html">Destacadas</a>
   <a href="nosotros.html">Nosotros</a>
-  <a class="account-link" href="login.html">Iniciar sesión</a>
-  <a class="account-link account-register" href="registro.html">Crear cuenta</a>
+
+  <div class="account-area" id="guest-account">
+    <a class="account-link" href="login.html">Iniciar sesión</a>
+    <a class="account-link account-register" href="registro.html">Crear cuenta</a>
+  </div>
+
+  <div class="account-area" id="user-account">
+    <a href="perfil.html" class="profile-link">
+      <img id="profile-thumbnail" class="profile-thumbnail"
+           src="" alt="Foto de perfil" style="display:none;">
+      <span id="profile-initial" class="profile-initial"></span>
+      <span id="profile-name">Mi perfil</span>
+    </a>
+  </div>
 </nav>
 
 <main>
@@ -355,8 +412,78 @@ footer {
 <footer>
   Universo Entre Líneas · Un lugar para cada historia
 </footer>
-  
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+
+<script>
+(async function loadAccount() {
+  const db = window.supabaseClient;
+  const guestAccount = document.getElementById("guest-account");
+  const userAccount = document.getElementById("user-account");
+  const profileName = document.getElementById("profile-name");
+  const profileThumbnail = document.getElementById("profile-thumbnail");
+  const profileInitial = document.getElementById("profile-initial");
+
+  if (!db) {
+    console.error("No se pudo conectar con Supabase.");
+    return;
+  }
+
+  async function updateAccount(session) {
+    if (!session || !session.user) {
+      guestAccount.style.display = "flex";
+      userAccount.style.display = "none";
+      return;
+    }
+
+    guestAccount.style.display = "none";
+    userAccount.style.display = "flex";
+
+    const user = session.user;
+    const { data: profile, error } = await db
+      .from("profiles")
+      .select("username, display_name, avatar_url")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (error) console.error("Error al cargar el perfil:", error);
+
+    const name =
+      profile?.display_name ||
+      profile?.username ||
+      user.email?.split("@")[0] ||
+      "Mi perfil";
+
+    profileName.textContent = name;
+    profileInitial.textContent = name.trim().charAt(0).toUpperCase() || "U";
+
+    if (profile?.avatar_url) {
+      profileThumbnail.src = profile.avatar_url;
+      profileThumbnail.style.display = "block";
+      profileInitial.style.display = "none";
+
+      profileThumbnail.onerror = function() {
+        profileThumbnail.style.display = "none";
+        profileInitial.style.display = "flex";
+      };
+    } else {
+      profileThumbnail.style.display = "none";
+      profileInitial.style.display = "flex";
+    }
+  }
+
+  const { data: { session }, error } = await db.auth.getSession();
+
+  if (error) console.error("Error al comprobar la sesión:", error);
+
+  await updateAccount(session);
+
+  db.auth.onAuthStateChange((_event, session) => {
+    updateAccount(session);
+  });
+})();
+</script>
+
 </body>
 </html>
