@@ -22,16 +22,23 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,"Time
 a{color:inherit;text-decoration:none}
 button,input,textarea,select{font-family:inherit}
 button{cursor:pointer}
-.back-home{position:absolute;top:24px;left:28px;color:var(--muted);font:12px Arial,sans-serif}
+.back-home{position:absolute;top:24px;left:28px;z-index:30;color:var(--muted);font:12px Arial,sans-serif}
 .back-home:hover{color:var(--wine)}
-.settings-container{position:absolute;top:17px;right:25px;z-index:20}
+.settings-container{position:absolute;top:17px;right:25px;z-index:30}
 .settings-button{border:0;background:transparent;color:var(--muted);font:12px Arial,sans-serif;padding:9px}
 .settings-menu{display:none;position:absolute;top:38px;right:0;min-width:175px;padding:7px;background:var(--white);border:1px solid var(--line);box-shadow:0 8px 22px #30272c1a}
 .settings-menu.open{display:block}
 .settings-menu button{width:100%;padding:12px;border:0;background:transparent;color:var(--muted);text-align:left;font:12px Arial,sans-serif}
 .settings-menu button:hover{background:var(--paper);color:var(--wine)}
-.profile-header{padding:75px 20px 35px;background:var(--white);border-bottom:1px solid var(--line);text-align:center}
-.profile-avatar{width:125px;height:125px;margin:0 auto 18px;border-radius:50%;object-fit:cover;background:#e9dfd3;border:2px solid var(--line);overflow:hidden}
+
+/* Cabecera y portada del perfil */
+.profile-header{position:relative;padding:0 20px 35px;background:var(--white);border-bottom:1px solid var(--line);text-align:center}
+.profile-cover{position:relative;width:100%;height:260px;background:linear-gradient(135deg,#4d2934,#87616a 55%,#b69a70);background-position:center;background-size:cover;overflow:hidden}
+.profile-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#00000012,#00000020)}
+.cover-edit-button{position:absolute;right:25px;bottom:18px;z-index:2;padding:10px 14px;border:1px solid #ffffffa8;background:#30272c88;color:white;font:11px Arial,sans-serif;letter-spacing:.3px}
+.cover-edit-button:hover{background:#30272c}
+.profile-intro{position:relative;margin-top:-65px}
+.profile-avatar{position:relative;z-index:2;width:130px;height:130px;margin:0 auto 15px;border-radius:50%;object-fit:cover;background:#e9dfd3;border:5px solid var(--white);box-shadow:0 3px 15px #30272c20;overflow:hidden}
 .avatar-placeholder{display:flex;align-items:center;justify-content:center;color:var(--white);background:var(--wine);font-size:46px}
 .profile-name{margin:0;color:var(--wine);font-size:32px;font-weight:normal}
 .profile-username{margin-top:8px;color:var(--muted);font:12px Arial,sans-serif}
@@ -50,6 +57,7 @@ button{cursor:pointer}
 .profile-message.visible{display:block}
 .follow-profile-button{display:none;margin:12px auto 0;padding:9px 20px;border:1px solid var(--wine);background:var(--wine);color:white;font:12px Arial,sans-serif}
 .follow-profile-button.visible{display:block}
+
 main{width:min(1050px,91%);margin:45px auto 80px}
 .profile-navigation{display:flex;flex-wrap:wrap;gap:0;margin-bottom:35px;border-bottom:1px solid var(--line)}
 .tab-button{padding:14px 19px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--muted);font:12px Arial,sans-serif}
@@ -66,8 +74,6 @@ main{width:min(1050px,91%);margin:45px auto 80px}
 .empty-state h3{margin:0 0 10px;color:var(--wine);font-size:19px;font-weight:normal}
 .empty-state p{max-width:420px;margin:auto;color:var(--muted);font-size:13px;line-height:1.8}
 .privacy-note{margin-top:14px;color:var(--muted);font:11px Arial,sans-serif;line-height:1.7}
-.reading-options{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-bottom:18px;color:var(--muted);font:11px Arial,sans-serif}
-.reading-options select{padding:8px 10px;border:1px solid var(--line);background:var(--white);color:var(--wine);font:11px Arial,sans-serif}
 .stories-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
 .story-card{display:flex;flex-direction:column;min-width:0;padding:18px;border:1px solid var(--line);background:var(--white);transition:.2s}
 .story-card:hover{border-color:var(--gold);transform:translateY(-2px)}
@@ -75,6 +81,7 @@ main{width:min(1050px,91%);margin:45px auto 80px}
 .story-card h3{margin:0 0 9px;color:var(--wine);font-size:20px;font-weight:normal;overflow-wrap:anywhere}
 .story-card p{margin:0 0 15px;color:var(--muted);font-size:13px;line-height:1.7;white-space:pre-wrap}
 .story-status{align-self:flex-start;margin-top:auto;padding:6px 10px;border:1px solid var(--line);color:var(--muted);font:10px Arial,sans-serif}
+
 .modal-overlay{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;background:#30272c9e;overflow-y:auto}
 .modal-overlay.open{display:flex}
 .edit-modal{width:min(480px,100%);max-height:90vh;padding:30px;background:var(--white);border:1px solid var(--line);overflow-y:auto}
@@ -87,15 +94,15 @@ main{width:min(1050px,91%);margin:45px auto 80px}
 .edit-field input:focus,.edit-field textarea:focus{border-color:var(--wine)}
 .edit-field textarea{min-height:100px;resize:vertical;line-height:1.6}
 .edit-field input[type=file]{background:var(--white);font:11px Arial,sans-serif}
+.file-help{display:block;margin-top:6px;color:var(--muted);font:10px Arial,sans-serif;line-height:1.5}
 .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:25px}
 .modal-actions button{padding:10px 18px;border:1px solid var(--wine);background:var(--wine);color:white;font:11px Arial,sans-serif}
 .modal-actions .cancel-button{background:transparent;color:var(--wine)}
 .modal-actions button:disabled{opacity:.6;cursor:wait}
 .modal-message{min-height:18px;margin-top:12px;color:var(--wine);font:12px Arial,sans-serif;line-height:1.5}
+
 footer{padding:35px 20px;background:var(--ink);color:#e9dfd5;text-align:center}
 footer p{color:#c4b5ae;font:11px Arial,sans-serif;line-height:1.8}
-
-/* Elementos funcionales añadidos */
 
 .action-form{margin-bottom:25px;padding:20px;border:1px solid var(--line);background:var(--white)}
 .action-form textarea{width:100%;min-height:95px;padding:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);resize:vertical;font-size:14px;line-height:1.6}
@@ -126,8 +133,11 @@ footer p{color:#c4b5ae;font:11px Arial,sans-serif;line-height:1.8}
  .back-home{top:17px;left:15px;font-size:11px}
  .settings-container{top:9px;right:10px}
  .settings-button{font-size:11px}
- .profile-header{padding:65px 15px 30px}
- .profile-avatar{width:105px;height:105px}
+ .profile-cover{height:190px}
+ .cover-edit-button{right:12px;bottom:12px;padding:8px 10px;font-size:10px}
+ .profile-header{padding:0 12px 30px}
+ .profile-intro{margin-top:-53px}
+ .profile-avatar{width:108px;height:108px}
  .profile-name{font-size:27px}
  .profile-stats{gap:25px}
  main{margin-top:30px}
@@ -155,30 +165,36 @@ footer p{color:#c4b5ae;font:11px Arial,sans-serif;line-height:1.8}
 </div>
 
 <header class="profile-header">
-  <div class="profile-avatar avatar-placeholder" id="profile-avatar">U</div>
-  <h1 class="profile-name" id="profile-name">Cargando perfil...</h1>
-  <div class="profile-username" id="profile-username"></div>
-  <p class="profile-bio" id="profile-bio"></p>
+  <div class="profile-cover" id="profile-cover">
+    <button class="cover-edit-button" id="cover-edit-button" type="button" hidden>Cambiar portada</button>
+  </div>
 
-  <div class="profile-stats">
-    <div class="stat">
-      <strong id="posts-count">0</strong>
-      <span>Publicaciones</span>
+  <div class="profile-intro">
+    <div class="profile-avatar avatar-placeholder" id="profile-avatar">U</div>
+    <h1 class="profile-name" id="profile-name">Cargando perfil...</h1>
+    <div class="profile-username" id="profile-username"></div>
+    <p class="profile-bio" id="profile-bio"></p>
+
+    <div class="profile-stats">
+      <div class="stat">
+        <strong id="posts-count">0</strong>
+        <span>Publicaciones</span>
+      </div>
     </div>
-  </div>
 
-  <div class="social-links">
-    <button type="button" data-open-tab="seguidores">
-      <strong id="followers-count">0</strong> Seguidores
-    </button>
-    <button type="button" data-open-tab="seguidos">
-      <strong id="following-count">0</strong> Seguidos
-    </button>
-  </div>
+    <div class="social-links">
+      <button type="button" data-open-tab="seguidores">
+        <strong id="followers-count">0</strong> Seguidores
+      </button>
+      <button type="button" data-open-tab="seguidos">
+        <strong id="following-count">0</strong> Seguidos
+      </button>
+    </div>
 
-  <button class="edit-profile-button" id="edit-profile-button" type="button">Editar perfil</button>
-  <button class="follow-profile-button" id="follow-profile-button" type="button">Seguir</button>
-  <p class="profile-message" id="profile-message"></p>
+    <button class="edit-profile-button" id="edit-profile-button" type="button">Editar perfil</button>
+    <button class="follow-profile-button" id="follow-profile-button" type="button">Seguir</button>
+    <p class="profile-message" id="profile-message"></p>
+  </div>
 </header>
 
 <main>
@@ -302,6 +318,12 @@ footer p{color:#c4b5ae;font:11px Arial,sans-serif;line-height:1.8}
       <div class="edit-field">
         <label for="edit-avatar">Foto de perfil</label>
         <input type="file" id="edit-avatar" accept="image/png,image/jpeg,image/webp">
+        <span class="file-help">Formatos JPG, PNG o WEBP. Máximo 5 MB.</span>
+      </div>
+      <div class="edit-field">
+        <label for="edit-cover">Imagen de portada</label>
+        <input type="file" id="edit-cover" accept="image/png,image/jpeg,image/webp">
+        <span class="file-help">Se mostrará detrás de tu foto de perfil. Máximo 5 MB.</span>
       </div>
       <div class="modal-actions">
         <button class="cancel-button" id="cancel-edit" type="button">CANCELAR</button>
@@ -311,6 +333,8 @@ footer p{color:#c4b5ae;font:11px Arial,sans-serif;line-height:1.8}
     </form>
   </div>
 </div>
+
+<input type="file" id="cover-quick-upload" accept="image/png,image/jpeg,image/webp" hidden>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -377,7 +401,7 @@ document.addEventListener("click", event => {
   }
 });
 
-/* Perfil */
+/* Mostrar perfil */
 
 function displayProfile(profile) {
   const name = profile.display_name || "Usuario";
@@ -386,6 +410,7 @@ function displayProfile(profile) {
   $("profile-bio").textContent = profile.bio || "";
 
   const avatar = $("profile-avatar");
+
   if (profile.avatar_url) {
     avatar.textContent = "";
     avatar.style.backgroundImage = `url("${profile.avatar_url}")`;
@@ -398,12 +423,20 @@ function displayProfile(profile) {
     avatar.classList.add("avatar-placeholder");
   }
 
-  document.title = name + " · Universo Entre Líneas";
+  const cover = $("profile-cover");
+  if (profile.cover_url) {
+    cover.style.backgroundImage = `url("${profile.cover_url}")`;
+  } else {
+    cover.style.backgroundImage = "linear-gradient(135deg,#4d2934,#87616a 55%,#b69a70)";
+  }
 
+  $("cover-edit-button").hidden = !viewingOwnProfile;
   $("edit-profile-button").hidden = !viewingOwnProfile;
   $("settings-container").hidden = !viewingOwnProfile;
   $("follow-profile-button").classList.toggle("visible", !viewingOwnProfile && !!currentUser);
   $("post-form").hidden = !viewingOwnProfile;
+
+  document.title = name + " · Universo Entre Líneas";
 }
 
 /* Tarjetas de obras */
@@ -487,7 +520,7 @@ async function loadStats() {
   if (!following.error) $("following-count").textContent = following.count ?? 0;
 }
 
-/* Personas: seguidores y seguidos */
+/* Seguidores y seguidos */
 
 function createPersonCard(profile, relationshipType) {
   const card = document.createElement("article");
@@ -912,6 +945,7 @@ function openEditModal() {
   $("edit-username").value = currentProfile.username || "";
   $("edit-bio").value = currentProfile.bio || "";
   $("edit-avatar").value = "";
+  $("edit-cover").value = "";
   $("modal-message").textContent = "";
   $("edit-modal").classList.add("open");
 }
@@ -928,36 +962,59 @@ $("edit-modal").addEventListener("click",event => {
   if (event.target === $("edit-modal")) closeEditModal();
 });
 
-async function uploadAvatar(file) {
+/* Subida de imágenes */
+
+async function uploadProfileImage(file, folder) {
   const allowed = ["image/jpeg","image/png","image/webp"];
 
   if (!allowed.includes(file.type)) {
-    throw new Error("La foto debe estar en formato JPG, PNG o WEBP.");
-  }
-  if (file.size > 5 * 1024 * 1024) {
-    throw new Error("La foto no puede superar los 5 MB.");
+    throw new Error("La imagen debe estar en formato JPG, PNG o WEBP.");
   }
 
-  const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]/g,"-");
-  const path = `${currentUser.id}/${Date.now()}-${safeName}`;
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error("La imagen no puede superar los 5 MB.");
+  }
+
+  const extension = file.name.split(".").pop().toLowerCase().replace(/[^a-z0-9]/g,"");
+  const path = `${currentUser.id}/${folder}/${Date.now()}.${extension || "jpg"}`;
 
   const {error} = await db.storage.from("avatars").upload(path,file,{
-    upsert:false,
-    contentType:file.type
+    upsert:true,
+    contentType:file.type,
+    cacheControl:"3600"
   });
 
-  if (error) throw error;
+  if (error) {
+    console.error("Error de almacenamiento:",error);
 
-  return db.storage.from("avatars").getPublicUrl(path).data.publicUrl;
+    if (error.message?.toLowerCase().includes("bucket")) {
+      throw new Error("No se encontró el almacenamiento 'avatars' en Supabase.");
+    }
+
+    if (error.message?.toLowerCase().includes("row-level security") || error.statusCode === "403") {
+      throw new Error("Supabase no permite subir imágenes. Hay que revisar los permisos del almacenamiento.");
+    }
+
+    throw new Error("No se pudo subir la imagen: " + error.message);
+  }
+
+  const {data} = db.storage.from("avatars").getPublicUrl(path);
+
+  if (!data?.publicUrl) {
+    throw new Error("La imagen se subió, pero no se pudo obtener su dirección pública.");
+  }
+
+  return data.publicUrl;
 }
 
-$("edit-profile-form").addEventListener("submit",async event => {
+async function saveProfileChanges(event) {
   event.preventDefault();
 
   const displayName = $("edit-display-name").value.trim();
   const username = $("edit-username").value.trim().replace(/^@/,"").toLowerCase();
   const bio = $("edit-bio").value.trim();
-  const file = $("edit-avatar").files[0];
+  const avatarFile = $("edit-avatar").files[0];
+  const coverFile = $("edit-cover").files[0];
 
   if (!displayName || !username) {
     $("modal-message").textContent = "El nombre y el nombre de usuario son obligatorios.";
@@ -976,24 +1033,52 @@ $("edit-profile-form").addEventListener("submit",async event => {
 
   try {
     let avatarUrl = currentProfile.avatar_url || null;
-    if (file) avatarUrl = await uploadAvatar(file);
+    let coverUrl = currentProfile.cover_url || null;
+
+    if (avatarFile) {
+      $("modal-message").textContent = "Subiendo foto de perfil...";
+      avatarUrl = await uploadProfileImage(avatarFile,"avatar");
+    }
+
+    if (coverFile) {
+      $("modal-message").textContent = "Subiendo imagen de portada...";
+      coverUrl = await uploadProfileImage(coverFile,"cover");
+    }
+
+    $("modal-message").textContent = "Guardando los datos del perfil...";
 
     const {data,error} = await db.from("profiles")
       .update({
         display_name:displayName,
         username,
         bio,
-        avatar_url:avatarUrl
+        avatar_url:avatarUrl,
+        cover_url:coverUrl
       })
       .eq("id",currentUser.id)
-      .select()
+      .select("id,username,display_name,bio,avatar_url,cover_url,created_at")
       .single();
 
     if (error) {
+      console.error("Error al actualizar profiles:",error);
+
       if (error.code === "23505") {
         throw new Error("Ese nombre de usuario ya está siendo utilizado.");
       }
-      throw error;
+
+      if (error.code === "42703" || error.message?.includes("cover_url")) {
+        throw new Error("Falta crear la columna cover_url en Supabase. Ejecuta primero el SQL que te indiqué.");
+      }
+
+      if (error.code === "42501" || error.message?.toLowerCase().includes("row-level security")) {
+        throw new Error("Supabase está bloqueando la edición del perfil por falta de permisos. Hay que corregir la política RLS de profiles.");
+      }
+
+      throw new Error("No se pudieron guardar los datos: " + error.message);
+    }
+
+    if (!data) {
+      throw new Error("Supabase no devolvió el perfil actualizado. Revisa los permisos de edición.");
     }
 
     currentProfile = data;
@@ -1003,14 +1088,58 @@ $("edit-profile-form").addEventListener("submit",async event => {
     setTimeout(() => {
       closeEditModal();
       showMessage("Los cambios de tu perfil se guardaron correctamente.");
-    },700);
+    },800);
 
   } catch (error) {
     console.error(error);
-    $("modal-message").textContent = error.message || "No se pudieron guardar los cambios.";
+    $("modal-message").textContent = error.message || "Ocurrió un error al guardar el perfil.";
   } finally {
     button.disabled = false;
     button.textContent = "GUARDAR CAMBIOS";
+  }
+}
+
+$("edit-profile-form").addEventListener("submit",saveProfileChanges);
+
+/* Cambio rápido de portada */
+
+$("cover-edit-button").addEventListener("click",() => {
+  $("cover-quick-upload").click();
+});
+
+$("cover-quick-upload").addEventListener("change",async event => {
+  const file = event.target.files[0];
+  if (!file || !currentUser || !viewingOwnProfile) return;
+
+  const button = $("cover-edit-button");
+  button.disabled = true;
+  button.textContent = "SUBIENDO...";
+
+  try {
+    const coverUrl = await uploadProfileImage(file,"cover");
+
+    const {data,error} = await db.from("profiles")
+      .update({cover_url:coverUrl})
+      .eq("id",currentUser.id)
+      .select("id,username,display_name,bio,avatar_url,cover_url,created_at")
+      .single();
+
+    if (error) {
+      console.error(error);
+      throw new Error("La imagen se subió, pero no se pudo guardar en el perfil: " + error.message);
+    }
+
+    currentProfile = data;
+    displayProfile(currentProfile);
+    showMessage("La imagen de portada se actualizó correctamente.");
+
+  } catch (error) {
+    console.error(error);
+    showMessage(error.message || "No se pudo cambiar la portada.");
+  } finally {
+    button.disabled = false;
+    button.textContent = "Cambiar portada";
+    event.target.value = "";
   }
 });
 
@@ -1058,7 +1187,7 @@ async function initializeProfile() {
 
   const {data:profile,error:profileError} = await db
     .from("profiles")
-    .select("id,username,display_name,bio,avatar_url,created_at")
+    .select("id,username,display_name,bio,avatar_url,cover_url,created_at")
     .eq("id",profileId)
     .single();
 
@@ -1075,6 +1204,7 @@ async function initializeProfile() {
     $("proceso").hidden = true;
     $("profile-navigation").querySelector('[data-tab="proceso"]').hidden = true;
     $("edit-profile-button").hidden = true;
+    $("cover-edit-button").hidden = true;
     $("settings-container").hidden = true;
     await checkFollowStatus();
   }
