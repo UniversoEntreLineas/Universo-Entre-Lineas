@@ -1,0 +1,1288 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publicar una historia | Universo Entre Líneas</title>
+
+<style>
+:root {
+    --paper: #F7F1E8;
+    --white: #FFFCF7;
+    --wine: #713847;
+    --dark: #4d2934;
+    --ink: #30272C;
+    --muted: #76666A;
+    --beige: #D8C8B8;
+    --gold: #B69A70;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Georgia, serif;
+}
+
+.site-header {
+    position: relative;
+    padding: 48px 15px 0;
+    background: var(--dark);
+}
+
+.account-area {
+    position: absolute;
+    top: 12px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font: 13px Arial, sans-serif;
+    visibility: hidden;
+}
+
+.account-link {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.account-link:hover {
+    text-decoration: underline;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--white);
+    text-decoration: none;
+}
+
+.profile-thumbnail,
+.profile-initial {
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold);
+    color: var(--dark);
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 22px;
+    padding: 10px 16px;
+    background: var(--dark);
+    font: 13px Arial, sans-serif;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+nav a:hover,
+nav a.activo {
+    color: #D8C8B8;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 22px 75px;
+}
+
+.encabezado {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.encabezado .decoracion {
+    color: var(--gold);
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.encabezado h1 {
+    color: var(--wine);
+    font-size: 34px;
+    font-weight: normal;
+    margin-bottom: 12px;
+}
+
+.encabezado p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.formulario {
+    background: var(--white);
+    border: 1px solid var(--beige);
+    padding: 35px;
+}
+
+.seccion {
+    margin-bottom: 32px;
+}
+
+.seccion h2 {
+    color: var(--wine);
+    font-size: 21px;
+    font-weight: normal;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--beige);
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.campo {
+    margin-bottom: 21px;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--beige);
+    background: transparent;
+    color: var(--ink);
+    font-family: Georgia, serif;
+    font-size: 15px;
+    outline: none;
+    border-radius: 0;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--wine);
+}
+
+textarea {
+    min-height: 130px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+#contenido {
+    min-height: 320px;
+}
+
+small,
+.ayuda {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 7px;
+}
+
+.opciones-tipo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.opcion-tipo {
+    border: 1px solid var(--beige);
+    padding: 19px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.opcion-tipo:has(input:checked) {
+    border-color: var(--wine);
+    background: #f6edf0;
+}
+
+.opcion-tipo input {
+    accent-color: var(--wine);
+    margin-right: 7px;
+}
+
+.opcion-tipo strong {
+    display: block;
+    color: var(--wine);
+    font-size: 15px;
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+
+.opcion-tipo span {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.portada-contenedor {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.portada-preview {
+    width: 125px;
+    height: 170px;
+    border: 1px dashed var(--beige);
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+.portada-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.portada-campo {
+    flex: 1;
+    min-width: 200px;
+}
+
+input[type="file"] {
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.categorias-grupo {
+    margin-bottom: 18px;
+}
+
+.categorias-grupo h3 {
+    color: var(--wine);
+    font-size: 15px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.categorias-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.categoria-opcion {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--beige);
+    padding: 8px 11px;
+    font-size: 12px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.categoria-opcion:has(input:checked) {
+    border-color: var(--wine);
+    background: #f6edf0;
+    color: var(--wine);
+}
+
+.categoria-opcion input {
+    accent-color: var(--wine);
+}
+
+.capitulo-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.capitulo-cabecera h3 {
+    color: var(--wine);
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.boton-secundario {
+    padding: 9px 13px;
+    border: 1px solid var(--wine);
+    background: transparent;
+    color: var(--wine);
+    font-family: Georgia, serif;
+    cursor: pointer;
+}
+
+.boton-secundario:hover {
+    background: #f6edf0;
+}
+
+.capitulo-bloque {
+    border: 1px solid var(--beige);
+    padding: 20px;
+    margin-bottom: 17px;
+    background: #fffefa;
+}
+
+.capitulo-bloque .numero-capitulo {
+    color: var(--gold);
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.capitulo-bloque .quitar-capitulo {
+    display: block;
+    margin: 12px 0 0 auto;
+    border: none;
+    background: transparent;
+    color: #A33333;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    font-size: 12px;
+}
+
+.capitulo-bloque textarea {
+    min-height: 220px;
+}
+
+.acciones {
+    display: flex;
+    gap: 13px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.boton-principal,
+.boton-borrador {
+    flex: 1;
+    min-width: 180px;
+    padding: 15px;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    letter-spacing: .5px;
+    cursor: pointer;
+}
+
+.boton-principal {
+    border: 1px solid var(--wine);
+    background: var(--wine);
+    color: var(--paper);
+}
+
+.boton-principal:hover {
+    background: #59303B;
+}
+
+.boton-borrador {
+    border: 1px solid var(--wine);
+    background: transparent;
+    color: var(--wine);
+}
+
+.boton-borrador:hover {
+    background: #f6edf0;
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: wait;
+}
+
+.mensaje {
+    margin-top: 22px;
+    padding: 13px;
+    display: none;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.mensaje.exito {
+    display: block;
+    background: #edf4ed;
+    color: #416B50;
+}
+
+.mensaje.error {
+    display: block;
+    background: #f8eeee;
+    color: #A33333;
+}
+
+.mensaje.aviso {
+    display: block;
+    background: #f4efe4;
+    color: #765D35;
+}
+
+footer {
+    padding: 25px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--beige);
+}
+
+@media(max-width: 650px) {
+    .site-header {
+        padding: 48px 12px 0;
+    }
+
+    .account-area {
+        top: 10px;
+        right: 12px;
+        left: 12px;
+        justify-content: flex-end;
+        font-size: 11px;
+    }
+
+    nav {
+        gap: 13px;
+        padding: 10px;
+    }
+
+    main {
+        padding: 35px 14px 55px;
+    }
+
+    .formulario {
+        padding: 22px 17px;
+    }
+
+    .encabezado h1 {
+        font-size: 29px;
+    }
+
+    .opciones-tipo {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones {
+        flex-direction: column;
+    }
+
+    .boton-principal,
+    .boton-borrador {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="account-area" id="account-area">
+        <div id="guest-account">
+            <a class="account-link" href="login.html">Iniciar sesión</a>
+            <a class="account-link" href="registro.html">Crear cuenta</a>
+        </div>
+
+        <div id="user-account" style="display:none;">
+            <a href="perfil.html" class="profile-link">
+                <img id="profile-thumbnail" class="profile-thumbnail"
+                     src="" alt="Foto de perfil" style="display:none;">
+                <span id="profile-initial" class="profile-initial"></span>
+                <span id="profile-name"></span>
+            </a>
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="historias.html">Biblioteca</a>
+        <a href="categorias.html">Categorías</a>
+        <a href="comunidad.html">Comunidad</a>
+        <a href="destacadas.html">Destacadas</a>
+        <a href="nosotros.html">Nosotros</a>
+    </nav>
+
+</header>
+
+<main>
+
+    <section class="encabezado">
+        <div class="decoracion">✦</div>
+        <h1>Dar vida a una historia</h1>
+        <p>
+            Cada universo comienza con unas palabras.
+            Este es el lugar para compartir las tuyas.
+        </p>
+    </section>
+
+    <form class="formulario" id="publishForm">
+
+        <section class="seccion">
+            <h2>01. Tipo de publicación</h2>
+
+            <div class="opciones-tipo">
+
+                <label class="opcion-tipo">
+                    <strong>
+                        <input type="radio" name="tipo" value="complete" checked>
+                        Historia completa
+                    </strong>
+                    <span>
+                        Publica tu relato en una sola entrega.
+                        Todo el contenido estará en un único capítulo.
+                    </span>
+                </label>
+
+                <label class="opcion-tipo">
+                    <strong>
+                        <input type="radio" name="tipo" value="serial">
+                        Historia por capítulos
+                    </strong>
+                    <span>
+                        Crea una obra y publica sus capítulos
+                        individualmente, cuando estén listos.
+                    </span>
+                </label>
+
+            </div>
+        </section>
+
+        <section class="seccion">
+            <h2>02. Información de la obra</h2>
+
+            <div class="campo">
+                <label for="title">Título de la historia *</label>
+                <input type="text" id="title" maxlength="150"
+                       placeholder="Escribe el título de tu obra" required>
+            </div>
+
+            <div class="campo">
+                <label for="synopsis">Sinopsis</label>
+                <textarea id="synopsis" maxlength="2000"
+                          placeholder="Cuéntales a los lectores de qué trata tu historia..."></textarea>
+                <small>Máximo 2000 caracteres.</small>
+            </div>
+
+            <div class="campo">
+                <label>Portada de la historia</label>
+
+                <div class="portada-contenedor">
+                    <div class="portada-preview" id="coverPreview">
+                        Vista previa
+                    </div>
+
+                    <div class="portada-campo">
+                        <input type="file" id="cover"
+                               accept="image/png,image/jpeg,image/webp">
+                        <small>
+                            Formatos permitidos: JPG, PNG o WEBP.
+                            Tamaño máximo: 5 MB.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label for="contentRating">Clasificación de contenido</label>
+                <select id="contentRating">
+                    <option value="general">General</option>
+                    <option value="teen">Adolescentes</option>
+                    <option value="mature">Adulto</option>
+                </select>
+                <small>
+                    Elige la clasificación que mejor corresponda al contenido de tu obra.
+                </small>
+            </div>
+        </section>
+
+        <section class="seccion">
+            <h2>03. Categorías</h2>
+            <p class="ayuda">
+                Puedes seleccionar varias categorías para que los lectores encuentren tu obra.
+            </p>
+
+            <div id="categoriesContainer">
+                Cargando categorías...
+            </div>
+        </section>
+
+        <section class="seccion">
+            <h2>04. Contenido</h2>
+
+            <div id="completeContent">
+                <div class="campo">
+                    <label for="completeTitle">Título de la entrega</label>
+                    <input type="text" id="completeTitle"
+                           maxlength="150" value="Historia completa">
+                    <small>
+                        El contenido se guardará como una única entrega.
+                    </small>
+                </div>
+
+                <div class="campo">
+                    <label for="completeText">Texto de la historia *</label>
+                    <textarea id="completeText"
+                              placeholder="Comienza a escribir tu historia..."
+                              ></textarea>
+                </div>
+            </div>
+
+            <div id="serialContent" style="display:none;">
+
+                <div class="capitulo-cabecera">
+                    <h3>Capítulos de la obra</h3>
+                    <button type="button" class="boton-secundario"
+                            id="addChapter">
+                        + Añadir capítulo
+                    </button>
+                </div>
+
+                <div id="chaptersContainer"></div>
+
+                <small>
+                    Puedes añadir varios capítulos. Los capítulos vacíos
+                    no se guardarán. Los capítulos escritos se guardarán
+                    con el mismo estado de publicación que la obra.
+                </small>
+
+            </div>
+        </section>
+
+        <div class="acciones">
+            <button type="button" class="boton-borrador" id="saveDraft">
+                GUARDAR BORRADOR
+            </button>
+
+            <button type="submit" class="boton-principal" id="publishButton">
+                PUBLICAR HISTORIA
+            </button>
+        </div>
+
+        <div class="mensaje" id="message" aria-live="polite"></div>
+
+    </form>
+
+</main>
+
+<footer>
+    Universo Entre Líneas · Cada historia tiene un lugar.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+(function() {
+    const db = window.supabaseClient;
+
+    const accountArea = document.getElementById("account-area");
+    const guestAccount = document.getElementById("guest-account");
+    const userAccount = document.getElementById("user-account");
+    const profileName = document.getElementById("profile-name");
+    const profileThumbnail = document.getElementById("profile-thumbnail");
+    const profileInitial = document.getElementById("profile-initial");
+
+    const form = document.getElementById("publishForm");
+    const message = document.getElementById("message");
+    const publishButton = document.getElementById("publishButton");
+    const saveDraftButton = document.getElementById("saveDraft");
+
+    const completeContent = document.getElementById("completeContent");
+    const serialContent = document.getElementById("serialContent");
+    const completeText = document.getElementById("completeText");
+    const completeTitle = document.getElementById("completeTitle");
+    const chaptersContainer = document.getElementById("chaptersContainer");
+    const categoriesContainer = document.getElementById("categoriesContainer");
+    const coverInput = document.getElementById("cover");
+    const coverPreview = document.getElementById("coverPreview");
+
+    let currentUser = null;
+    let chapterCounter = 0;
+    let saving = false;
+
+    function showMessage(text, type) {
+        message.textContent = text;
+        message.className = "mensaje " + type;
+    }
+
+    function clearMessage() {
+        message.textContent = "";
+        message.className = "mensaje";
+    }
+
+    async function updateAccount(session) {
+        if (!session || !session.user) {
+            currentUser = null;
+            guestAccount.style.display = "block";
+            userAccount.style.display = "none";
+            return;
+        }
+
+        currentUser = session.user;
+
+        const { data: profile, error } = await db
+            .from("profiles")
+            .select("username, display_name, avatar_url")
+            .eq("id", currentUser.id)
+            .maybeSingle();
+
+        if (error) {
+            console.error("Error al cargar el perfil:", error);
+        }
+
+        const name =
+            profile?.display_name ||
+            profile?.username ||
+            currentUser.email?.split("@")[0] ||
+            "Mi perfil";
+
+        profileName.textContent = name;
+        profileInitial.textContent = name.trim().charAt(0).toUpperCase() || "U";
+
+        if (profile?.avatar_url) {
+            profileThumbnail.src = profile.avatar_url;
+            profileThumbnail.style.display = "block";
+            profileInitial.style.display = "none";
+
+            profileThumbnail.onerror = function() {
+                profileThumbnail.style.display = "none";
+                profileInitial.style.display = "flex";
+            };
+        } else {
+            profileThumbnail.style.display = "none";
+            profileInitial.style.display = "flex";
+        }
+
+        guestAccount.style.display = "none";
+        userAccount.style.display = "flex";
+    }
+
+    async function initialize() {
+        if (!db) {
+            showMessage(
+                "No se pudo conectar con Supabase. Comprueba el archivo supabase.js.",
+                "error"
+            );
+            accountArea.style.visibility = "visible";
+            return;
+        }
+
+        const { data, error } = await db.auth.getSession();
+
+        if (error) {
+            console.error(error);
+        }
+
+        await updateAccount(data?.session || null);
+        accountArea.style.visibility = "visible";
+
+        if (!currentUser) {
+            showMessage(
+                "Necesitas iniciar sesión para publicar una historia. Te llevaremos a la página de acceso.",
+                "aviso"
+            );
+
+            setTimeout(function() {
+                window.location.href = "login.html";
+            }, 1800);
+
+            return;
+        }
+
+        await loadCategories();
+        addChapter();
+    }
+
+    async function loadCategories() {
+        const { data, error } = await db
+            .from("categories")
+            .select("id, family, name")
+            .order("family")
+            .order("name");
+
+        if (error) {
+            console.error("Error al cargar categorías:", error);
+            categoriesContainer.textContent =
+                "No se pudieron cargar las categorías. " + error.message;
+            return;
+        }
+
+        if (!data || data.length === 0) {
+            categoriesContainer.textContent =
+                "Todavía no hay categorías disponibles.";
+            return;
+        }
+
+        categoriesContainer.innerHTML = "";
+
+        const families = {};
+
+        data.forEach(function(category) {
+            if (!families[category.family]) {
+                families[category.family] = [];
+            }
+
+            families[category.family].push(category);
+        });
+
+        Object.keys(families).forEach(function(family, index) {
+            const group = document.createElement("div");
+            group.className = "categorias-grupo";
+
+            const heading = document.createElement("h3");
+            heading.textContent = family;
+            group.appendChild(heading);
+
+            const list = document.createElement("div");
+            list.className = "categorias-lista";
+
+            families[family].forEach(function(category) {
+                const label = document.createElement("label");
+                label.className = "categoria-opcion";
+
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "categories";
+                checkbox.value = category.id;
+
+                const span = document.createElement("span");
+                span.textContent = category.name;
+
+                label.appendChild(checkbox);
+                label.appendChild(span);
+                list.appendChild(label);
+            });
+
+            group.appendChild(list);
+            categoriesContainer.appendChild(group);
+        });
+    }
+
+    function getPublicationType() {
+        return document.querySelector('input[name="tipo"]:checked').value;
+    }
+
+    document.querySelectorAll('input[name="tipo"]').forEach(function(input) {
+        input.addEventListener("change", function() {
+            const serial = getPublicationType() === "serial";
+
+            completeContent.style.display = serial ? "none" : "block";
+            serialContent.style.display = serial ? "block" : "none";
+
+            clearMessage();
+        });
+    });
+
+    function addChapter() {
+        chapterCounter++;
+
+        const block = document.createElement("div");
+        block.className = "capitulo-bloque";
+
+        const number = chapterCounter;
+
+        const heading = document.createElement("div");
+        heading.className = "numero-capitulo";
+        heading.textContent = "CAPÍTULO " + number;
+
+        const titleLabel = document.createElement("label");
+        titleLabel.textContent = "Título del capítulo";
+
+        const titleInput = document.createElement("input");
+        titleInput.type = "text";
+        titleInput.className = "chapter-title";
+        titleInput.maxLength = 150;
+        titleInput.placeholder = "Título del capítulo";
+
+        const contentLabel = document.createElement("label");
+        contentLabel.textContent = "Contenido";
+        contentLabel.style.marginTop = "17px";
+
+        const contentArea = document.createElement("textarea");
+        contentArea.className = "chapter-content";
+        contentArea.placeholder = "Escribe el contenido de este capítulo...";
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "quitar-capitulo";
+        removeButton.textContent = "Eliminar capítulo";
+
+        removeButton.addEventListener("click", function() {
+            block.remove();
+            renumberChapters();
+        });
+
+        block.appendChild(heading);
+        block.appendChild(titleLabel);
+        block.appendChild(titleInput);
+        block.appendChild(contentLabel);
+        block.appendChild(contentArea);
+        block.appendChild(removeButton);
+
+        chaptersContainer.appendChild(block);
+        renumberChapters();
+    }
+
+    function renumberChapters() {
+        const blocks = chaptersContainer.querySelectorAll(".capitulo-bloque");
+
+        blocks.forEach(function(block, index) {
+            block.querySelector(".numero-capitulo").textContent =
+                "CAPÍTULO " + (index + 1);
+        });
+    }
+
+    document.getElementById("addChapter").addEventListener("click", function() {
+        addChapter();
+    });
+
+    coverInput.addEventListener("change", function() {
+        const file = coverInput.files[0];
+
+        if (!file) {
+            coverPreview.textContent = "Vista previa";
+            return;
+        }
+
+        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+            coverInput.value = "";
+            coverPreview.textContent = "Vista previa";
+            showMessage("Elige una imagen JPG, PNG o WEBP.", "error");
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            coverInput.value = "";
+            coverPreview.textContent = "Vista previa";
+            showMessage("La portada no puede superar los 5 MB.", "error");
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            coverPreview.innerHTML = "";
+
+            const image = document.createElement("img");
+            image.src = event.target.result;
+            image.alt = "Vista previa de portada";
+
+            coverPreview.appendChild(image);
+        };
+
+        reader.readAsDataURL(file);
+        clearMessage();
+    });
+
+    async function uploadCover(file) {
+        if (!file) return null;
+
+        const extension = file.name.split(".").pop().toLowerCase();
+        const safeExtension = ["jpg", "jpeg", "png", "webp"].includes(extension)
+            ? extension
+            : "jpg";
+
+        const filePath =
+            currentUser.id + "/" + crypto.randomUUID() + "." + safeExtension;
+
+        const { error } = await db.storage
+            .from("story-covers")
+            .upload(filePath, file, {
+                cacheControl: "3600",
+                upsert: false,
+                contentType: file.type
+            });
+
+        if (error) {
+            throw new Error("No se pudo subir la portada: " + error.message);
+        }
+
+        const { data } = db.storage
+            .from("story-covers")
+            .getPublicUrl(filePath);
+
+        return data.publicUrl;
+    }
+
+    function getSelectedCategories() {
+        return Array.from(
+            document.querySelectorAll('input[name="categories"]:checked')
+        ).map(function(input) {
+            return input.value;
+        });
+    }
+
+    function getChapters() {
+        const blocks = Array.from(
+            chaptersContainer.querySelectorAll(".capitulo-bloque")
+        );
+
+        return blocks
+            .map(function(block, index) {
+                return {
+                    title: block.querySelector(".chapter-title").value.trim(),
+                    content: block.querySelector(".chapter-content").value.trim(),
+                    chapter_number: index + 1
+                };
+            })
+            .filter(function(chapter) {
+                return chapter.title || chapter.content;
+            });
+    }
+
+    function validateForm(isPublishing) {
+        const title = document.getElementById("title").value.trim();
+
+        if (!title) {
+            showMessage("Escribe el título de la historia.", "error");
+            return false;
+        }
+
+        const type = getPublicationType();
+
+        if (type === "complete") {
+            const content = completeText.value.trim();
+
+            if (isPublishing && !content) {
+                showMessage(
+                    "Escribe el contenido de la historia antes de publicarla.",
+                    "error"
+                );
+                return false;
+            }
+
+            if (content && !completeTitle.value.trim()) {
+                showMessage("Escribe el título de la entrega.", "error");
+                return false;
+            }
+        }
+
+        if (type === "serial") {
+            const chapters = getChapters();
+
+            if (isPublishing && chapters.length === 0) {
+                showMessage(
+                    "Añade al menos un capítulo con contenido antes de publicar.",
+                    "error"
+                );
+                return false;
+            }
+
+            for (const chapter of chapters) {
+                if (!chapter.title || !chapter.content) {
+                    showMessage(
+                        "Cada capítulo que quieras guardar necesita un título y contenido.",
+                        "error"
+                    );
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    async function saveStory(isPublishing) {
+        if (saving) return;
+
+        if (!currentUser) {
+            showMessage("Tu sesión no está activa. Inicia sesión nuevamente.", "error");
+            return;
+        }
+
+        if (!validateForm(isPublishing)) return;
+
+        saving = true;
+        publishButton.disabled = true;
+        saveDraftButton.disabled = true;
+
+        publishButton.textContent = isPublishing
+            ? "PUBLICANDO..."
+            : "GUARDANDO...";
+
+        saveDraftButton.textContent = "PROCESANDO...";
+
+        clearMessage();
+
+        let storyId = null;
+
+        try {
+            const title = document.getElementById("title").value.trim();
+            const synopsis = document.getElementById("synopsis").value.trim();
+            const contentRating = document.getElementById("contentRating").value;
+            const status = isPublishing ? "published" : "draft";
+
+            const coverFile = coverInput.files[0];
+            const coverUrl = await uploadCover(coverFile);
+
+            const { data: story, error: storyError } = await db
+                .from("stories")
+                .insert({
+                    author_id: currentUser.id,
+                    title: title,
+                    synopsis: synopsis,
+                    cover_url: coverUrl,
+                    status: status,
+                    content_rating: contentRating
+                })
+                .select("id")
+                .single();
+
+            if (storyError) throw storyError;
+
+            storyId = story.id;
+
+            const selectedCategories = getSelectedCategories();
+
+            if (selectedCategories.length > 0) {
+                const categoryRows = selectedCategories.map(function(categoryId) {
+                    return {
+                        story_id: storyId,
+                        category_id: categoryId
+                    };
+                });
+
+                const { error: categoryError } = await db
+                    .from("story_categories")
+                    .insert(categoryRows);
+
+                if (categoryError) {
+                    throw new Error(
+                        "La historia se creó, pero no se pudieron guardar las categorías: " +
+                        categoryError.message +
+                        ". El identificador de la obra es " + storyId
+                    );
+                }
+            }
+
+            let chaptersToSave = [];
+
+            if (getPublicationType() === "complete") {
+                const content = completeText.value.trim();
+
+                if (content) {
+                    chaptersToSave.push({
+                        title: completeTitle.value.trim() || "Historia completa",
+                        content: content,
+                        chapter_number: 1
+                    });
+                }
+            } else {
+                chaptersToSave = getChapters();
+            }
+
+            if (chaptersToSave.length > 0) {
+                const chapterRows = chaptersToSave.map(function(chapter) {
+                    return {
+                        story_id: storyId,
+                        title: chapter.title,
+                        chapter_number: chapter.chapter_number,
+                        content: chapter.content,
+                        is_published: isPublishing
+                    };
+                });
+
+                const { error: chapterError } = await db
+                    .from("chapters")
+                    .insert(chapterRows);
+
+                if (chapterError) {
+                    throw new Error(
+                        "La obra se creó, pero hubo un problema al guardar sus capítulos: " +
+                        chapterError.message +
+                        ". El identificador de la obra es " + storyId
+                    );
+                }
+            }
+
+            if (isPublishing) {
+                showMessage(
+                    "¡Tu historia se publicó correctamente! Ya está guardada en Universo Entre Líneas.",
+                    "exito"
+                );
+            } else {
+                showMessage(
+                    "Tu historia se guardó como borrador. Podrás continuar trabajando en ella.",
+                    "exito"
+                );
+            }
+
+            form.reset();
+            chaptersContainer.innerHTML = "";
+            chapterCounter = 0;
+            addChapter();
+
+            coverPreview.textContent = "Vista previa";
+            completeContent.style.display = "block";
+            serialContent.style.display = "none";
+
+            document.querySelector(
+                'input[name="tipo"][value="complete"]'
+            ).checked = true;
+
+            await loadCategories();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        } catch (error) {
+            console.error("Error al guardar la historia:", error);
+
+            showMessage(
+                error.message ||
+                "Ocurrió un error al guardar la historia.",
+                "error"
+            );
+
+        } finally {
+            saving = false;
+            publishButton.disabled = false;
+            saveDraftButton.disabled = false;
+            publishButton.textContent = "PUBLICAR HISTORIA";
+            saveDraftButton.textContent = "GUARDAR BORRADOR";
+        }
+    }
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        saveStory(true);
+    });
+
+    saveDraftButton.addEventListener("click", function() {
+        saveStory(false);
+    });
+
+    initialize();
+
+})();
+</script>
+
+</body>
+</html>
