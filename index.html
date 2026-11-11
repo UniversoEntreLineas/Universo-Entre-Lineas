@@ -68,7 +68,7 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 30px;
+      gap: 25px;
       padding: 17px 15px;
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
@@ -79,6 +79,23 @@
 
     nav a:hover {
       color: var(--wine);
+    }
+
+    .account-link {
+      color: var(--wine);
+      font-weight: bold;
+    }
+
+    .account-register {
+      padding: 8px 13px;
+      margin-top: -8px;
+      margin-bottom: -8px;
+      border: 1px solid var(--wine);
+    }
+
+    .account-register:hover {
+      background: var(--wine);
+      color: var(--white);
     }
 
     .hero {
@@ -311,15 +328,16 @@
     <div class="brand-subtitle">UN LUGAR PARA CADA HISTORIA</div>
   </header>
 
-  
-<nav>
+  <nav>
     <a href="index.html">Inicio</a>
     <a href="historias.html">Biblioteca</a>
     <a href="destacadas.html">Destacadas</a>
     <a href="categorias.html">Categorías</a>
     <a href="comunidad.html">Comunidad</a>
     <a href="nosotros.html">Nosotros</a>
-</nav>
+    <a class="account-link" href="login.html">Iniciar sesión</a>
+    <a class="account-link account-register" href="registro.html">Crear cuenta</a>
+  </nav>
 
   <div class="hero">
     <div class="eyebrow">Biblioteca literaria</div>
@@ -358,20 +376,18 @@
             seleccionadas de nuestra comunidad. Aquí
             encontrarás nuevas voces, mundos y personajes.
           </p>
-         <a class="text-link" href="destacadas.html">
-    DESCUBRIR HISTORIAS
-</a>
+
+          <a class="text-link" href="destacadas.html">
+            DESCUBRIR HISTORIAS
+          </a>
         </div>
       </div>
     </section>
-
 
     <div class="quote">
       «Toda historia encuentra su lugar.
       Toda palabra deja una huella».
     </div>
-
-
 
   </main>
 
@@ -380,8 +396,9 @@
     <p>Un lugar para cada historia.</p>
     <p>© 2026 · Biblioteca literaria</p>
   </footer>
-  
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
 </body>
 </html>
