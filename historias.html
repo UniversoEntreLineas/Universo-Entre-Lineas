@@ -426,6 +426,7 @@ footer {
   <a href="categorias.html">Categorías</a>
   <a href="comunidad.html">Comunidad</a>
   <a href="destacadas.html">Destacadas</a>
+  <a href="publicar.html">Publicar</a>
   <a href="nosotros.html">Nosotros</a>
 </nav>
 
@@ -655,14 +656,12 @@ const stories = [
   }
 ];
 
-
 // ======================================
 // ELEMENTOS DE LA PÁGINA
 // ======================================
 
 const books = document.getElementById("books");
 const count = document.getElementById("count");
-
 
 // ======================================
 // MOSTRAR LAS HISTORIAS
@@ -730,7 +729,6 @@ function renderBooks(list) {
   });
 }
 
-
 // ======================================
 // FILTRAR HISTORIAS
 // ======================================
@@ -766,7 +764,6 @@ function filterBooks() {
   renderBooks(filtered);
 }
 
-
 // ======================================
 // LIMPIAR FILTROS
 // ======================================
@@ -780,7 +777,6 @@ function resetFilters() {
   filterBooks();
 }
 
-
 // ======================================
 // ACTIVAR LOS FILTROS
 // ======================================
@@ -788,7 +784,6 @@ function resetFilters() {
 ["search", "type", "genre", "status"].forEach(id => {
   document.getElementById(id).addEventListener("input", filterBooks);
 });
-
 
 // ======================================
 // LEER EL GÉNERO DESDE LA DIRECCIÓN WEB
@@ -810,7 +805,6 @@ if (selectedGenre) {
   }
 }
 
-
 // ======================================
 // MOSTRAR EL CATÁLOGO INICIAL
 // ======================================
@@ -824,9 +818,7 @@ filterBooks();
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 
-<!-- ======================================
-     ACCESO A LA CUENTA Y PERFIL
-====================================== -->
+<!-- ACCESO A LA CUENTA Y PERFIL -->
 
 <script>
 (async function loadAccount() {
@@ -906,7 +898,6 @@ filterBooks();
 
   await updateAccount(session);
 
-  // Mostrar la cuenta después de comprobar la sesión.
   accountArea.style.visibility = "visible";
 
   db.auth.onAuthStateChange((_event, session) => {
