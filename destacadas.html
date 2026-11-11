@@ -349,13 +349,14 @@ footer {
 
   </div>
 
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="historias.html">Biblioteca</a>
-    <a href="categorias.html">Categorías</a>
-    <a href="comunidad.html">Comunidad</a>
-    <a href="destacadas.html">Destacadas</a>
-    <a href="nosotros.html">Nosotros</a>
+  <nav id="main-navigation">
+    <a href="index.html" data-page="index.html">Inicio</a>
+    <a href="historias.html" data-page="historias.html">Biblioteca</a>
+    <a href="categorias.html" data-page="categorias.html">Categorías</a>
+    <a href="comunidad.html" data-page="comunidad.html">Comunidad</a>
+    <a href="destacadas.html" data-page="destacadas.html">Destacadas</a>
+    <a href="publicar.html" data-page="publicar.html">Publicar</a>
+    <a href="nosotros.html" data-page="nosotros.html">Nosotros</a>
   </nav>
 
 </header>
@@ -437,6 +438,31 @@ footer {
 <footer>
   Universo Entre Líneas · Un lugar para cada historia
 </footer>
+
+<script>
+/* OCULTAR LA PÁGINA ACTUAL DEL MENÚ */
+
+(function updateNavigation() {
+
+  const currentPage = window.location.pathname
+    .split("/")
+    .pop()
+    .toLowerCase() || "index.html";
+
+  const navigationLinks = document.querySelectorAll(
+    "#main-navigation a[data-page]"
+  );
+
+  navigationLinks.forEach(link => {
+    const targetPage = link.dataset.page.toLowerCase();
+
+    if (targetPage === currentPage) {
+      link.style.display = "none";
+    }
+  });
+
+})();
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
