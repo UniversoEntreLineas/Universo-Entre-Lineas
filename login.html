@@ -138,7 +138,7 @@ button:disabled {
 
 <main class="contenedor">
 
-    <a class="volver" href="index.html">← Volver al inicio</a>
+    <a class="volver" id="volverLink" href="index.html">← Volver</a>
 
     <div class="decoracion">✦</div>
 
@@ -186,6 +186,26 @@ button:disabled {
 <script src="supabase.js"></script>
 
 <script>
+// Volver a la página anterior si pertenece al sitio
+const volverLink = document.getElementById("volverLink");
+
+volverLink.addEventListener("click", function(event) {
+    const paginaAnterior = document.referrer;
+
+    if (paginaAnterior) {
+        const urlAnterior = new URL(paginaAnterior);
+
+        const mismoSitio =
+            urlAnterior.origin === window.location.origin &&
+            urlAnterior.pathname.startsWith("/Universo-Entre-Lineas/");
+
+        if (mismoSitio) {
+            event.preventDefault();
+            window.history.back();
+        }
+    }
+});
+
 const formulario = document.getElementById("loginForm");
 const mensaje = document.getElementById("mensaje");
 const boton = document.getElementById("botonLogin");
