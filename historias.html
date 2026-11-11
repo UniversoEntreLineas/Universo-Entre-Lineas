@@ -263,8 +263,14 @@ input, select {
   border: 1px solid var(--line);
 }
 
+.cover-link {
+  display: block;
+  min-width: 0;
+}
+
 .cover {
   min-height: 150px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -274,6 +280,13 @@ input, select {
   text-align: center;
   font-size: 19px;
   font-style: italic;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.cover.has-image {
+  color: transparent;
 }
 
 .book small {
@@ -377,7 +390,7 @@ footer {
 
   nav {
     gap: 13px;
-    padding: 10px 10px;
+    padding: 10px;
   }
 
   .search {
@@ -430,27 +443,6 @@ footer {
   <a href="nosotros.html" data-page="nosotros.html">Nosotros</a>
 </nav>
 
-<script>
-(function updateNavigation() {
-  const currentPage = window.location.pathname
-    .split("/")
-    .pop()
-    .toLowerCase() || "index.html";
-
-  const navigationLinks = document.querySelectorAll(
-    "#main-navigation a[data-page]"
-  );
-
-  navigationLinks.forEach(link => {
-    const targetPage = link.dataset.page.toLowerCase();
-
-    if (targetPage === currentPage) {
-      link.style.display = "none";
-    }
-  });
-})();
-</script>
-
 <div class="hero">
   <h1>La biblioteca</h1>
   <p>Encuentra una historia que merezca quedarse contigo.</p>
@@ -473,116 +465,9 @@ footer {
       <h2>Explorar</h2>
 
       <div class="filter-group">
-        <label for="type">Tipo de obra</label>
-        <select id="type">
-          <option value="">Todos</option>
-          <option value="Original">Original</option>
-          <option value="Fanfiction">Fanfiction</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
         <label for="genre">Género</label>
-
         <select id="genre">
           <option value="">Todos los géneros</option>
-
-          <optgroup label="Romance">
-            <option value="Romance">Romance</option>
-            <option value="Romance contemporáneo">Romance contemporáneo</option>
-            <option value="Romance histórico">Romance histórico</option>
-            <option value="Romance paranormal">Romance paranormal</option>
-            <option value="Romance oscuro">Romance oscuro</option>
-            <option value="Romance juvenil">Romance juvenil</option>
-            <option value="Romance fantástico">Romance fantástico</option>
-          </optgroup>
-
-          <optgroup label="Fantasía">
-            <option value="Fantasía">Fantasía</option>
-            <option value="Fantasía épica">Fantasía épica</option>
-            <option value="Fantasía urbana">Fantasía urbana</option>
-            <option value="Fantasía oscura">Fantasía oscura</option>
-            <option value="Alta fantasía">Alta fantasía</option>
-            <option value="Baja fantasía">Baja fantasía</option>
-            <option value="Cuentos de hadas">Cuentos de hadas</option>
-          </optgroup>
-
-          <optgroup label="Ciencia ficción">
-            <option value="Ciencia ficción">Ciencia ficción</option>
-            <option value="Ciencia ficción espacial">Ciencia ficción espacial</option>
-            <option value="Cyberpunk">Cyberpunk</option>
-            <option value="Steampunk">Steampunk</option>
-            <option value="Distopía">Distopía</option>
-            <option value="Utopía">Utopía</option>
-          </optgroup>
-
-          <optgroup label="Misterio y crimen">
-            <option value="Misterio">Misterio</option>
-            <option value="Policial">Policial</option>
-            <option value="Novela negra">Novela negra</option>
-            <option value="Thriller">Thriller</option>
-            <option value="Suspense">Suspense</option>
-            <option value="Crimen y detectives">Crimen y detectives</option>
-          </optgroup>
-
-          <optgroup label="Terror y sobrenatural">
-            <option value="Terror">Terror</option>
-            <option value="Terror psicológico">Terror psicológico</option>
-            <option value="Terror sobrenatural">Terror sobrenatural</option>
-            <option value="Gótico">Gótico</option>
-            <option value="Paranormal">Paranormal</option>
-            <option value="Sobrenatural">Sobrenatural</option>
-          </optgroup>
-
-          <optgroup label="Drama y emociones">
-            <option value="Drama">Drama</option>
-            <option value="Tragedia">Tragedia</option>
-            <option value="Drama psicológico">Drama psicológico</option>
-            <option value="Melodrama">Melodrama</option>
-            <option value="Vida cotidiana">Vida cotidiana</option>
-          </optgroup>
-
-          <optgroup label="Aventura y acción">
-            <option value="Aventura">Aventura</option>
-            <option value="Acción">Acción</option>
-            <option value="Supervivencia">Supervivencia</option>
-            <option value="Viajes">Viajes</option>
-            <option value="Artes marciales">Artes marciales</option>
-          </optgroup>
-
-          <optgroup label="Historia y mitología">
-            <option value="Histórico">Histórico</option>
-            <option value="Mitología">Mitología</option>
-            <option value="Retelling mitológico">Retelling mitológico</option>
-            <option value="Biográfico">Biográfico</option>
-          </optgroup>
-
-          <optgroup label="Humor y juventud">
-            <option value="Comedia">Comedia</option>
-            <option value="Humor">Humor</option>
-            <option value="Sátira">Sátira</option>
-            <option value="Juvenil">Juvenil</option>
-            <option value="Coming of Age">Coming of Age (crecimiento personal)</option>
-          </optgroup>
-
-          <optgroup label="Literatura y otros">
-            <option value="Poesía">Poesía</option>
-            <option value="Cuento">Cuento</option>
-            <option value="Novela">Novela</option>
-            <option value="Fábula">Fábula</option>
-            <option value="Erótico">Erótico</option>
-            <option value="Experimental">Experimental</option>
-          </optgroup>
-
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label for="status">Estado</label>
-        <select id="status">
-          <option value="">Todos</option>
-          <option value="En curso">En curso</option>
-          <option value="Completa">Completa</option>
         </select>
       </div>
 
@@ -597,7 +482,9 @@ footer {
         <span class="count" id="count"></span>
       </div>
 
-      <div class="books" id="books"></div>
+      <div class="books" id="books">
+        <div class="empty">Cargando historias...</div>
+      </div>
     </section>
 
   </div>
@@ -608,115 +495,283 @@ footer {
   <p>Un lugar para cada historia.</p>
 </footer>
 
+<!-- SUPABASE: DEBE CARGARSE ANTES DE LOS SCRIPTS QUE LO UTILIZAN -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<!-- NAVEGACIÓN -->
+
+<script>
+(function updateNavigation() {
+  const currentPage = window.location.pathname
+    .split("/")
+    .pop()
+    .toLowerCase() || "index.html";
+
+  document.querySelectorAll(
+    "#main-navigation a[data-page]"
+  ).forEach(link => {
+    if (link.dataset.page.toLowerCase() === currentPage) {
+      link.style.display = "none";
+    }
+  });
+})();
+</script>
+
+<!-- BIBLIOTECA DINÁMICA -->
+
 <script>
 
-// ======================================
-// HISTORIAS DE EJEMPLO
-// ======================================
+const db = window.supabaseClient;
 
-const stories = [
-  {
-    title: "Donde mueren las estrellas",
-    author: "Autora de ejemplo",
-    type: "Original",
-    mainGenre: "Drama",
-    secondaryGenres: ["Romance", "Tragedia"],
-    status: "En curso",
-    description: "Hay despedidas que parecen escritas mucho antes de suceder.",
-    tags: ["Estrellas", "Emocional"]
-  },
-  {
-    title: "El jardín de los secretos",
-    author: "Escritor de ejemplo",
-    type: "Original",
-    mainGenre: "Misterio",
-    secondaryGenres: ["Thriller", "Suspense"],
-    status: "Completa",
-    description: "Una casa antigua guarda secretos que nadie quiere recordar.",
-    tags: ["Secretos", "Suspenso"]
-  },
-  {
-    title: "El reino olvidado",
-    author: "Autora de ejemplo",
-    type: "Original",
-    mainGenre: "Fantasía",
-    secondaryGenres: ["Aventura", "Mitología"],
-    status: "En curso",
-    description: "Un reino desaparecido y una promesa que aún sigue vigente.",
-    tags: ["Magia", "Aventura"]
-  },
-  {
-    title: "Después de medianoche",
-    author: "Escritor de ejemplo",
-    type: "Fanfiction",
-    mainGenre: "Romance",
-    secondaryGenres: ["Juvenil", "Drama"],
-    status: "Completa",
-    description: "Una historia alternativa en un universo conocido.",
-    tags: ["Romance", "Alternativo"]
-  },
-  {
-    title: "La última habitación",
-    author: "Autora de ejemplo",
-    type: "Original",
-    mainGenre: "Terror",
-    secondaryGenres: ["Terror psicológico", "Suspense"],
-    status: "En curso",
-    description: "Nadie debería abrir la puerta del último pasillo.",
-    tags: ["Oscuro", "Suspenso"]
-  },
-  {
-    title: "Horizonte de ceniza",
-    author: "Escritor de ejemplo",
-    type: "Original",
-    mainGenre: "Ciencia ficción",
-    secondaryGenres: ["Distopía", "Supervivencia"],
-    status: "Completa",
-    description: "El futuro de la humanidad comienza con una decisión.",
-    tags: ["Futuro", "Tecnología"]
-  }
-];
-
-// ======================================
-// ELEMENTOS DE LA PÁGINA
-// ======================================
-
-const books = document.getElementById("books");
+const booksContainer = document.getElementById("books");
 const count = document.getElementById("count");
+const genreSelect = document.getElementById("genre");
+
+let stories = [];
+let selectedGenreFromUrl = "";
+
+
+// ======================================
+// CARGAR HISTORIAS Y DATOS RELACIONADOS
+// ======================================
+
+async function loadStories() {
+
+  if (!db) {
+    showMessage("No se pudo conectar con la base de datos.");
+    return;
+  }
+
+  booksContainer.innerHTML =
+    '<div class="empty">Cargando historias...</div>';
+
+  const { data: storyData, error: storyError } = await db
+    .from("stories")
+    .select(`
+      id,
+      author_id,
+      title,
+      synopsis,
+      cover_url,
+      status,
+      content_rating,
+      created_at
+    `)
+    .eq("status", "published")
+    .order("created_at", { ascending: false });
+
+  if (storyError) {
+    console.error("Error al cargar las historias:", storyError);
+    showMessage("No se pudieron cargar las historias. Inténtalo más tarde.");
+    return;
+  }
+
+  if (!storyData || storyData.length === 0) {
+    stories = [];
+    renderBooks([]);
+    return;
+  }
+
+  const authorIds = [
+    ...new Set(storyData.map(story => story.author_id))
+  ];
+
+  const storyIds = storyData.map(story => story.id);
+
+  // Cargar autores
+
+  const { data: profiles, error: profilesError } = await db
+    .from("profiles")
+    .select("id, username, display_name")
+    .in("id", authorIds);
+
+  if (profilesError) {
+    console.error("Error al cargar autores:", profilesError);
+  }
+
+  const profileMap = new Map();
+
+  (profiles || []).forEach(profile => {
+    profileMap.set(profile.id, profile);
+  });
+
+  // Cargar relaciones entre historias y categorías
+
+  const { data: relations, error: relationsError } = await db
+    .from("story_categories")
+    .select("story_id, category_id")
+    .in("story_id", storyIds);
+
+  if (relationsError) {
+    console.error("Error al cargar las categorías:", relationsError);
+  }
+
+  const categoryIds = [
+    ...new Set((relations || []).map(item => item.category_id))
+  ];
+
+  let categories = [];
+
+  if (categoryIds.length > 0) {
+
+    const { data: categoryData, error: categoryError } = await db
+      .from("categories")
+      .select("id, name")
+      .in("id", categoryIds);
+
+    if (categoryError) {
+      console.error("Error al consultar categorías:", categoryError);
+    } else {
+      categories = categoryData || [];
+    }
+  }
+
+  const categoryMap = new Map();
+
+  categories.forEach(category => {
+    categoryMap.set(category.id, category.name);
+  });
+
+  const categoriesByStory = new Map();
+
+  (relations || []).forEach(relation => {
+
+    const categoryName = categoryMap.get(relation.category_id);
+
+    if (!categoryName) return;
+
+    if (!categoriesByStory.has(relation.story_id)) {
+      categoriesByStory.set(relation.story_id, []);
+    }
+
+    categoriesByStory.get(relation.story_id).push(categoryName);
+  });
+
+  // Unir los datos
+
+  stories = storyData.map(story => {
+
+    const profile = profileMap.get(story.author_id);
+
+    const author =
+      profile?.display_name ||
+      profile?.username ||
+      "Autor anónimo";
+
+    return {
+      ...story,
+      author,
+      genres: categoriesByStory.get(story.id) || []
+    };
+  });
+
+  populateGenres();
+
+  filterBooks();
+}
+
+
+// ======================================
+// CARGAR GÉNEROS EN EL FILTRO
+// ======================================
+
+function populateGenres() {
+
+  const allGenres = [
+    ...new Set(
+      stories.flatMap(story => story.genres)
+    )
+  ].sort((a, b) => a.localeCompare(b, "es"));
+
+  genreSelect.innerHTML =
+    '<option value="">Todos los géneros</option>';
+
+  allGenres.forEach(genre => {
+
+    const option = document.createElement("option");
+
+    option.value = genre;
+    option.textContent = genre;
+
+    genreSelect.appendChild(option);
+  });
+
+  if (selectedGenreFromUrl) {
+
+    const matchingOption = Array.from(genreSelect.options).find(option =>
+      option.value.toLowerCase() === selectedGenreFromUrl.toLowerCase()
+    );
+
+    if (matchingOption) {
+      genreSelect.value = matchingOption.value;
+    }
+  }
+}
+
 
 // ======================================
 // MOSTRAR LAS HISTORIAS
 // ======================================
 
 function renderBooks(list) {
-  books.innerHTML = "";
+
+  booksContainer.innerHTML = "";
 
   count.textContent = list.length +
     (list.length === 1 ? " historia" : " historias");
 
   if (list.length === 0) {
-    books.innerHTML =
-      '<div class="empty">No encontramos historias con esos criterios.</div>';
+    showMessage("No encontramos historias con esos criterios.");
     return;
   }
 
   list.forEach(story => {
+
     const article = document.createElement("article");
     article.className = "book";
 
+    // Portada
+
+    const coverLink = document.createElement("a");
+    coverLink.className = "cover-link";
+    coverLink.href =
+      "historia.html?id=" + encodeURIComponent(story.id);
+
     const cover = document.createElement("div");
     cover.className = "cover";
-    cover.textContent = story.title;
+
+    if (story.cover_url) {
+
+      cover.style.backgroundImage =
+        `url("${story.cover_url.replace(/"/g, "%22")}")`;
+
+      cover.classList.add("has-image");
+
+      cover.setAttribute("role", "img");
+      cover.setAttribute("aria-label", "Portada de " + story.title);
+
+    } else {
+
+      cover.textContent = story.title;
+    }
+
+    coverLink.appendChild(cover);
+
+    // Información
 
     const content = document.createElement("div");
 
     const type = document.createElement("small");
-    type.textContent = story.type;
+    type.textContent = "Obra publicada";
 
     const title = document.createElement("h3");
     const link = document.createElement("a");
 
-    link.href = "historia.html";
+    link.href =
+      "historia.html?id=" + encodeURIComponent(story.id);
+
     link.textContent = story.title;
 
     title.appendChild(link);
@@ -727,40 +782,61 @@ function renderBooks(list) {
 
     const description = document.createElement("p");
     description.className = "description";
-    description.textContent = story.description;
+
+    description.textContent =
+      story.synopsis || "Esta historia todavía no tiene una sinopsis.";
 
     const tags = document.createElement("div");
     tags.className = "tags";
 
-    [
-      story.mainGenre,
-      ...story.secondaryGenres,
-      story.status,
-      ...story.tags
-    ].forEach(value => {
+    story.genres.forEach(genre => {
+
       const tag = document.createElement("span");
+
       tag.className = "tag";
-      tag.textContent = value;
+      tag.textContent = genre;
+
       tags.appendChild(tag);
     });
 
     content.append(type, title, author, description, tags);
-    article.append(cover, content);
-    books.appendChild(article);
+
+    article.append(coverLink, content);
+
+    booksContainer.appendChild(article);
   });
 }
+
+
+// ======================================
+// MOSTRAR MENSAJES
+// ======================================
+
+function showMessage(message) {
+
+  booksContainer.innerHTML = "";
+
+  const empty = document.createElement("div");
+
+  empty.className = "empty";
+  empty.textContent = message;
+
+  booksContainer.appendChild(empty);
+
+  count.textContent = "";
+}
+
 
 // ======================================
 // FILTRAR HISTORIAS
 // ======================================
 
 function filterBooks() {
+
   const query = document.getElementById("search")
     .value.toLowerCase().trim();
 
-  const type = document.getElementById("type").value;
-  const genre = document.getElementById("genre").value;
-  const status = document.getElementById("status").value;
+  const genre = genreSelect.value;
 
   const filtered = stories.filter(story => {
 
@@ -768,76 +844,58 @@ function filterBooks() {
       story.title.toLowerCase().includes(query) ||
       story.author.toLowerCase().includes(query);
 
-    const allGenres = [
-      story.mainGenre,
-      ...story.secondaryGenres
-    ];
-
     const matchesGenre =
-      !genre || allGenres.includes(genre);
+      !genre || story.genres.includes(genre);
 
-    return matchesQuery &&
-      (!type || story.type === type) &&
-      matchesGenre &&
-      (!status || story.status === status);
+    return matchesQuery && matchesGenre;
   });
 
   renderBooks(filtered);
 }
+
 
 // ======================================
 // LIMPIAR FILTROS
 // ======================================
 
 function resetFilters() {
+
   document.getElementById("search").value = "";
-  document.getElementById("type").value = "";
-  document.getElementById("genre").value = "";
-  document.getElementById("status").value = "";
+  genreSelect.value = "";
 
   filterBooks();
 }
+
 
 // ======================================
 // ACTIVAR LOS FILTROS
 // ======================================
 
-["search", "type", "genre", "status"].forEach(id => {
-  document.getElementById(id).addEventListener("input", filterBooks);
+["search", "genre"].forEach(id => {
+
+  document.getElementById(id).addEventListener(
+    "input",
+    filterBooks
+  );
 });
+
 
 // ======================================
 // LEER EL GÉNERO DESDE LA DIRECCIÓN WEB
 // ======================================
 
 const parameters = new URLSearchParams(window.location.search);
-const selectedGenre = parameters.get("genero");
 
-if (selectedGenre) {
-  const genreSelect = document.getElementById("genre");
+selectedGenreFromUrl = parameters.get("genero") || "";
 
-  const matchingOption = Array.from(genreSelect.options).find(option =>
-    option.value.toLowerCase() === selectedGenre.trim().toLowerCase() ||
-    option.textContent.trim().toLowerCase() === selectedGenre.trim().toLowerCase()
-  );
-
-  if (matchingOption) {
-    genreSelect.value = matchingOption.value;
-  }
-}
 
 // ======================================
-// MOSTRAR EL CATÁLOGO INICIAL
+// INICIAR BIBLIOTECA
 // ======================================
 
-filterBooks();
+loadStories();
 
 </script>
-
-<!-- SUPABASE -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
 
 <!-- ACCESO A LA CUENTA Y PERFIL -->
 
@@ -854,19 +912,23 @@ filterBooks();
   const profileInitial = document.getElementById("profile-initial");
 
   if (!db) {
+
     console.error("No se pudo conectar con Supabase.");
 
     guestAccount.style.display = "block";
     userAccount.style.display = "none";
     accountArea.style.visibility = "visible";
+
     return;
   }
 
   async function updateAccount(session) {
 
     if (!session || !session.user) {
+
       guestAccount.style.display = "block";
       userAccount.style.display = "none";
+
       return;
     }
 
@@ -891,9 +953,11 @@ filterBooks();
     profileName.textContent = name;
 
     const initial = name.trim().charAt(0).toUpperCase() || "U";
+
     profileInitial.textContent = initial;
 
     if (profile?.avatar_url) {
+
       profileThumbnail.src = profile.avatar_url;
       profileThumbnail.style.display = "block";
       profileInitial.style.display = "none";
@@ -902,7 +966,9 @@ filterBooks();
         profileThumbnail.style.display = "none";
         profileInitial.style.display = "flex";
       };
+
     } else {
+
       profileThumbnail.style.display = "none";
       profileInitial.style.display = "flex";
     }
