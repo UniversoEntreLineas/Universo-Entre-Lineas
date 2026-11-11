@@ -316,7 +316,7 @@ footer p{color:#c4b5ae;font:11px Arial,sans-serif;line-height:1.8}
 <script src="supabase.js"></script>
 
 <script>
-const supabase = window.supabaseClient;
+const db = window.supabaseClient;
 
 let currentUser = null;
 let currentProfile = null;
@@ -440,7 +440,7 @@ function createStoryCard(story) {
 }
 
 async function loadStories() {
-  const {data, error} = await supabase
+  const {data, error} = await db
     .from("stories")
     .select("id,title,synopsis,cover_url,status,created_at,updated_at")
     .eq("author_id", currentProfile.id)
@@ -474,11 +474,11 @@ async function loadStories() {
 
 async function loadStats() {
   const [posts, followers, following] = await Promise.all([
-    supabase.from("posts").select("id",{count:"exact",head:true})
+    db.from("posts").select("id",{count:"exact",head:true})
       .eq("author_id",currentProfile.id),
-    supabase.from("follows").select("follower_id",{count:"exact",head:true})
+    db.from("follows").select("follower_id",{count:"exact",head:true})
       .eq("followed_id",currentProfile.id),
-    supabase.from("follows").select("followed_id",{count:"exact",head:true})
+    db.from("follows").select("followed_id",{count:"exact",head:true})
       .eq("follower_id",currentProfile.id)
   ]);
 
@@ -547,7 +547,7 @@ async function loadPeople(type) {
 
   const column = isFollowers ? "follower_id" : "followed_id";
 
-  const {data: relations, error} = await supabase
+  const {data: relations, error} = await db
     .from("follows")
     .select("follower_id,followed_id")
     .eq(isFollowers ? "followed_id" : "follower_id", currentProfile.id);
@@ -565,7 +565,7 @@ async function loadPeople(type) {
     return;
   }
 
-  const {data: profiles, error: profileError} = await supabase
+  const {data: profiles, error: profileError} = await db
     .from("profiles")
     .select("id,username,display_name,avatar_url")
     .in("id", ids);
@@ -586,7 +586,7 @@ async function loadPeople(type) {
 async function checkFollowStatus() {
   if (!currentUser || viewingOwnProfile) return;
 
-  const {data,error} = await supabase
+  const {data,error} = await db
     .from("follows")
     .select("follower_id")
     .eq("follower_id",currentUser.id)
@@ -607,7 +607,7 @@ async function followUser(userId, button) {
 
   button.disabled = true;
 
-  const {error} = await supabase.from("follows").insert({
+  const {error} = await db.from("follows").insert({
     follower_id:currentUser.id,
     followed_id:userId
   });
@@ -630,7 +630,7 @@ async function unfollowUser(userId, button) {
 
   button.disabled = true;
 
-  const {error} = await supabase.from("follows")
+  const {error} = await db.from("follows")
     .delete()
     .eq("follower_id",currentUser.id)
     .eq("followed_id",userId);
@@ -655,7 +655,7 @@ $("follow-profile-button").addEventListener("click", async () => {
   button.disabled = true;
 
   if (button.dataset.following === "true") {
-    const {error} = await supabase.from("follows")
+    const {error} = await db.from("follows")
       .delete()
       .eq("follower_id",currentUser.id)
       .eq("followed_id",currentProfile.id);
@@ -665,7 +665,7 @@ $("follow-profile-button").addEventListener("click", async () => {
       alert("No se pudo dejar de seguir este perfil.");
     }
   } else {
-    const {error} = await supabase.from("follows").insert({
+    const {error} = await db.from("follows").insert({
       follower_id:currentUser.id,
       followed_id:currentProfile.id
     });
@@ -688,7 +688,7 @@ async function loadReadings() {
   list.replaceChildren();
   $("reading-empty").hidden = true;
 
-  let query = supabase
+  let query = db
     .from("user_readings")
     .select("id,story_id,visibility,created_at")
     .eq("user_id",currentProfile.id)
@@ -713,7 +713,7 @@ async function loadReadings() {
 
   const storyIds = readings.map(r => r.story_id);
 
-  const {data: stories,error: storiesError} = await supabase
+  const {data: stories,error: storiesError} = await db
     .from("stories")
     .select("id,title,cover_url,synopsis")
     .in("id",storyIds);
@@ -759,7 +759,7 @@ async function loadReadings() {
       select.value = reading.visibility;
 
       select.addEventListener("change", async () => {
-        const {error} = await supabase.from("user_readings")
+        const {error} = await db.from("user_readings")
           .update({visibility:select.value})
           .eq("id",reading.id)
           .eq("user_id",currentUser.id);
@@ -781,7 +781,7 @@ async function loadReadings() {
       remove.addEventListener("click", async () => {
         if (!confirm("¿Quieres quitar esta obra de tus lecturas?")) return;
 
-        const {error} = await supabase.from("user_readings")
+        const {error} = await db.from("user_readings")
           .delete()
           .eq("id",reading.id)
           .eq("user_id",currentUser.id);
@@ -832,7 +832,7 @@ function createPostCard(post) {
     remove.addEventListener("click",async () => {
       if (!confirm("¿Quieres eliminar esta publicación?")) return;
 
-      const {error} = await supabase.from("posts")
+      const {error} = await db.from("posts")
         .delete()
         .eq("id",post.id)
         .eq("author_id",currentUser.id);
@@ -859,7 +859,7 @@ async function loadPosts() {
   list.replaceChildren();
   $("posts-empty").hidden = true;
 
-  const {data,error} = await supabase
+  const {data,error} = await db
     .from("posts")
     .select("id,author_id,content,created_at")
     .eq("author_id",currentProfile.id)
@@ -885,7 +885,7 @@ $("post-form").addEventListener("submit",async event => {
   button.disabled = true;
   button.textContent = "PUBLICANDO...";
 
-  const {error} = await supabase.from("posts").insert({
+  const {error} = await db.from("posts").insert({
     author_id:currentUser.id,
     content
   });
@@ -941,14 +941,14 @@ async function uploadAvatar(file) {
   const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]/g,"-");
   const path = `${currentUser.id}/${Date.now()}-${safeName}`;
 
-  const {error} = await supabase.storage.from("avatars").upload(path,file,{
+  const {error} = await db.storage.from("avatars").upload(path,file,{
     upsert:false,
     contentType:file.type
   });
 
   if (error) throw error;
 
-  return supabase.storage.from("avatars").getPublicUrl(path).data.publicUrl;
+  return db.storage.from("avatars").getPublicUrl(path).data.publicUrl;
 }
 
 $("edit-profile-form").addEventListener("submit",async event => {
@@ -978,7 +978,7 @@ $("edit-profile-form").addEventListener("submit",async event => {
     let avatarUrl = currentProfile.avatar_url || null;
     if (file) avatarUrl = await uploadAvatar(file);
 
-    const {data,error} = await supabase.from("profiles")
+    const {data,error} = await db.from("profiles")
       .update({
         display_name:displayName,
         username,
@@ -1022,7 +1022,7 @@ $("logout-button").addEventListener("click",async function() {
   this.disabled = true;
   this.textContent = "Cerrando sesión...";
 
-  const {error} = await supabase.auth.signOut();
+  const {error} = await db.auth.signOut();
 
   if (error) {
     console.error(error);
@@ -1038,12 +1038,12 @@ $("logout-button").addEventListener("click",async function() {
 /* Inicialización */
 
 async function initializeProfile() {
-  if (!supabase) {
+  if (!db) {
     document.body.innerHTML = "<p style='padding:30px;text-align:center'>No se pudo conectar con Supabase. Revisa supabase.js.</p>";
     return;
   }
 
-  const {data:{user},error:authError} = await supabase.auth.getUser();
+  const {data:{user},error:authError} = await db.auth.getUser();
 
   if (authError) console.error(authError);
   currentUser = user || null;
@@ -1056,7 +1056,7 @@ async function initializeProfile() {
   const profileId = requestedProfileId || currentUser.id;
   viewingOwnProfile = !!currentUser && currentUser.id === profileId;
 
-  const {data:profile,error:profileError} = await supabase
+  const {data:profile,error:profileError} = await db
     .from("profiles")
     .select("id,username,display_name,bio,avatar_url,created_at")
     .eq("id",profileId)
