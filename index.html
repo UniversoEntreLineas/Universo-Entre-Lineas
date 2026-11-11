@@ -43,27 +43,31 @@
       display: none;
     }
 
+    /* ENCABEZADO CLARO */
+
     header {
       position: relative;
       text-align: center;
       padding: 34px 20px 25px;
-      background: var(--wine);
-      color: var(--white);
+      background: var(--paper);
+      color: var(--wine);
     }
 
     .brand {
       font-size: clamp(28px, 5vw, 43px);
-      color: var(--white);
+      color: var(--wine);
       letter-spacing: 1px;
     }
 
     .brand-subtitle {
       margin-top: 9px;
-      color: #e6d9d0;
+      color: var(--muted);
       font-family: Arial, sans-serif;
       font-size: 10px;
       letter-spacing: 4px;
     }
+
+    /* CUENTA: CONSERVA SU UBICACIÓN */
 
     .account-area {
       position: absolute;
@@ -76,23 +80,22 @@
       font-family: Arial, sans-serif;
       font-size: 12px;
 
-      /* Se oculta hasta comprobar la sesión */
       visibility: hidden;
     }
 
     .account-link {
-      color: var(--white);
+      color: var(--wine);
       font-weight: bold;
     }
 
     .account-register {
       padding: 8px 13px;
-      border: 1px solid #d8c3ae;
+      border: 1px solid var(--wine);
     }
 
     .account-register:hover {
-      background: var(--white);
-      color: var(--wine);
+      background: var(--wine);
+      color: var(--white);
     }
 
     .user-menu {
@@ -105,7 +108,7 @@
       display: inline-flex;
       align-items: center;
       gap: 9px;
-      color: var(--white);
+      color: var(--wine);
       font-weight: bold;
     }
 
@@ -129,11 +132,13 @@
       display: none;
       align-items: center;
       justify-content: center;
-      background: var(--paper);
-      color: var(--wine);
+      background: var(--wine);
+      color: var(--white);
       font-family: Georgia, serif;
       font-size: 16px;
     }
+
+    /* ZONA OSCURA: NAVEGACIÓN */
 
     nav {
       display: flex;
@@ -141,7 +146,7 @@
       flex-wrap: wrap;
       gap: 25px;
       padding: 17px 15px 22px;
-      background: var(--wine);
+      background: var(--wine-dark);
       color: var(--white);
       font-family: Arial, sans-serif;
       font-size: 13px;
@@ -156,31 +161,35 @@
       color: #d8c3ae;
     }
 
+    /* PRESENTACIÓN DE LA BIBLIOTECA */
+
     .hero {
       text-align: center;
-      padding: 95px 20px 90px;
+      padding: 80px 20px 90px;
       background: var(--wine-dark);
       color: var(--white);
     }
 
     .eyebrow {
-      color: #d8c3ae;
-      font-family: Arial, sans-serif;
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      max-width: 760px;
-      margin: 25px auto 17px;
+      color: #e6d9d0;
+      font-family: Georgia, serif;
       font-size: clamp(36px, 6vw, 58px);
       font-weight: normal;
       line-height: 1.15;
+      margin: 0 auto 18px;
+    }
+
+    .hero-subtitle {
+      margin: 0 auto 24px;
+      color: #d8c3ae;
+      font-size: clamp(17px, 2.5vw, 21px);
+      font-style: italic;
+      font-weight: normal;
+      line-height: 1.5;
     }
 
     .hero p {
-      max-width: 540px;
+      max-width: 600px;
       margin: auto;
       color: #e6d9d0;
       font-size: 16px;
@@ -203,6 +212,8 @@
       background: var(--white);
       color: var(--wine-dark);
     }
+
+    /* CONTENIDO PRINCIPAL */
 
     main {
       width: min(1050px, 90%);
@@ -333,6 +344,8 @@
       line-height: 1.6;
     }
 
+    /* PIE DE PÁGINA */
+
     footer {
       padding: 38px 20px;
       background: var(--ink);
@@ -346,6 +359,8 @@
       font-size: 11px;
       line-height: 1.8;
     }
+
+    /* CELULARES */
 
     @media (max-width: 650px) {
       header {
@@ -373,7 +388,15 @@
       }
 
       .hero {
-        padding: 70px 20px;
+        padding: 65px 20px 70px;
+      }
+
+      .eyebrow {
+        font-size: 38px;
+      }
+
+      .hero-subtitle {
+        font-size: 17px;
       }
 
       .featured {
@@ -400,7 +423,10 @@
 
   <div class="top-line"></div>
 
+  <!-- ENCABEZADO CLARO -->
+
   <header>
+
     <div class="account-area" id="account-area">
 
       <span id="guest-menu">
@@ -420,7 +446,10 @@
 
     <div class="brand">Universo Entre Líneas</div>
     <div class="brand-subtitle">UN LUGAR PARA CADA HISTORIA</div>
+
   </header>
+
+  <!-- ZONA OSCURA: NAVEGACIÓN -->
 
   <nav>
     <a href="index.html">Inicio</a>
@@ -431,10 +460,15 @@
     <a href="nosotros.html">Nosotros</a>
   </nav>
 
-  <div class="hero">
-    <div class="eyebrow">Biblioteca literaria</div>
+  <!-- PRESENTACIÓN -->
 
-    <h1>Hay mundos que solo existen entre líneas.</h1>
+  <div class="hero">
+
+    <h1 class="eyebrow">Biblioteca literaria</h1>
+
+    <h2 class="hero-subtitle">
+      Hay mundos que solo existen entre líneas.
+    </h2>
 
     <p>
       Historias originales, universos conocidos y nuevas
@@ -444,11 +478,13 @@
     <a class="hero-button" href="historias.html">
       EXPLORAR LA BIBLIOTECA
     </a>
+
   </div>
 
   <main>
 
     <section id="destacadas">
+
       <div class="section-heading">
         <span>Una selección para comenzar</span>
         <h2>Lecturas destacadas</h2>
@@ -456,13 +492,16 @@
       </div>
 
       <div class="featured">
+
         <div class="book-placeholder">
           Un mundo por descubrir
         </div>
 
         <div>
           <small>Espacio editorial</small>
+
           <h3>Una historia está por comenzar</h3>
+
           <p>
             Este espacio estará dedicado a las historias
             seleccionadas de nuestra comunidad. Aquí
@@ -473,7 +512,9 @@
             DESCUBRIR HISTORIAS
           </a>
         </div>
+
       </div>
+
     </section>
 
     <div class="quote">
@@ -576,7 +617,6 @@
 
       await updateMenu(data?.session?.user || null);
 
-      // Mostrar la cuenta solamente después de comprobar la sesión.
       accountArea.style.visibility = "visible";
 
       client.auth.onAuthStateChange(function (event, session) {
