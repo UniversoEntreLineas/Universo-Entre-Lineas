@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Capítulo 1 | Universo Entre Líneas</title>
+<title>Lectura | Universo Entre Líneas</title>
 
 <style>
 :root {
@@ -156,6 +156,18 @@ a {
   margin: 45px 0 35px;
 }
 
+.book-title-link {
+  display: inline-block;
+  color: var(--wine);
+  text-decoration: none;
+  transition: opacity .2s;
+}
+
+.book-title-link:hover {
+  opacity: .7;
+  text-decoration: underline;
+}
+
 .book-info small {
   color: var(--wine);
   letter-spacing: 2px;
@@ -249,6 +261,7 @@ a {
 .chapter-text p {
   margin: 0 0 27px;
   text-align: left;
+  white-space: pre-wrap;
 }
 
 .chapter-text .placeholder {
@@ -257,6 +270,15 @@ a {
   text-align: center;
   margin-top: 50px;
   line-height: 1.9;
+}
+
+/* MENSAJES */
+
+.reader-message {
+  text-align: center;
+  color: var(--muted);
+  padding: 45px 15px;
+  line-height: 1.8;
 }
 
 /* NAVEGACIÓN ENTRE CAPÍTULOS */
@@ -286,10 +308,15 @@ a {
 }
 
 .navigation a:hover,
-.navigation button:hover {
+.navigation button:hover:not(:disabled) {
   background: var(--wine);
   border-color: var(--wine);
   color: white;
+}
+
+.navigation button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
 }
 
 /* PIE DE PÁGINA */
@@ -398,78 +425,92 @@ footer {
 
 <main class="reader">
 
-  <section class="book-info">
-    <small>Donde mueren las estrellas</small>
-    <h1>Capítulo 1</h1>
-    <p>Una historia de Universo Entre Líneas</p>
-  </section>
-
-  <div class="toolbar">
-
-    <button
-      type="button"
-      onclick="changeSize(-1)"
-      aria-label="Reducir tamaño de letra"
-    >
-      A−
-    </button>
-
-    <button
-      type="button"
-      onclick="changeSize(1)"
-      aria-label="Aumentar tamaño de letra"
-    >
-      A+
-    </button>
-
-    <button
-      type="button"
-      class="theme-control"
-      onclick="toggleTheme()"
-      aria-label="Cambiar tema de lectura"
-    >
-      ◐ Tema
-    </button>
-
+  <div id="loading-message" class="reader-message">
+    Cargando capítulo...
   </div>
 
-  <article class="reading-area">
+  <div id="error-message" class="reader-message" style="display:none;">
+    No se pudo cargar este capítulo.
+  </div>
 
-    <div class="chapter-number">Capítulo primero</div>
+  <div id="reader-content" style="display:none;">
 
-    <h2>El comienzo</h2>
+    <section class="book-info">
 
-    <div class="chapter-text" id="chapterText">
+      <a href="#" class="book-title-link" id="book-title-link">
+        <small id="book-title">Título de la historia</small>
+      </a>
 
-      <p class="placeholder">
-        Aquí aparecerá el contenido del capítulo.
-        Este espacio está preparado para la lectura
-        de las historias publicadas en Universo Entre Líneas.
-      </p>
+      <h1 id="chapter-heading">Capítulo</h1>
+
+      <p>Una historia de Universo Entre Líneas</p>
+
+    </section>
+
+    <div class="toolbar">
+
+      <button
+        type="button"
+        onclick="changeSize(-1)"
+        aria-label="Reducir tamaño de letra"
+      >
+        A−
+      </button>
+
+      <button
+        type="button"
+        onclick="changeSize(1)"
+        aria-label="Aumentar tamaño de letra"
+      >
+        A+
+      </button>
+
+      <button
+        type="button"
+        class="theme-control"
+        onclick="toggleTheme()"
+        aria-label="Cambiar tema de lectura"
+      >
+        ◐ Tema
+      </button>
 
     </div>
 
-  </article>
+    <article class="reading-area">
 
-  <nav class="navigation">
+      <div class="chapter-number" id="chapter-number">
+        Capítulo
+      </div>
 
-    <a href="historia.html">← Índice de la obra</a>
+      <h2 id="chapter-title">Título del capítulo</h2>
 
-    <button
-      type="button"
-      onclick="alert('Todavía no hay un capítulo anterior publicado.')"
-    >
-      ← Capítulo anterior
-    </button>
+      <div class="chapter-text" id="chapterText"></div>
 
-    <button
-      type="button"
-      onclick="alert('Este es el último capítulo publicado por ahora.')"
-    >
-      Siguiente capítulo →
-    </button>
+    </article>
 
-  </nav>
+    <nav class="navigation">
+
+      <a href="#" id="story-index">← Índice de la obra</a>
+
+      <button
+        type="button"
+        id="previous-chapter"
+        disabled
+      >
+        ← Capítulo anterior
+      </button>
+
+      <button
+        type="button"
+        id="next-chapter"
+        disabled
+      >
+        Siguiente capítulo →
+      </button>
+
+    </nav>
+
+  </div>
 
 </main>
 
@@ -478,6 +519,8 @@ footer {
 </footer>
 
 <script>
+/* NAVEGACIÓN PRINCIPAL */
+
 (function updateNavigation() {
   const currentPage = window.location.pathname
     .split("/")
@@ -497,6 +540,8 @@ footer {
   });
 })();
 
+/* TAMAÑO DE LETRA */
+
 let fontSize = 19;
 
 function changeSize(amount) {
@@ -509,15 +554,14 @@ function changeSize(amount) {
     fontSize + "px";
 }
 
+/* TEMA DE LECTURA */
+
 function toggleTheme() {
   document.body.classList.toggle("dark");
 }
-</script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
+/* CUENTA DEL USUARIO */
 
-<script>
 (async function loadAccount() {
   const db = window.supabaseClient;
 
@@ -604,7 +648,229 @@ function toggleTheme() {
   });
 
 })();
+
+/* CARGAR HISTORIA Y CAPÍTULO */
+
+(async function loadChapter() {
+  const db = window.supabaseClient;
+
+  const loadingMessage = document.getElementById("loading-message");
+  const errorMessage = document.getElementById("error-message");
+  const readerContent = document.getElementById("reader-content");
+
+  const params = new URLSearchParams(window.location.search);
+
+  const storyId = params.get("id");
+  const chapterId = params.get("capitulo");
+
+  function showError(message) {
+    loadingMessage.style.display = "none";
+    readerContent.style.display = "none";
+    errorMessage.textContent = message;
+    errorMessage.style.display = "block";
+  }
+
+  function navigateToChapter(chapter) {
+    const url =
+      "capitulo.html?id=" +
+      encodeURIComponent(storyId) +
+      "&capitulo=" +
+      encodeURIComponent(chapter.id);
+
+    window.location.href = url;
+  }
+
+  if (!storyId || !chapterId) {
+    showError(
+      "Falta el identificador de la historia o del capítulo. Regresa a la biblioteca y selecciona una obra."
+    );
+    return;
+  }
+
+  if (!db) {
+    showError("No se pudo conectar con la base de datos.");
+    return;
+  }
+
+  try {
+
+    /* OBTENER HISTORIA */
+
+    const { data: story, error: storyError } = await db
+      .from("stories")
+      .select("id, title, status")
+      .eq("id", storyId)
+      .maybeSingle();
+
+    if (storyError) {
+      console.error("Error al cargar la historia:", storyError);
+      showError("No se pudo cargar la historia.");
+      return;
+    }
+
+    if (!story || story.status !== "published") {
+      showError("Esta historia no existe o todavía no está publicada.");
+      return;
+    }
+
+    /* OBTENER CAPÍTULO */
+
+    const { data: chapter, error: chapterError } = await db
+      .from("chapters")
+      .select("id, story_id, title, chapter_number, content, is_published")
+      .eq("id", chapterId)
+      .eq("story_id", storyId)
+      .maybeSingle();
+
+    if (chapterError) {
+      console.error("Error al cargar el capítulo:", chapterError);
+      showError("No se pudo cargar el capítulo.");
+      return;
+    }
+
+    if (!chapter || !chapter.is_published) {
+      showError("Este capítulo no existe o todavía no está publicado.");
+      return;
+    }
+
+    /* OBTENER TODOS LOS CAPÍTULOS PUBLICADOS */
+
+    const { data: chapters, error: chaptersError } = await db
+      .from("chapters")
+      .select("id, title, chapter_number")
+      .eq("story_id", storyId)
+      .eq("is_published", true)
+      .order("chapter_number", { ascending: true });
+
+    if (chaptersError) {
+      console.error("Error al cargar la lista de capítulos:", chaptersError);
+      showError("No se pudo cargar la navegación entre capítulos.");
+      return;
+    }
+
+    const publishedChapters = chapters || [];
+
+    const currentIndex = publishedChapters.findIndex(
+      item => item.id === chapter.id
+    );
+
+    if (currentIndex === -1) {
+      showError("No se encontró este capítulo entre los capítulos publicados.");
+      return;
+    }
+
+    /* MOSTRAR INFORMACIÓN DE LA OBRA */
+
+    document.title =
+      chapter.title + " | " + story.title + " | Universo Entre Líneas";
+
+    const bookTitle = document.getElementById("book-title");
+    const bookTitleLink = document.getElementById("book-title-link");
+
+    bookTitle.textContent = story.title;
+
+    bookTitleLink.href =
+      "historia.html?id=" + encodeURIComponent(story.id);
+
+    /* MOSTRAR INFORMACIÓN DEL CAPÍTULO */
+
+    const chapterLabel = "Capítulo " + chapter.chapter_number;
+
+    document.getElementById("chapter-heading").textContent =
+      chapterLabel;
+
+    document.getElementById("chapter-number").textContent =
+      chapterLabel;
+
+    document.getElementById("chapter-title").textContent =
+      chapter.title;
+
+    /* MOSTRAR CONTENIDO */
+
+    const chapterText = document.getElementById("chapterText");
+
+    chapterText.innerHTML = "";
+
+    if (chapter.content && chapter.content.trim()) {
+
+      const paragraphs = chapter.content
+        .replace(/\r\n/g, "\n")
+        .split(/\n{2,}/);
+
+      paragraphs.forEach(paragraph => {
+        if (!paragraph.trim()) return;
+
+        const p = document.createElement("p");
+        p.textContent = paragraph.trim();
+
+        chapterText.appendChild(p);
+      });
+
+    } else {
+      const placeholder = document.createElement("p");
+      placeholder.className = "placeholder";
+      placeholder.textContent =
+        "Este capítulo todavía no tiene contenido.";
+
+      chapterText.appendChild(placeholder);
+    }
+
+    /* ÍNDICE DE LA OBRA */
+
+    document.getElementById("story-index").href =
+      "historia.html?id=" + encodeURIComponent(story.id);
+
+    /* CAPÍTULO ANTERIOR */
+
+    const previousButton =
+      document.getElementById("previous-chapter");
+
+    if (currentIndex > 0) {
+      previousButton.disabled = false;
+
+      previousButton.addEventListener("click", () => {
+        navigateToChapter(publishedChapters[currentIndex - 1]);
+      });
+    } else {
+      previousButton.disabled = true;
+      previousButton.textContent = "← Primer capítulo";
+    }
+
+    /* SIGUIENTE CAPÍTULO */
+
+    const nextButton =
+      document.getElementById("next-chapter");
+
+    if (currentIndex < publishedChapters.length - 1) {
+      nextButton.disabled = false;
+
+      nextButton.addEventListener("click", () => {
+        navigateToChapter(publishedChapters[currentIndex + 1]);
+      });
+    } else {
+      nextButton.disabled = true;
+      nextButton.textContent = "Último capítulo →";
+    }
+
+    /* MOSTRAR LECTOR */
+
+    loadingMessage.style.display = "none";
+    errorMessage.style.display = "none";
+    readerContent.style.display = "block";
+
+  } catch (error) {
+    console.error("Error inesperado al cargar el capítulo:", error);
+
+    showError(
+      "Ocurrió un error inesperado al intentar abrir este capítulo."
+    );
+  }
+
+})();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 
 </body>
 </html>
