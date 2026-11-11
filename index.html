@@ -96,28 +96,40 @@
       display: none;
       align-items: center;
       justify-content: flex-end;
-      gap: 12px;
     }
 
-    .user-name {
+    .profile-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
       color: var(--wine);
       font-weight: bold;
     }
 
-    .logout-button {
-      cursor: pointer;
-      background: transparent;
-      border: 1px solid var(--wine);
-      padding: 8px 13px;
-      color: var(--wine);
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-      font-weight: bold;
+    .profile-link:hover {
+      opacity: .75;
     }
 
-    .logout-button:hover {
+    .profile-thumbnail {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      background: #e9dfd3;
+    }
+
+    .profile-initial {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
       background: var(--wine);
       color: var(--white);
+      font-family: Georgia, serif;
+      font-size: 16px;
     }
 
     nav {
@@ -341,14 +353,10 @@
         font-size: 11px;
       }
 
-      .user-menu {
-        gap: 8px;
-      }
-
-      .logout-button,
-      .account-register {
-        padding: 7px 9px;
-        font-size: 11px;
+      .profile-thumbnail,
+      .profile-initial {
+        width: 30px;
+        height: 30px;
       }
 
       nav {
@@ -393,10 +401,11 @@
       </span>
 
       <span id="user-menu" class="user-menu">
-        <span id="user-name" class="user-name"></span>
-        <button type="button" id="logout-button" class="logout-button">
-          Cerrar sesión
-        </button>
+        <a href="perfil.html" class="profile-link">
+          <img id="profile-thumbnail" class="profile-thumbnail" alt="Foto de perfil" style="display:none;">
+          <span id="profile-initial" class="profile-initial"></span>
+          <span id="user-name"></span>
+        </a>
       </span>
 
     </div>
@@ -482,7 +491,8 @@
       const guestMenu = document.getElementById("guest-menu");
       const userMenu = document.getElementById("user-menu");
       const userName = document.getElementById("user-name");
-      const logoutButton = document.getElementById("logout-button");
+      const profileThumbnail = document.getElementById("profile-thumbnail");
+      const profileInitial = document.getElementById("profile-initial");
 
       if (!client) {
         console.error("No se encontró la conexión con Supabase.");
@@ -494,6 +504,8 @@
           guestMenu.style.display = "inline";
           userMenu.style.display = "none";
           userName.textContent = "";
+          profileThumbnail.style.display = "none";
+          profileInitial.style.display = "none";
           return;
         }
 
@@ -502,23 +514,43 @@
           user.email?.split("@")[0] ||
           "Usuario";
 
+        let avatarUrl = null;
+
         try {
           const { data, error } = await client
             .from("profiles")
-            .select("display_name")
+            .select("display_name, avatar_url")
             .eq("id", user.id)
             .maybeSingle();
 
           if (error) {
             console.error("No se pudo consultar el perfil:", error);
-          } else if (data?.display_name) {
-            displayName = data.display_name;
+          } else if (data) {
+            displayName = data.display_name || displayName;
+            avatarUrl = data.avatar_url;
           }
         } catch (error) {
           console.error("Error al consultar el perfil:", error);
         }
 
         userName.textContent = displayName;
+
+        if (avatarUrl) {
+          profileThumbnail.src = avatarUrl;
+          profileThumbnail.style.display = "block";
+          profileInitial.style.display = "none";
+
+          profileThumbnail.onerror = function () {
+            profileThumbnail.style.display = "none";
+            profileInitial.textContent = displayName.charAt(0).toUpperCase();
+            profileInitial.style.display = "inline-flex";
+          };
+        } else {
+          profileThumbnail.style.display = "none";
+          profileInitial.textContent = displayName.charAt(0).toUpperCase();
+          profileInitial.style.display = "inline-flex";
+        }
+
         guestMenu.style.display = "none";
         userMenu.style.display = "inline-flex";
       }
@@ -533,24 +565,6 @@
 
       client.auth.onAuthStateChange(function (event, session) {
         updateMenu(session?.user || null);
-      });
-
-      logoutButton.addEventListener("click", async function () {
-        logoutButton.disabled = true;
-        logoutButton.textContent = "Cerrando sesión...";
-
-        const { error } = await client.auth.signOut();
-
-        if (error) {
-          console.error("No se pudo cerrar la sesión:", error);
-          logoutButton.disabled = false;
-          logoutButton.textContent = "Cerrar sesión";
-          alert("No se pudo cerrar la sesión. Inténtalo nuevamente.");
-          return;
-        }
-
-        await updateMenu(null);
-        window.location.href = "index.html";
       });
     });
   </script>
