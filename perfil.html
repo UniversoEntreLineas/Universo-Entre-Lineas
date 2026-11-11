@@ -34,11 +34,11 @@
       text-decoration: none;
     }
 
-    button {
+    button,
+    input,
+    textarea {
       font-family: inherit;
     }
-
-    /* Volver al inicio */
 
     .back-home {
       position: absolute;
@@ -53,8 +53,6 @@
     .back-home:hover {
       color: var(--wine);
     }
-
-    /* Perfil principal */
 
     .profile-header {
       padding: 75px 20px 40px;
@@ -71,6 +69,7 @@
       object-fit: cover;
       background: #e9dfd3;
       border: 2px solid var(--line);
+      overflow: hidden;
     }
 
     .avatar-placeholder {
@@ -102,6 +101,7 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.8;
+      white-space: pre-wrap;
     }
 
     .profile-stats {
@@ -130,9 +130,18 @@
       font-size: 11px;
     }
 
-    .edit-profile-button {
-      display: inline-block;
+    .profile-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-top: 8px;
+    }
+
+    .edit-profile-button,
+    .logout-button {
+      display: inline-block;
       padding: 10px 23px;
       border: 1px solid var(--wine);
       background: transparent;
@@ -149,7 +158,15 @@
       color: var(--white);
     }
 
-    /* Contenido */
+    .logout-button {
+      border-color: var(--line);
+      color: var(--muted);
+    }
+
+    .logout-button:hover {
+      border-color: var(--wine);
+      color: var(--wine);
+    }
 
     main {
       width: min(1050px, 91%);
@@ -213,8 +230,6 @@
       }
     }
 
-    /* Obras */
-
     .content-heading {
       display: flex;
       justify-content: space-between;
@@ -272,8 +287,6 @@
       line-height: 1.7;
     }
 
-    /* Lecturas */
-
     .reading-options {
       display: flex;
       justify-content: flex-end;
@@ -294,7 +307,202 @@
       font-size: 11px;
     }
 
-    /* Pie */
+    /* Tarjetas de obras */
+
+    .stories-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .story-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      transition: .2s;
+    }
+
+    .story-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .story-cover {
+      width: 100%;
+      height: 190px;
+      margin-bottom: 15px;
+      background: #e9dfd3;
+      object-fit: cover;
+    }
+
+    .story-card h3 {
+      margin: 0 0 9px;
+      color: var(--wine);
+      font-size: 20px;
+      font-weight: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .story-card p {
+      margin: 0 0 15px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .story-status {
+      align-self: flex-start;
+      margin-top: auto;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+    }
+
+    .profile-message {
+      display: none;
+      margin: 15px auto 0;
+      max-width: 500px;
+      color: var(--wine);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .profile-message.visible {
+      display: block;
+    }
+
+    /* Ventana de edición */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(48, 39, 44, .62);
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .edit-modal {
+      width: min(480px, 100%);
+      max-height: 90vh;
+      padding: 30px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      overflow-y: auto;
+    }
+
+    .modal-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .modal-heading h2 {
+      margin: 0;
+      color: var(--wine);
+      font-size: 23px;
+      font-weight: normal;
+    }
+
+    .modal-close {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .edit-field {
+      margin-bottom: 18px;
+    }
+
+    .edit-field label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    .edit-field input,
+    .edit-field textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      outline: none;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .edit-field input:focus,
+    .edit-field textarea:focus {
+      border-color: var(--wine);
+    }
+
+    .edit-field textarea {
+      min-height: 100px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .edit-field input[type="file"] {
+      background: var(--white);
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .modal-actions button {
+      padding: 10px 18px;
+      border: 1px solid var(--wine);
+      background: var(--wine);
+      color: var(--white);
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .modal-actions .cancel-button {
+      background: transparent;
+      color: var(--wine);
+    }
+
+    .modal-actions button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .modal-message {
+      min-height: 18px;
+      margin-top: 12px;
+      color: var(--wine);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.5;
+    }
 
     footer {
       padding: 35px 20px;
@@ -364,6 +572,10 @@
       .empty-state {
         padding: 42px 18px;
       }
+
+      .edit-modal {
+        padding: 23px 18px;
+      }
     }
   </style>
 </head>
@@ -403,9 +615,17 @@
       </div>
     </div>
 
-    <button class="edit-profile-button" id="edit-profile-button">
-      EDITAR PERFIL
-    </button>
+    <div class="profile-actions">
+      <button class="edit-profile-button" id="edit-profile-button">
+        EDITAR PERFIL
+      </button>
+
+      <button class="logout-button" id="logout-button">
+        CERRAR SESIÓN
+      </button>
+    </div>
+
+    <p class="profile-message" id="profile-message"></p>
 
   </header>
 
@@ -439,8 +659,6 @@
 
     </div>
 
-    <!-- Obras publicadas -->
-
     <section class="tab-content active" id="obras">
 
       <div class="content-heading">
@@ -448,7 +666,9 @@
         <span>Visibles para todos</span>
       </div>
 
-      <div class="empty-state">
+      <div class="stories-list" id="published-stories"></div>
+
+      <div class="empty-state" id="published-empty">
         <div class="empty-symbol">✧</div>
         <h3>El comienzo de una biblioteca</h3>
         <p>
@@ -459,8 +679,6 @@
 
     </section>
 
-    <!-- Obras en proceso -->
-
     <section class="tab-content" id="proceso">
 
       <div class="content-heading">
@@ -468,7 +686,9 @@
         <span>Solo visibles para el propietario</span>
       </div>
 
-      <div class="empty-state">
+      <div class="stories-list" id="draft-stories"></div>
+
+      <div class="empty-state" id="draft-empty">
         <div class="empty-symbol">✎</div>
         <h3>Historias que todavía están creciendo</h3>
         <p>
@@ -478,8 +698,6 @@
       </div>
 
     </section>
-
-    <!-- Lecturas -->
 
     <section class="tab-content" id="lecturas">
 
@@ -512,8 +730,6 @@
 
     </section>
 
-    <!-- Publicaciones -->
-
     <section class="tab-content" id="publicaciones">
 
       <div class="content-heading">
@@ -532,8 +748,6 @@
 
     </section>
 
-    <!-- Seguidores -->
-
     <section class="tab-content" id="seguidores">
 
       <div class="content-heading">
@@ -550,8 +764,6 @@
       </div>
 
     </section>
-
-    <!-- Seguidos -->
 
     <section class="tab-content" id="seguidos">
 
@@ -578,19 +790,116 @@
     <p>© 2026 · Biblioteca literaria</p>
   </footer>
 
+  <!-- Ventana para editar el perfil -->
+
+  <div class="modal-overlay" id="edit-modal">
+
+    <div class="edit-modal">
+
+      <div class="modal-heading">
+        <h2>Editar perfil</h2>
+        <button class="modal-close" id="close-modal" type="button">×</button>
+      </div>
+
+      <form id="edit-profile-form">
+
+        <div class="edit-field">
+          <label for="edit-display-name">Nombre visible</label>
+          <input
+            type="text"
+            id="edit-display-name"
+            maxlength="60"
+            required
+          >
+        </div>
+
+        <div class="edit-field">
+          <label for="edit-username">Nombre de usuario</label>
+          <input
+            type="text"
+            id="edit-username"
+            maxlength="30"
+            placeholder="nombre_de_usuario"
+            required
+          >
+        </div>
+
+        <div class="edit-field">
+          <label for="edit-bio">Biografía</label>
+          <textarea
+            id="edit-bio"
+            maxlength="300"
+            placeholder="Cuéntales algo sobre ti..."
+          ></textarea>
+        </div>
+
+        <div class="edit-field">
+          <label for="edit-avatar">Foto de perfil</label>
+          <input
+            type="file"
+            id="edit-avatar"
+            accept="image/png,image/jpeg,image/webp"
+          >
+        </div>
+
+        <div class="modal-actions">
+          <button class="cancel-button" id="cancel-edit" type="button">
+            CANCELAR
+          </button>
+
+          <button type="submit" id="save-profile-button">
+            GUARDAR CAMBIOS
+          </button>
+        </div>
+
+        <p class="modal-message" id="modal-message"></p>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
   <script>
-    // Navegación entre las secciones del perfil
+    // Conexión con Supabase
+
+    const supabase = window.supabaseClient;
+
+    let currentUser = null;
+    let currentProfile = null;
+
+    const profileName = document.getElementById("profile-name");
+    const profileUsername = document.getElementById("profile-username");
+    const profileBio = document.getElementById("profile-bio");
+    const profileAvatar = document.getElementById("profile-avatar");
+    const profileMessage = document.getElementById("profile-message");
+
+    const editModal = document.getElementById("edit-modal");
+    const editForm = document.getElementById("edit-profile-form");
+    const modalMessage = document.getElementById("modal-message");
+    const saveButton = document.getElementById("save-profile-button");
+
+    // Navegación entre secciones
 
     const tabButtons = document.querySelectorAll(".tab-button");
     const tabContents = document.querySelectorAll(".tab-content");
 
     function showTab(tabName) {
       tabButtons.forEach(button => {
-        button.classList.toggle("active", button.dataset.tab === tabName);
+        button.classList.toggle(
+          "active",
+          button.dataset.tab === tabName
+        );
       });
 
       tabContents.forEach(content => {
-        content.classList.toggle("active", content.id === tabName);
+        content.classList.toggle(
+          "active",
+          content.id === tabName
+        );
       });
     }
 
@@ -606,12 +915,413 @@
       });
     });
 
-    // Botón visual de edición, se conectará más adelante
+    // Mostrar mensajes del perfil
+
+    function showProfileMessage(message) {
+      profileMessage.textContent = message;
+      profileMessage.classList.add("visible");
+    }
+
+    // Mostrar los datos del perfil
+
+    function displayProfile(profile) {
+      const name = profile.display_name || "Usuario";
+      const username = profile.username || "";
+
+      profileName.textContent = name;
+      profileUsername.textContent = username
+        ? "@" + username
+        : "@usuario";
+
+      profileBio.textContent = profile.bio ||
+        "Este espacio estará dedicado a contar un poco sobre quien escribe.";
+
+      if (profile.avatar_url) {
+        profileAvatar.textContent = "";
+        profileAvatar.style.backgroundImage =
+          `url("${profile.avatar_url}")`;
+        profileAvatar.style.backgroundSize = "cover";
+        profileAvatar.style.backgroundPosition = "center";
+        profileAvatar.classList.remove("avatar-placeholder");
+      } else {
+        profileAvatar.style.backgroundImage = "none";
+        profileAvatar.textContent = name.charAt(0).toUpperCase();
+        profileAvatar.classList.add("avatar-placeholder");
+      }
+    }
+
+    // Crear tarjetas de obras
+
+    function createStoryCard(story) {
+      const card = document.createElement("article");
+      card.className = "story-card";
+
+      if (story.cover_url) {
+        const cover = document.createElement("img");
+        cover.className = "story-cover";
+        cover.src = story.cover_url;
+        cover.alt = "Portada de " + story.title;
+        card.appendChild(cover);
+      }
+
+      const title = document.createElement("h3");
+      title.textContent = story.title || "Obra sin título";
+      card.appendChild(title);
+
+      if (story.synopsis) {
+        const synopsis = document.createElement("p");
+        synopsis.textContent = story.synopsis;
+        card.appendChild(synopsis);
+      }
+
+      const status = document.createElement("span");
+      status.className = "story-status";
+
+      if (story.status === "published") {
+        status.textContent = "Publicada";
+      } else if (story.status === "paused") {
+        status.textContent = "En pausa";
+      } else {
+        status.textContent = "Borrador";
+      }
+
+      card.appendChild(status);
+
+      return card;
+    }
+
+    // Cargar las obras del usuario
+
+    async function loadStories() {
+      const { data: stories, error } = await supabase
+        .from("stories")
+        .select("id, title, synopsis, cover_url, status, created_at, updated_at")
+        .eq("author_id", currentUser.id)
+        .order("updated_at", { ascending: false });
+
+      if (error) {
+        console.error("Error al cargar las obras:", error);
+        showProfileMessage("No se pudieron cargar las obras.");
+        return;
+      }
+
+      const publishedContainer =
+        document.getElementById("published-stories");
+
+      const draftContainer =
+        document.getElementById("draft-stories");
+
+      publishedContainer.replaceChildren();
+      draftContainer.replaceChildren();
+
+      const publishedStories = stories.filter(
+        story => story.status === "published"
+      );
+
+      const draftStories = stories.filter(
+        story => story.status === "draft" || story.status === "paused"
+      );
+
+      publishedStories.forEach(story => {
+        publishedContainer.appendChild(createStoryCard(story));
+      });
+
+      draftStories.forEach(story => {
+        draftContainer.appendChild(createStoryCard(story));
+      });
+
+      document.getElementById("published-empty").style.display =
+        publishedStories.length ? "none" : "block";
+
+      document.getElementById("draft-empty").style.display =
+        draftStories.length ? "none" : "block";
+    }
+
+    // Cargar los contadores
+
+    async function loadStats() {
+      const [postsResult, followersResult, followingResult] =
+        await Promise.all([
+
+          supabase
+            .from("posts")
+            .select("id", { count: "exact", head: true })
+            .eq("author_id", currentUser.id),
+
+          supabase
+            .from("follows")
+            .select("follower_id", { count: "exact", head: true })
+            .eq("followed_id", currentUser.id),
+
+          supabase
+            .from("follows")
+            .select("followed_id", { count: "exact", head: true })
+            .eq("follower_id", currentUser.id)
+
+        ]);
+
+      if (postsResult.error) {
+        console.error("Error al cargar publicaciones:", postsResult.error);
+      } else {
+        document.getElementById("posts-count").textContent =
+          postsResult.count ?? 0;
+      }
+
+      if (followersResult.error) {
+        console.error("Error al cargar seguidores:", followersResult.error);
+      } else {
+        document.getElementById("followers-count").textContent =
+          followersResult.count ?? 0;
+      }
+
+      if (followingResult.error) {
+        console.error("Error al cargar seguidos:", followingResult.error);
+      } else {
+        document.getElementById("following-count").textContent =
+          followingResult.count ?? 0;
+      }
+    }
+
+    // Abrir y cerrar la ventana de edición
+
+    function openEditModal() {
+      document.getElementById("edit-display-name").value =
+        currentProfile.display_name || "";
+
+      document.getElementById("edit-username").value =
+        currentProfile.username || "";
+
+      document.getElementById("edit-bio").value =
+        currentProfile.bio || "";
+
+      document.getElementById("edit-avatar").value = "";
+      modalMessage.textContent = "";
+
+      editModal.classList.add("open");
+    }
+
+    function closeEditModal() {
+      editModal.classList.remove("open");
+    }
 
     document.getElementById("edit-profile-button")
-      .addEventListener("click", function () {
-        alert("La edición del perfil estará disponible próximamente.");
+      .addEventListener("click", openEditModal);
+
+    document.getElementById("close-modal")
+      .addEventListener("click", closeEditModal);
+
+    document.getElementById("cancel-edit")
+      .addEventListener("click", closeEditModal);
+
+    editModal.addEventListener("click", function (event) {
+      if (event.target === editModal) {
+        closeEditModal();
+      }
+    });
+
+    // Subir una foto de perfil
+
+    async function uploadAvatar(file) {
+      const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error("La foto debe estar en formato JPG, PNG o WEBP.");
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        throw new Error("La foto no puede superar los 5 MB.");
+      }
+
+      const safeName = file.name
+        .toLowerCase()
+        .replace(/[^a-z0-9._-]/g, "-");
+
+      const filePath =
+        `${currentUser.id}/${Date.now()}-${safeName}`;
+
+      const { error: uploadError } = await supabase
+        .storage
+        .from("avatars")
+        .upload(filePath, file, {
+          upsert: false,
+          contentType: file.type
+        });
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      const { data } = supabase
+        .storage
+        .from("avatars")
+        .getPublicUrl(filePath);
+
+      return data.publicUrl;
+    }
+
+    // Guardar los cambios del perfil
+
+    editForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const displayName =
+        document.getElementById("edit-display-name").value.trim();
+
+      const username =
+        document.getElementById("edit-username").value
+          .trim()
+          .replace(/^@/, "")
+          .toLowerCase();
+
+      const bio =
+        document.getElementById("edit-bio").value.trim();
+
+      const avatarFile =
+        document.getElementById("edit-avatar").files[0];
+
+      if (!displayName || !username) {
+        modalMessage.textContent =
+          "El nombre y el nombre de usuario son obligatorios.";
+        return;
+      }
+
+      if (!/^[a-z0-9_]+$/.test(username)) {
+        modalMessage.textContent =
+          "El nombre de usuario solo puede contener letras, números y guiones bajos.";
+        return;
+      }
+
+      saveButton.disabled = true;
+      saveButton.textContent = "GUARDANDO...";
+      modalMessage.textContent = "Guardando los cambios...";
+
+      try {
+        let avatarUrl = currentProfile.avatar_url || null;
+
+        if (avatarFile) {
+          avatarUrl = await uploadAvatar(avatarFile);
+        }
+
+        const updates = {
+          display_name: displayName,
+          username: username,
+          bio: bio,
+          avatar_url: avatarUrl
+        };
+
+        const { data, error } = await supabase
+          .from("profiles")
+          .update(updates)
+          .eq("id", currentUser.id)
+          .select()
+          .single();
+
+        if (error) {
+          if (error.code === "23505") {
+            throw new Error(
+              "Ese nombre de usuario ya está siendo utilizado."
+            );
+          }
+
+          throw error;
+        }
+
+        currentProfile = data;
+        displayProfile(currentProfile);
+
+        modalMessage.textContent = "Perfil actualizado correctamente.";
+
+        setTimeout(() => {
+          closeEditModal();
+          showProfileMessage("Los cambios de tu perfil se guardaron correctamente.");
+        }, 700);
+
+      } catch (error) {
+        console.error("Error al guardar el perfil:", error);
+
+        modalMessage.textContent =
+          error.message || "No se pudieron guardar los cambios.";
+
+      } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = "GUARDAR CAMBIOS";
+      }
+    });
+
+    // Cerrar sesión
+
+    document.getElementById("logout-button")
+      .addEventListener("click", async function () {
+
+        const confirmed = confirm(
+          "¿Estás segura de que deseas cerrar sesión?"
+        );
+
+        if (!confirmed) return;
+
+        const button = this;
+        button.disabled = true;
+        button.textContent = "CERRANDO SESIÓN...";
+
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+          console.error("Error al cerrar sesión:", error);
+          alert("No se pudo cerrar la sesión. Inténtalo nuevamente.");
+          button.disabled = false;
+          button.textContent = "CERRAR SESIÓN";
+          return;
+        }
+
+        window.location.href = "login.html";
       });
+
+    // Inicio del perfil
+
+    async function initializeProfile() {
+      if (!supabase) {
+        document.body.innerHTML =
+          "<p style='padding:30px;text-align:center;'>No se pudo conectar con el sistema. Revisa la configuración de Supabase.</p>";
+        return;
+      }
+
+      const { data: { user }, error: authError } =
+        await supabase.auth.getUser();
+
+      if (authError || !user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      currentUser = user;
+
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", currentUser.id)
+        .single();
+
+      if (profileError) {
+        console.error("Error al cargar el perfil:", profileError);
+        showProfileMessage("No se pudieron cargar los datos del perfil.");
+        return;
+      }
+
+      currentProfile = profile;
+
+      displayProfile(currentProfile);
+
+      await Promise.all([
+        loadStories(),
+        loadStats()
+      ]);
+    }
+
+    initializeProfile();
   </script>
 
 </body>
