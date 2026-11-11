@@ -27,22 +27,12 @@ body {
   font-family: Georgia, serif;
 }
 
-header {
-  text-align: center;
-  padding: 35px 20px 25px;
-  border-bottom: 1px solid var(--beige);
-}
+/* CABECERA Y NAVEGACIÓN */
 
-header h1 {
-  color: var(--wine);
-  font-size: 34px;
-  letter-spacing: 2px;
-  margin: 0 0 10px;
-}
-
-header p {
-  font-style: italic;
-  color: #75636A;
+.site-header {
+  position: relative;
+  padding: 65px 15px 18px;
+  background: var(--wine);
 }
 
 nav {
@@ -52,50 +42,59 @@ nav {
   flex-wrap: wrap;
   gap: 25px;
   padding: 18px;
-  border-bottom: 1px solid var(--beige);
+  background: var(--wine);
+  font-family: Arial, sans-serif;
 }
 
 nav a {
-  color: var(--wine);
+  color: var(--white);
   text-decoration: none;
   font-size: 15px;
+  transition: color .2s;
 }
 
 nav a:hover {
   color: var(--gold);
 }
 
+/* ACCESO A LA CUENTA */
+
+.account-area {
+  position: absolute;
+  top: 17px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  font: 12px Arial, sans-serif;
+
+  /* Oculto hasta comprobar la sesión */
+  visibility: hidden;
+}
+
 .account-link {
-  color: var(--wine);
+  color: var(--white);
   font-weight: bold;
 }
 
 .account-register {
   padding: 8px 13px;
-  margin-top: -8px;
-  margin-bottom: -8px;
-  border: 1px solid var(--wine);
+  border: 1px solid var(--beige);
 }
 
 .account-register:hover {
-  background: var(--wine);
-  color: var(--white);
-}
-
-/* ACCESO AL PERFIL */
-
-.account-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  background: var(--white);
+  color: var(--wine);
 }
 
 .profile-link {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--wine);
+  color: var(--white);
   font-weight: bold;
+  text-decoration: none;
 }
 
 .profile-thumbnail {
@@ -110,12 +109,12 @@ nav a:hover {
 .profile-initial {
   width: 32px;
   height: 32px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--wine);
-  color: white;
+  background: var(--paper);
+  color: var(--wine);
   font: bold 14px Arial, sans-serif;
 }
 
@@ -221,12 +220,26 @@ footer {
 }
 
 @media (max-width: 600px) {
-  header h1 {
-    font-size: 27px;
-  }
-
   nav {
     gap: 15px;
+    padding: 15px 10px;
+  }
+
+  .site-header {
+    padding: 60px 12px 12px;
+  }
+
+  .account-area {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    font-size: 11px;
+  }
+
+  .profile-thumbnail,
+  .profile-initial {
+    width: 30px;
+    height: 30px;
   }
 
   main {
@@ -237,21 +250,38 @@ footer {
     align-items: baseline;
     flex-wrap: wrap;
   }
-
-  .account-area {
-    width: 100%;
-    justify-content: center;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Universo Entre Líneas</h1>
-  <p>Un lugar para cada historia</p>
-</header>
+<div class="site-header">
+
+  <div class="account-area" id="account-area">
+
+    <div id="guest-account">
+      <a class="account-link" href="login.html">Iniciar sesión</a>
+      <a class="account-link account-register" href="registro.html">Crear cuenta</a>
+    </div>
+
+    <div id="user-account">
+      <a href="perfil.html" class="profile-link">
+        <img
+          id="profile-thumbnail"
+          class="profile-thumbnail"
+          src=""
+          alt="Foto de perfil"
+          style="display:none;"
+        >
+        <span id="profile-initial" class="profile-initial"></span>
+        <span id="profile-name"></span>
+      </a>
+    </div>
+
+  </div>
+
+</div>
 
 <nav>
   <a href="index.html">Inicio</a>
@@ -260,25 +290,6 @@ footer {
   <a href="comunidad.html">Comunidad</a>
   <a href="destacadas.html">Destacadas</a>
   <a href="nosotros.html">Nosotros</a>
-
-  <div class="account-area" id="guest-account">
-    <a class="account-link" href="login.html">Iniciar sesión</a>
-    <a class="account-link account-register" href="registro.html">Crear cuenta</a>
-  </div>
-
-  <div class="account-area" id="user-account">
-    <a href="perfil.html" class="profile-link">
-      <img
-        id="profile-thumbnail"
-        class="profile-thumbnail"
-        src=""
-        alt="Foto de perfil"
-        style="display:none;"
-      >
-      <span id="profile-initial" class="profile-initial"></span>
-      <span id="profile-name">Mi perfil</span>
-    </a>
-  </div>
 </nav>
 
 <main>
@@ -489,6 +500,7 @@ genreFamilies.forEach(family => {
 
   const db = window.supabaseClient;
 
+  const accountArea = document.getElementById("account-area");
   const guestAccount = document.getElementById("guest-account");
   const userAccount = document.getElementById("user-account");
   const profileName = document.getElementById("profile-name");
@@ -497,19 +509,20 @@ genreFamilies.forEach(family => {
 
   if (!db) {
     console.error("No se pudo conectar con Supabase.");
+
+    guestAccount.style.display = "block";
+    userAccount.style.display = "none";
+    accountArea.style.visibility = "visible";
     return;
   }
 
   async function updateAccount(session) {
 
     if (!session || !session.user) {
-      guestAccount.style.display = "flex";
+      guestAccount.style.display = "block";
       userAccount.style.display = "none";
       return;
     }
-
-    guestAccount.style.display = "none";
-    userAccount.style.display = "flex";
 
     const user = session.user;
 
@@ -547,6 +560,9 @@ genreFamilies.forEach(family => {
       profileThumbnail.style.display = "none";
       profileInitial.style.display = "flex";
     }
+
+    guestAccount.style.display = "none";
+    userAccount.style.display = "flex";
   }
 
   const { data: { session }, error } = await db.auth.getSession();
@@ -556,6 +572,9 @@ genreFamilies.forEach(family => {
   }
 
   await updateAccount(session);
+
+  // Mostrar la cuenta después de comprobar la sesión.
+  accountArea.style.visibility = "visible";
 
   db.auth.onAuthStateChange((_event, session) => {
     updateAccount(session);
