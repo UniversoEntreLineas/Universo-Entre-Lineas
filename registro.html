@@ -260,11 +260,11 @@ formulario.addEventListener("submit", async function(event) {
     boton.textContent = "CREANDO CUENTA...";
 
     try {
-        const { data, error } = await window.supabaseClient.auth.signUp({
+        const { error } = await window.supabaseClient.auth.signUp({
             email: email,
             password: password,
             options: {
-                emailRedirectTo: "https://universowntrelineas.github.io/Universo-Entre-Lineas/",
+                emailRedirectTo: "https://universowntrelineas.github.io/Universo-Entre-Lineas/index.html",
                 data: {
                     display_name: nombre
                 }
@@ -291,8 +291,6 @@ formulario.addEventListener("submit", async function(event) {
     }
 });
 </script>
-    
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
+
 </body>
 </html>
