@@ -98,6 +98,35 @@
       color: var(--white);
     }
 
+    .user-menu {
+      display: none;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .user-name {
+      color: var(--wine);
+      font-weight: bold;
+    }
+
+    .logout-button {
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid var(--wine);
+      padding: 8px 13px;
+      color: var(--wine);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .logout-button:hover {
+      background: var(--wine);
+      color: var(--white);
+    }
+
     .hero {
       text-align: center;
       padding: 95px 20px 90px;
@@ -335,8 +364,18 @@
     <a href="categorias.html">Categorías</a>
     <a href="comunidad.html">Comunidad</a>
     <a href="nosotros.html">Nosotros</a>
-    <a class="account-link" href="login.html">Iniciar sesión</a>
-    <a class="account-link account-register" href="registro.html">Crear cuenta</a>
+
+    <span id="guest-menu">
+      <a class="account-link" href="login.html">Iniciar sesión</a>
+      <a class="account-link account-register" href="registro.html">Crear cuenta</a>
+    </span>
+
+    <span id="user-menu" class="user-menu">
+      <span id="user-name" class="user-name"></span>
+      <button type="button" id="logout-button" class="logout-button">
+        Cerrar sesión
+      </button>
+    </span>
   </nav>
 
   <div class="hero">
@@ -399,6 +438,86 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      const client = window.supabaseClient;
+
+      const guestMenu = document.getElementById("guest-menu");
+      const userMenu = document.getElementById("user-menu");
+      const userName = document.getElementById("user-name");
+      const logoutButton = document.getElementById("logout-button");
+
+      if (!client) {
+        console.error("No se encontró la conexión con Supabase.");
+        return;
+      }
+
+      async function updateMenu(user) {
+        if (!user) {
+          guestMenu.style.display = "inline";
+          userMenu.style.display = "none";
+          userName.textContent = "";
+          return;
+        }
+
+        let displayName =
+          user.user_metadata?.display_name ||
+          user.email?.split("@")[0] ||
+          "Usuario";
+
+        try {
+          const { data, error } = await client
+            .from("profiles")
+            .select("display_name")
+            .eq("id", user.id)
+            .maybeSingle();
+
+          if (error) {
+            console.error("No se pudo consultar el perfil:", error);
+          } else if (data?.display_name) {
+            displayName = data.display_name;
+          }
+        } catch (error) {
+          console.error("Error al consultar el perfil:", error);
+        }
+
+        userName.textContent = displayName;
+        guestMenu.style.display = "none";
+        userMenu.style.display = "inline-flex";
+      }
+
+      const { data, error } = await client.auth.getSession();
+
+      if (error) {
+        console.error("No se pudo comprobar la sesión:", error);
+      }
+
+      await updateMenu(data?.session?.user || null);
+
+      client.auth.onAuthStateChange(function (event, session) {
+        updateMenu(session?.user || null);
+      });
+
+      logoutButton.addEventListener("click", async function () {
+        logoutButton.disabled = true;
+        logoutButton.textContent = "Cerrando sesión...";
+
+        const { error } = await client.auth.signOut();
+
+        if (error) {
+          console.error("No se pudo cerrar la sesión:", error);
+          logoutButton.disabled = false;
+          logoutButton.textContent = "Cerrar sesión";
+          alert("No se pudo cerrar la sesión. Inténtalo nuevamente.");
+          return;
+        }
+
+        await updateMenu(null);
+        window.location.href = "index.html";
+      });
+    });
+  </script>
 
 </body>
 </html>
