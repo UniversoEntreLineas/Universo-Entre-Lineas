@@ -40,26 +40,26 @@
     }
 
     .top-line {
-      height: 5px;
-      background: var(--wine);
+      display: none;
     }
 
     header {
       position: relative;
       text-align: center;
       padding: 34px 20px 25px;
-      background: var(--white);
+      background: var(--wine);
+      color: var(--white);
     }
 
     .brand {
       font-size: clamp(28px, 5vw, 43px);
-      color: var(--wine);
+      color: var(--white);
       letter-spacing: 1px;
     }
 
     .brand-subtitle {
       margin-top: 9px;
-      color: var(--muted);
+      color: #e6d9d0;
       font-family: Arial, sans-serif;
       font-size: 10px;
       letter-spacing: 4px;
@@ -78,18 +78,18 @@
     }
 
     .account-link {
-      color: var(--wine);
+      color: var(--white);
       font-weight: bold;
     }
 
     .account-register {
       padding: 8px 13px;
-      border: 1px solid var(--wine);
+      border: 1px solid #d8c3ae;
     }
 
     .account-register:hover {
-      background: var(--wine);
-      color: var(--white);
+      background: var(--white);
+      color: var(--wine);
     }
 
     .user-menu {
@@ -102,7 +102,7 @@
       display: inline-flex;
       align-items: center;
       gap: 9px;
-      color: var(--wine);
+      color: var(--white);
       font-weight: bold;
     }
 
@@ -115,7 +115,7 @@
       height: 34px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid var(--line);
+      border: 1px solid #d8c3ae;
       background: #e9dfd3;
     }
 
@@ -126,8 +126,8 @@
       display: none;
       align-items: center;
       justify-content: center;
-      background: var(--wine);
-      color: var(--white);
+      background: var(--paper);
+      color: var(--wine);
       font-family: Georgia, serif;
       font-size: 16px;
     }
@@ -137,16 +137,20 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 25px;
-      padding: 17px 15px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--white);
+      padding: 17px 15px 22px;
+      background: var(--wine);
+      color: var(--white);
       font-family: Arial, sans-serif;
       font-size: 13px;
     }
 
+    nav a {
+      color: var(--white);
+      transition: color .2s;
+    }
+
     nav a:hover {
-      color: var(--wine);
+      color: #d8c3ae;
     }
 
     .hero {
@@ -362,6 +366,7 @@
       nav {
         gap: 16px;
         font-size: 12px;
+        padding-top: 15px;
       }
 
       .hero {
