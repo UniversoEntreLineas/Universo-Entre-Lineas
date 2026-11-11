@@ -16,6 +16,8 @@
   --muted: #806B68;
   --border: #D8C8B8;
   --control-bg: transparent;
+  --dark: #4d2934;
+  --white: #FFFCF7;
 }
 
 * {
@@ -40,25 +42,76 @@ body.dark {
   --control-bg: transparent;
 }
 
-/* ENCABEZADO */
+/* ENCABEZADO Y CUENTA */
 
-header {
-  text-align: center;
-  padding: 25px 15px;
-  border-bottom: 1px solid var(--border);
+.site-header {
+  position: relative;
+  padding: 45px 15px 0;
+  background: var(--dark);
 }
 
-.brand {
-  color: var(--wine);
-  font-size: 25px;
+.account-area {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 27px;
+  visibility: hidden;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+#guest-account {
+  display: block;
+}
+
+#user-account {
+  display: none;
+}
+
+.account-link {
+  color: var(--white);
+  text-decoration: none;
+  margin-left: 13px;
+  transition: opacity .2s;
+}
+
+.account-link:hover,
+.profile-link:hover {
+  opacity: .75;
+}
+
+.account-register {
+  border: 1px solid rgba(255,255,255,.45);
+  padding: 6px 10px;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.profile-thumbnail,
+.profile-initial {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #D8C8B8;
+  color: #4d2934;
+  font-size: 12px;
   font-weight: bold;
-}
-
-.subtitle {
-  margin-top: 7px;
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: var(--muted);
 }
 
 /* NAVEGACIÓN PRINCIPAL */
@@ -66,10 +119,11 @@ header {
 .top-links {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 25px;
-  padding: 15px;
-  border-bottom: 1px solid var(--border);
+  gap: 22px;
+  padding: 10px 16px;
+  background: var(--dark);
 }
 
 a {
@@ -78,13 +132,13 @@ a {
 }
 
 .top-links a {
-  color: var(--text);
+  color: var(--white);
   font-size: 13px;
-  transition: color .2s;
+  transition: opacity .2s;
 }
 
 .top-links a:hover {
-  color: var(--wine);
+  opacity: .7;
 }
 
 /* CONTENEDOR DEL LECTOR */
@@ -252,6 +306,22 @@ footer {
 /* DISEÑO PARA CELULARES */
 
 @media (max-width: 600px) {
+  .site-header {
+    padding: 45px 12px 0;
+  }
+
+  .account-area {
+    top: 10px;
+    right: 12px;
+    left: 12px;
+    font-size: 11px;
+  }
+
+  .top-links {
+    gap: 13px;
+    padding: 10px;
+  }
+
   .reader {
     width: 92%;
     margin: 30px auto;
@@ -283,29 +353,47 @@ footer {
   .navigation button {
     padding: 10px 12px;
   }
-
-  .top-links {
-    gap: 15px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="brand">Universo Entre Líneas</div>
-  <div class="subtitle">UN LUGAR PARA CADA HISTORIA</div>
-</header>
+<header class="site-header">
 
-<nav class="top-links">
-  <a href="index.html">Inicio</a>
-  <a href="historias.html">Biblioteca</a>
-  <a href="categorias.html">Categorías</a>
-  <a href="comunidad.html">Comunidad</a>
-  <a href="destacadas.html">Destacadas</a>
-  <a href="nosotros.html">Nosotros</a>
-</nav>
+  <div class="account-area" id="account-area">
+
+    <div id="guest-account">
+      <a class="account-link" href="login.html">Iniciar sesión</a>
+      <a class="account-link account-register" href="registro.html">Crear cuenta</a>
+    </div>
+
+    <div id="user-account">
+      <a href="perfil.html" class="profile-link">
+        <img
+          id="profile-thumbnail"
+          class="profile-thumbnail"
+          src=""
+          alt="Foto de perfil"
+          style="display:none;"
+        >
+        <span id="profile-initial" class="profile-initial"></span>
+        <span id="profile-name"></span>
+      </a>
+    </div>
+
+  </div>
+
+  <nav class="top-links">
+    <a href="index.html">Inicio</a>
+    <a href="historias.html">Biblioteca</a>
+    <a href="categorias.html">Categorías</a>
+    <a href="comunidad.html">Comunidad</a>
+    <a href="destacadas.html">Destacadas</a>
+    <a href="nosotros.html">Nosotros</a>
+  </nav>
+
+</header>
 
 <main class="reader">
 
@@ -316,11 +404,20 @@ footer {
   </section>
 
   <div class="toolbar">
-    <button type="button" onclick="changeSize(-1)" aria-label="Reducir tamaño de letra">
+
+    <button
+      type="button"
+      onclick="changeSize(-1)"
+      aria-label="Reducir tamaño de letra"
+    >
       A−
     </button>
 
-    <button type="button" onclick="changeSize(1)" aria-label="Aumentar tamaño de letra">
+    <button
+      type="button"
+      onclick="changeSize(1)"
+      aria-label="Aumentar tamaño de letra"
+    >
       A+
     </button>
 
@@ -332,6 +429,7 @@ footer {
     >
       ◐ Tema
     </button>
+
   </div>
 
   <article class="reading-area">
@@ -341,11 +439,13 @@ footer {
     <h2>El comienzo</h2>
 
     <div class="chapter-text" id="chapterText">
+
       <p class="placeholder">
         Aquí aparecerá el contenido del capítulo.
         Este espacio está preparado para la lectura
         de las historias publicadas en Universo Entre Líneas.
       </p>
+
     </div>
 
   </article>
@@ -393,8 +493,98 @@ function toggleTheme() {
   document.body.classList.toggle("dark");
 }
 </script>
-  
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+
+<script>
+(async function loadAccount() {
+  const db = window.supabaseClient;
+
+  const accountArea = document.getElementById("account-area");
+  const guestAccount = document.getElementById("guest-account");
+  const userAccount = document.getElementById("user-account");
+  const profileName = document.getElementById("profile-name");
+  const profileThumbnail = document.getElementById("profile-thumbnail");
+  const profileInitial = document.getElementById("profile-initial");
+
+  if (!db) {
+    console.error("No se pudo conectar con Supabase.");
+
+    guestAccount.style.display = "block";
+    userAccount.style.display = "none";
+    accountArea.style.visibility = "visible";
+
+    return;
+  }
+
+  async function updateAccount(session) {
+    if (!session || !session.user) {
+      guestAccount.style.display = "block";
+      userAccount.style.display = "none";
+      return;
+    }
+
+    const user = session.user;
+
+    const { data: profile, error } = await db
+      .from("profiles")
+      .select("username, display_name, avatar_url")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (error) {
+      console.error("Error al cargar el perfil:", error);
+    }
+
+    const name =
+      profile?.display_name ||
+      profile?.username ||
+      user.email?.split("@")[0] ||
+      "Mi perfil";
+
+    profileName.textContent = name;
+
+    profileInitial.textContent =
+      name.trim().charAt(0).toUpperCase() || "U";
+
+    if (profile?.avatar_url) {
+      profileThumbnail.src = profile.avatar_url;
+      profileThumbnail.style.display = "block";
+      profileInitial.style.display = "none";
+
+      profileThumbnail.onerror = function() {
+        profileThumbnail.style.display = "none";
+        profileInitial.style.display = "flex";
+      };
+    } else {
+      profileThumbnail.style.display = "none";
+      profileInitial.style.display = "flex";
+    }
+
+    guestAccount.style.display = "none";
+    userAccount.style.display = "flex";
+  }
+
+  const {
+    data: { session },
+    error
+  } = await db.auth.getSession();
+
+  if (error) {
+    console.error("Error al comprobar la sesión:", error);
+  }
+
+  await updateAccount(session);
+
+  accountArea.style.visibility = "visible";
+
+  db.auth.onAuthStateChange((_event, session) => {
+    updateAccount(session);
+  });
+
+})();
+</script>
+
 </body>
 </html>
