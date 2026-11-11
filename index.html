@@ -75,6 +75,9 @@
       gap: 12px;
       font-family: Arial, sans-serif;
       font-size: 12px;
+
+      /* Se oculta hasta comprobar la sesión */
+      visibility: hidden;
     }
 
     .account-link {
@@ -398,7 +401,7 @@
   <div class="top-line"></div>
 
   <header>
-    <div class="account-area">
+    <div class="account-area" id="account-area">
 
       <span id="guest-menu">
         <a class="account-link" href="login.html">Iniciar sesión</a>
@@ -493,6 +496,7 @@
     document.addEventListener("DOMContentLoaded", async function () {
       const client = window.supabaseClient;
 
+      const accountArea = document.getElementById("account-area");
       const guestMenu = document.getElementById("guest-menu");
       const userMenu = document.getElementById("user-menu");
       const userName = document.getElementById("user-name");
@@ -501,6 +505,10 @@
 
       if (!client) {
         console.error("No se encontró la conexión con Supabase.");
+
+        guestMenu.style.display = "inline";
+        userMenu.style.display = "none";
+        accountArea.style.visibility = "visible";
         return;
       }
 
@@ -567,6 +575,9 @@
       }
 
       await updateMenu(data?.session?.user || null);
+
+      // Mostrar la cuenta solamente después de comprobar la sesión.
+      accountArea.style.visibility = "visible";
 
       client.auth.onAuthStateChange(function (event, session) {
         updateMenu(session?.user || null);
