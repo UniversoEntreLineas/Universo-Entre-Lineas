@@ -206,24 +206,29 @@ button:disabled {
 <script src="supabase.js"></script>
 
 <script>
-const INICIO_URL =
-    "https://universowntrelineas.github.io/Universo-Entre-Lineas/";
+const URL_INICIO =
+    "https://universowntrelineas.github.io/Universo-Entre-Lineas/index.html";
 
+// Volver a la página anterior si pertenece al sitio
 const volverLink = document.getElementById("volverLink");
 
 volverLink.addEventListener("click", function(event) {
     const paginaAnterior = document.referrer;
 
     if (paginaAnterior) {
-        const urlAnterior = new URL(paginaAnterior);
+        try {
+            const urlAnterior = new URL(paginaAnterior);
 
-        const mismoSitio =
-            urlAnterior.origin === window.location.origin &&
-            urlAnterior.pathname.startsWith("/Universo-Entre-Lineas/");
+            const mismoSitio =
+                urlAnterior.origin === window.location.origin &&
+                urlAnterior.pathname.startsWith("/Universo-Entre-Lineas/");
 
-        if (mismoSitio) {
-            event.preventDefault();
-            window.history.back();
+            if (mismoSitio) {
+                event.preventDefault();
+                window.history.back();
+            }
+        } catch (error) {
+            console.error("No se pudo comprobar la página anterior:", error);
         }
     }
 });
@@ -258,10 +263,11 @@ formulario.addEventListener("submit", async function(event) {
         return;
     }
 
-    if (!window.supabaseClient) {
+    const db = window.supabaseClient;
+
+    if (!db) {
         mensaje.style.color = "#A33333";
-        mensaje.textContent =
-            "No se pudo conectar con el sistema. Inténtalo nuevamente más tarde.";
+        mensaje.textContent = "No se pudo conectar con el sistema. Inténtalo nuevamente.";
         return;
     }
 
@@ -269,44 +275,38 @@ formulario.addEventListener("submit", async function(event) {
     boton.textContent = "CREANDO CUENTA...";
 
     try {
-        const { data, error } =
-            await window.supabaseClient.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    emailRedirectTo: INICIO_URL,
-                    data: {
-                        display_name: nombre
-                    }
+        const { data, error } = await db.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                emailRedirectTo: URL_INICIO,
+                data: {
+                    display_name: nombre
                 }
-            });
+            }
+        });
 
         if (error) {
             throw error;
         }
 
-        formulario.reset();
-
-        // Si Supabase inicia la sesión inmediatamente,
-        // se dirige al usuario a Inicio.
         if (data.session) {
             mensaje.style.color = "#416B50";
-            mensaje.textContent = "Cuenta creada. Redirigiendo...";
+            mensaje.textContent = "Cuenta creada correctamente. Redirigiendo...";
 
-            window.location.replace(INICIO_URL);
+            window.location.replace(URL_INICIO);
             return;
         }
 
-        // Si requiere confirmar el correo,
-        // se espera a que el usuario abra el enlace.
         mensaje.style.color = "#416B50";
         mensaje.textContent =
-            "¡Tu cuenta está casi lista! Revisa tu correo electrónico y confirma tu dirección. Después de confirmar, volverás automáticamente a Universo Entre Líneas.";
+            "¡Tu cuenta está casi lista! Revisa tu correo electrónico y confirma tu dirección. Después de confirmar, serás dirigido al inicio.";
+
+        formulario.reset();
 
     } catch (error) {
         mensaje.style.color = "#A33333";
-        mensaje.textContent =
-            "No se pudo crear la cuenta: " + error.message;
+        mensaje.textContent = "No se pudo crear la cuenta: " + error.message;
 
     } finally {
         boton.disabled = false;
