@@ -163,9 +163,12 @@
       white-space: pre-wrap;
     }
 
+    /* Contadores y accesos sociales */
+
     .profile-stats {
       display: flex;
       justify-content: center;
+      gap: 35px;
       margin: 18px 0 12px;
     }
 
@@ -173,7 +176,7 @@
       display: flex;
       flex-direction: column;
       gap: 5px;
-      cursor: pointer;
+      cursor: default;
     }
 
     .stat strong {
@@ -248,7 +251,7 @@
       display: block;
     }
 
-    /* Contenido */
+    /* Contenido y pestañas */
 
     main {
       width: min(1050px, 91%);
@@ -439,7 +442,7 @@
       font-size: 10px;
     }
 
-    /* Modal de edición */
+    /* Modal */
 
     .modal-overlay {
       position: fixed;
@@ -608,6 +611,10 @@
         font-size: 27px;
       }
 
+      .profile-stats {
+        gap: 25px;
+      }
+
       main {
         margin-top: 30px;
       }
@@ -691,6 +698,8 @@
 
   <main>
 
+    <!-- Esta barra contiene únicamente las cuatro pestañas principales -->
+
     <div class="profile-navigation">
 
       <button class="tab-button active" type="button" data-tab="obras">
@@ -709,15 +718,9 @@
         Publicaciones
       </button>
 
-      <button class="tab-button" type="button" data-tab="seguidores">
-        Seguidores
-      </button>
-
-      <button class="tab-button" type="button" data-tab="seguidos">
-        Seguidos
-      </button>
-
     </div>
+
+    <!-- Obras publicadas -->
 
     <section class="tab-content active" id="obras">
 
@@ -739,6 +742,8 @@
 
     </section>
 
+    <!-- Obras en proceso -->
+
     <section class="tab-content" id="proceso">
 
       <div class="content-heading">
@@ -758,6 +763,8 @@
       </div>
 
     </section>
+
+    <!-- Mis lecturas -->
 
     <section class="tab-content" id="lecturas">
 
@@ -790,6 +797,8 @@
 
     </section>
 
+    <!-- Publicaciones -->
+
     <section class="tab-content" id="publicaciones">
 
       <div class="content-heading">
@@ -808,6 +817,8 @@
 
     </section>
 
+    <!-- Seguidores: se abre desde el enlace del perfil -->
+
     <section class="tab-content" id="seguidores">
 
       <div class="content-heading">
@@ -824,6 +835,8 @@
       </div>
 
     </section>
+
+    <!-- Seguidos: se abre desde el enlace del perfil -->
 
     <section class="tab-content" id="seguidos">
 
@@ -931,7 +944,7 @@
     const modalMessage = document.getElementById("modal-message");
     const saveButton = document.getElementById("save-profile-button");
 
-    // Navegación de pestañas
+    // Cambiar el contenido sin recargar la página
 
     function showTab(tabName) {
       const target = document.getElementById(tabName);
@@ -952,21 +965,27 @@
       });
 
       target.classList.add("active");
+
+      // Llevar el contenido visible a la zona de lectura
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     }
 
+    // Eventos de las cuatro pestañas principales
+
     document.querySelectorAll(".tab-button").forEach(button => {
-      button.addEventListener("click", () => {
-        showTab(button.dataset.tab);
+      button.addEventListener("click", function () {
+        showTab(this.dataset.tab);
       });
     });
 
+    // Accesos de seguidores y seguidos desde el perfil
+
     document.querySelectorAll("[data-open-tab]").forEach(button => {
-      button.addEventListener("click", () => {
-        showTab(button.dataset.openTab);
-        document.querySelector("main").scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
+      button.addEventListener("click", function () {
+        showTab(this.dataset.openTab);
       });
     });
 
@@ -986,7 +1005,7 @@
       }
     });
 
-    // Mensaje del perfil
+    // Mensajes
 
     function showProfileMessage(message) {
       const element = document.getElementById("profile-message");
@@ -1106,7 +1125,7 @@
         draftStories.length ? "none" : "block";
     }
 
-    // Cargar contadores
+    // Contadores
 
     async function loadStats() {
       const [postsResult, followersResult, followingResult] =
@@ -1151,7 +1170,7 @@
       }
     }
 
-    // Modal de edición
+    // Edición del perfil
 
     function openEditModal() {
       document.getElementById("edit-display-name").value =
@@ -1230,8 +1249,6 @@
 
       return data.publicUrl;
     }
-
-    // Guardar cambios
 
     editForm.addEventListener("submit", async event => {
       event.preventDefault();
@@ -1319,7 +1336,7 @@
       }
     });
 
-    // Cerrar sesión desde Ajustes
+    // Cerrar sesión
 
     document.getElementById("logout-button")
       .addEventListener("click", async function () {
@@ -1346,7 +1363,7 @@
         window.location.href = "login.html";
       });
 
-    // Inicializar perfil
+    // Inicio
 
     async function initializeProfile() {
       if (!supabase) {
