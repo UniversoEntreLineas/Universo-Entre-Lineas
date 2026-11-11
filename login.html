@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar sesión | Universo Entre Líneas</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: #F7F1E8;
+    color: #30272C;
+    font-family: Georgia, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.contenedor {
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+}
+
+.volver {
+    display: inline-block;
+    color: #713847;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 35px;
+}
+
+.volver:hover {
+    text-decoration: underline;
+}
+
+.decoracion {
+    color: #B69A70;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #713847;
+    font-size: 32px;
+    font-weight: normal;
+    margin-bottom: 12px;
+}
+
+.subtitulo {
+    color: #76666A;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.formulario {
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 13px 14px;
+    margin-bottom: 20px;
+    border: 1px solid #D8C8B8;
+    background: transparent;
+    color: #30272C;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #713847;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 8px;
+    border: none;
+    background: #713847;
+    color: #F7F1E8;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #59303B;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.mensaje {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.registro {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #76666A;
+}
+
+.registro a {
+    color: #713847;
+    text-decoration: none;
+}
+
+.registro a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<main class="contenedor">
+
+    <a class="volver" href="index.html">← Volver al inicio</a>
+
+    <div class="decoracion">✦</div>
+
+    <h1>Bienvenido nuevamente</h1>
+
+    <p class="subtitulo">
+        Cada historia tiene un lugar.
+        Nos alegra que regreses al nuestro.
+    </p>
+
+    <form class="formulario" id="loginForm">
+
+        <label for="email">Correo electrónico</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="tu@email.com"
+            required
+        >
+
+        <label for="password">Contraseña</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="Tu contraseña"
+            required
+        >
+
+        <button type="submit" id="botonLogin">
+            INICIAR SESIÓN
+        </button>
+
+    </form>
+
+    <p class="mensaje" id="mensaje" aria-live="polite"></p>
+
+    <p class="registro">
+        ¿Todavía no tienes una cuenta?
+        <a href="registro.html">Crear cuenta</a>
+    </p>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+const formulario = document.getElementById("loginForm");
+const mensaje = document.getElementById("mensaje");
+const boton = document.getElementById("botonLogin");
+
+formulario.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    mensaje.textContent = "";
+    mensaje.style.color = "#713847";
+
+    boton.disabled = true;
+    boton.textContent = "INGRESANDO...";
+
+    try {
+        const { data, error } =
+            await window.supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+        if (error) {
+            throw error;
+        }
+
+        mensaje.style.color = "#416B50";
+        mensaje.textContent = "¡Bienvenido! Tu sesión se inició correctamente.";
+
+        setTimeout(function() {
+            window.location.href = "index.html";
+        }, 1200);
+
+    } catch (error) {
+        mensaje.style.color = "#A33333";
+        mensaje.textContent = "No se pudo iniciar sesión: " + error.message;
+
+    } finally {
+        boton.disabled = false;
+        boton.textContent = "INICIAR SESIÓN";
+    }
+});
+</script>
+
+</body>
+</html>
