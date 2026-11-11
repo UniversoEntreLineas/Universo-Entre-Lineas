@@ -206,7 +206,9 @@ button:disabled {
 <script src="supabase.js"></script>
 
 <script>
-// Volver a la página anterior si pertenece al sitio
+const INICIO_URL =
+    "https://universowntrelineas.github.io/Universo-Entre-Lineas/";
+
 const volverLink = document.getElementById("volverLink");
 
 volverLink.addEventListener("click", function(event) {
@@ -256,34 +258,55 @@ formulario.addEventListener("submit", async function(event) {
         return;
     }
 
+    if (!window.supabaseClient) {
+        mensaje.style.color = "#A33333";
+        mensaje.textContent =
+            "No se pudo conectar con el sistema. Inténtalo nuevamente más tarde.";
+        return;
+    }
+
     boton.disabled = true;
     boton.textContent = "CREANDO CUENTA...";
 
     try {
-        const { error } = await window.supabaseClient.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                emailRedirectTo: "https://universowntrelineas.github.io/Universo-Entre-Lineas/index.html",
-                data: {
-                    display_name: nombre
+        const { data, error } =
+            await window.supabaseClient.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    emailRedirectTo: INICIO_URL,
+                    data: {
+                        display_name: nombre
+                    }
                 }
-            }
-        });
+            });
 
         if (error) {
             throw error;
         }
 
+        formulario.reset();
+
+        // Si Supabase inicia la sesión inmediatamente,
+        // se dirige al usuario a Inicio.
+        if (data.session) {
+            mensaje.style.color = "#416B50";
+            mensaje.textContent = "Cuenta creada. Redirigiendo...";
+
+            window.location.replace(INICIO_URL);
+            return;
+        }
+
+        // Si requiere confirmar el correo,
+        // se espera a que el usuario abra el enlace.
         mensaje.style.color = "#416B50";
         mensaje.textContent =
-            "¡Tu cuenta está casi lista! Revisa tu correo electrónico y confirma tu dirección para activar el acceso.";
-
-        formulario.reset();
+            "¡Tu cuenta está casi lista! Revisa tu correo electrónico y confirma tu dirección. Después de confirmar, volverás automáticamente a Universo Entre Líneas.";
 
     } catch (error) {
         mensaje.style.color = "#A33333";
-        mensaje.textContent = "No se pudo crear la cuenta: " + error.message;
+        mensaje.textContent =
+            "No se pudo crear la cuenta: " + error.message;
 
     } finally {
         boton.disabled = false;
