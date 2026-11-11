@@ -495,7 +495,7 @@ footer {
   <p>Un lugar para cada historia.</p>
 </footer>
 
-<!-- SUPABASE: DEBE CARGARSE ANTES DE LOS SCRIPTS QUE LO UTILIZAN -->
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -530,11 +530,12 @@ const count = document.getElementById("count");
 const genreSelect = document.getElementById("genre");
 
 let stories = [];
+let availableGenres = [];
 let selectedGenreFromUrl = "";
 
 
 // ======================================
-// CARGAR HISTORIAS Y DATOS RELACIONADOS
+// CARGAR HISTORIAS Y CATEGORÍAS
 // ======================================
 
 async function loadStories() {
@@ -546,6 +547,25 @@ async function loadStories() {
 
   booksContainer.innerHTML =
     '<div class="empty">Cargando historias...</div>';
+
+  // Cargar todas las categorías disponibles,
+  // aunque todavía no tengan historias asignadas.
+
+  const { data: allCategories, error: allCategoriesError } = await db
+    .from("categories")
+    .select("id, name")
+    .order("name", { ascending: true });
+
+  if (allCategoriesError) {
+    console.error("Error al cargar todas las categorías:", allCategoriesError);
+    availableGenres = [];
+  } else {
+    availableGenres = allCategories || [];
+  }
+
+  populateGenres();
+
+  // Cargar historias publicadas.
 
   const { data: storyData, error: storyError } = await db
     .from("stories")
@@ -570,7 +590,7 @@ async function loadStories() {
 
   if (!storyData || storyData.length === 0) {
     stories = [];
-    renderBooks([]);
+    filterBooks();
     return;
   }
 
@@ -580,7 +600,7 @@ async function loadStories() {
 
   const storyIds = storyData.map(story => story.id);
 
-  // Cargar autores
+  // Cargar autores.
 
   const { data: profiles, error: profilesError } = await db
     .from("profiles")
@@ -597,7 +617,7 @@ async function loadStories() {
     profileMap.set(profile.id, profile);
   });
 
-  // Cargar relaciones entre historias y categorías
+  // Cargar relaciones entre historias y categorías.
 
   const { data: relations, error: relationsError } = await db
     .from("story_categories")
@@ -605,7 +625,7 @@ async function loadStories() {
     .in("story_id", storyIds);
 
   if (relationsError) {
-    console.error("Error al cargar las categorías:", relationsError);
+    console.error("Error al cargar las categorías de las historias:", relationsError);
   }
 
   const categoryIds = [
@@ -649,7 +669,7 @@ async function loadStories() {
     categoriesByStory.get(relation.story_id).push(categoryName);
   });
 
-  // Unir los datos
+  // Unir los datos.
 
   stories = storyData.map(story => {
 
@@ -667,8 +687,6 @@ async function loadStories() {
     };
   });
 
-  populateGenres();
-
   filterBooks();
 }
 
@@ -679,21 +697,15 @@ async function loadStories() {
 
 function populateGenres() {
 
-  const allGenres = [
-    ...new Set(
-      stories.flatMap(story => story.genres)
-    )
-  ].sort((a, b) => a.localeCompare(b, "es"));
-
   genreSelect.innerHTML =
     '<option value="">Todos los géneros</option>';
 
-  allGenres.forEach(genre => {
+  availableGenres.forEach(category => {
 
     const option = document.createElement("option");
 
-    option.value = genre;
-    option.textContent = genre;
+    option.value = category.name;
+    option.textContent = category.name;
 
     genreSelect.appendChild(option);
   });
@@ -732,7 +744,7 @@ function renderBooks(list) {
     const article = document.createElement("article");
     article.className = "book";
 
-    // Portada
+    // Portada.
 
     const coverLink = document.createElement("a");
     coverLink.className = "cover-link";
@@ -759,7 +771,7 @@ function renderBooks(list) {
 
     coverLink.appendChild(cover);
 
-    // Información
+    // Información.
 
     const content = document.createElement("div");
 
