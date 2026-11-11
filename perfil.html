@@ -22,34 +22,81 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,"Time
 a{color:inherit;text-decoration:none}
 button,input,textarea,select{font-family:inherit}
 button{cursor:pointer}
-.back-home{position:absolute;top:24px;left:28px;z-index:30;color:var(--muted);font:12px Arial,sans-serif}
-.back-home:hover{color:var(--wine)}
-.settings-container{position:absolute;top:17px;right:25px;z-index:30}
-.settings-button{border:0;background:transparent;color:var(--muted);font:12px Arial,sans-serif;padding:9px}
-.settings-menu{display:none;position:absolute;top:38px;right:0;min-width:175px;padding:7px;background:var(--white);border:1px solid var(--line);box-shadow:0 8px 22px #30272c1a}
-.settings-menu.open{display:block}
-.settings-menu button{width:100%;padding:12px;border:0;background:transparent;color:var(--muted);text-align:left;font:12px Arial,sans-serif}
-.settings-menu button:hover{background:var(--paper);color:var(--wine)}
 
-/* Cabecera y portada del perfil */
+/* Accesos superiores */
+.back-home{
+  position:absolute;
+  top:24px;
+  left:28px;
+  z-index:30;
+  color:#fff;
+  font:12px Arial,sans-serif;
+  text-shadow:0 1px 6px #000;
+  transition:opacity .2s;
+}
+.back-home:hover{opacity:.72}
+
+.settings-container{
+  position:absolute;
+  top:17px;
+  right:25px;
+  z-index:30;
+}
+.settings-button{
+  border:0;
+  background:transparent;
+  color:#fff;
+  font:12px Arial,sans-serif;
+  padding:9px;
+  text-shadow:0 1px 6px #000;
+}
+.settings-button:hover{opacity:.75}
+
+.settings-menu{
+  display:none;
+  position:absolute;
+  top:38px;
+  right:0;
+  min-width:175px;
+  padding:7px;
+  background:rgba(35,22,28,.95);
+  border:1px solid #ffffff35;
+  box-shadow:0 8px 22px #00000030;
+}
+.settings-menu.open{display:block}
+.settings-menu button{
+  width:100%;
+  padding:12px;
+  border:0;
+  background:transparent;
+  color:#fff;
+  text-align:left;
+  font:12px Arial,sans-serif;
+}
+.settings-menu button:hover{
+  background:#ffffff16;
+  color:#fff;
+}
+
+/* Cabecera y portada */
 .profile-header{
   position:relative;
   padding:195px 20px 35px;
-  background:var(--white);
+  background:var(--wine-dark);
   text-align:center;
   overflow:hidden;
   border-bottom:1px solid var(--line);
 }
 
-/* La imagen cubre desde la altura del avatar hasta el final del perfil */
+/* La portada ocupa toda la cabecera, incluido el espacio superior */
 .profile-cover{
   position:absolute;
-  top:130px;
+  top:0;
   left:0;
   right:0;
   bottom:0;
   width:100%;
-  height:auto;
+  height:100%;
   background:linear-gradient(135deg,#4d2934,#87616a 55%,#b69a70);
   background-position:center;
   background-size:cover;
@@ -57,15 +104,16 @@ button{cursor:pointer}
   z-index:0;
 }
 
-/* Oscurece la portada para mantener el contraste */
+/* Oscurece la imagen para mantener todos los textos legibles */
 .profile-cover::after{
   content:"";
   position:absolute;
   inset:0;
   background:linear-gradient(
     180deg,
-    rgba(25,15,20,.48),
-    rgba(25,15,20,.64)
+    rgba(25,15,20,.58),
+    rgba(25,15,20,.48) 45%,
+    rgba(25,15,20,.68)
   );
   pointer-events:none;
 }
@@ -75,16 +123,19 @@ button{cursor:pointer}
   right:25px;
   bottom:18px;
   z-index:3;
-  padding:10px 14px;
-  border:1px solid #ffffffa8;
-  border-radius:3px;
-  background:rgba(35,22,28,.72);
+  padding:9px 13px;
+  border:1px solid #ffffff75;
+  border-radius:20px;
+  background:rgba(35,22,28,.45);
   color:#fff;
   font:11px Arial,sans-serif;
   letter-spacing:.3px;
-  box-shadow:0 2px 8px #00000025;
+  transition:background .2s,border-color .2s;
 }
-.cover-edit-button:hover{background:rgba(35,22,28,.95)}
+.cover-edit-button:hover{
+  background:rgba(35,22,28,.8);
+  border-color:#fff;
+}
 .cover-edit-button:disabled{opacity:.65;cursor:wait}
 
 .profile-intro{
@@ -122,7 +173,7 @@ button{cursor:pointer}
   color:#fff;
   font-size:32px;
   font-weight:normal;
-  text-shadow:0 2px 8px #00000080;
+  text-shadow:0 2px 8px #000000a8;
   overflow-wrap:anywhere;
 }
 
@@ -140,9 +191,10 @@ button{cursor:pointer}
   font-size:14px;
   line-height:1.8;
   white-space:pre-wrap;
-  text-shadow:0 1px 6px #000000a8;
+  text-shadow:0 1px 6px #000000c0;
 }
 
+/* Estadísticas sin recuadros */
 .profile-stats{
   display:flex;
   justify-content:center;
@@ -155,16 +207,16 @@ button{cursor:pointer}
   flex-direction:column;
   gap:5px;
   min-width:105px;
-  padding:10px 18px;
-  border:1px solid #ffffff55;
-  border-radius:3px;
-  background:rgba(35,22,28,.58);
-  box-shadow:0 2px 8px #00000018;
+  padding:5px 12px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
 }
 
 .stat strong{
   color:#fff;
-  font-size:21px;
+  font-size:23px;
   font-weight:normal;
   text-shadow:0 1px 5px #000;
 }
@@ -175,30 +227,34 @@ button{cursor:pointer}
   text-shadow:0 1px 4px #000;
 }
 
+/* Seguidores y seguidos con estilo ligero */
 .social-links{
   display:flex;
   justify-content:center;
   align-items:center;
   flex-wrap:wrap;
-  gap:12px;
+  gap:25px;
   margin:18px 0 12px;
   font:12px Arial,sans-serif;
 }
 
 .social-links button{
-  min-width:125px;
-  padding:10px 15px;
-  border:1px solid #ffffff70;
-  border-radius:3px;
-  background:rgba(35,22,28,.68);
+  min-width:0;
+  padding:7px 4px;
+  border:0;
+  border-bottom:1px solid transparent;
+  border-radius:0;
+  background:transparent;
   color:#fff;
   text-shadow:0 1px 4px #000;
-  box-shadow:0 2px 8px #00000018;
+  box-shadow:none;
+  transition:border-color .2s,opacity .2s;
 }
 
 .social-links button:hover{
-  background:rgba(35,22,28,.92);
-  border-color:#fff;
+  border-bottom-color:#ffffffb0;
+  background:transparent;
+  opacity:.8;
 }
 
 .social-links strong{
@@ -206,22 +262,24 @@ button{cursor:pointer}
   font-weight:bold;
 }
 
+/* Botones principales más discretos */
 .edit-profile-button{
   display:inline-block;
   margin:9px 0 5px;
-  padding:11px 22px;
-  border:1px solid #ffffffb8;
-  border-radius:3px;
-  background:rgba(35,22,28,.78);
+  padding:10px 21px;
+  border:1px solid #ffffffa0;
+  border-radius:22px;
+  background:rgba(35,22,28,.42);
   color:#fff;
   font:11px Arial,sans-serif;
   letter-spacing:.7px;
   text-shadow:0 1px 4px #000;
-  box-shadow:0 2px 8px #00000020;
+  box-shadow:none;
+  transition:background .2s,border-color .2s;
 }
 
 .edit-profile-button:hover{
-  background:rgba(35,22,28,.96);
+  background:rgba(35,22,28,.8);
   border-color:#fff;
   color:#fff;
 }
@@ -241,14 +299,15 @@ button{cursor:pointer}
   display:none;
   margin:12px auto 0;
   padding:9px 20px;
-  border:1px solid #fff;
-  border-radius:3px;
-  background:rgba(35,22,28,.82);
+  border:1px solid #ffffffb0;
+  border-radius:22px;
+  background:rgba(35,22,28,.45);
   color:white;
   font:12px Arial,sans-serif;
+  transition:background .2s;
 }
 .follow-profile-button.visible{display:block}
-.follow-profile-button:hover{background:rgba(35,22,28,.98)}
+.follow-profile-button:hover{background:rgba(35,22,28,.85)}
 
 /* Navegación: permanece fuera de la portada */
 main{width:min(1050px,91%);margin:45px auto 80px}
@@ -328,17 +387,17 @@ footer p{color:#c4b5ae;font:11px Arial,sans-serif;line-height:1.8}
  .settings-button{font-size:11px}
 
  .profile-header{padding:190px 12px 30px}
- .profile-cover{top:137px}
+ .profile-cover{top:0}
  .profile-intro{margin-top:-53px}
  .profile-avatar{width:108px;height:108px}
  .profile-name{font-size:27px}
  .profile-bio{font-size:13px;padding:0 8px}
  .profile-stats{gap:15px}
- .stat{min-width:105px;padding:9px 12px}
- .social-links{gap:8px}
- .social-links button{min-width:115px;padding:9px 10px;font-size:11px}
- .cover-edit-button{right:12px;bottom:12px;padding:8px 10px;font-size:10px}
- .edit-profile-button{padding:10px 18px}
+ .stat{min-width:105px;padding:5px 10px}
+ .social-links{gap:18px}
+ .social-links button{min-width:0;padding:8px 4px;font-size:11px}
+ .cover-edit-button{right:12px;bottom:12px;padding:8px 11px;font-size:10px}
+ .edit-profile-button{padding:9px 18px}
 
  main{margin-top:30px}
  .profile-navigation{overflow-x:auto;flex-wrap:nowrap}
@@ -355,7 +414,7 @@ footer p{color:#c4b5ae;font:11px Arial,sans-serif;line-height:1.8}
 
 <body>
 
-<a href="index.html" class="back-home">← Volver al inicio</a>
+<a href="index.html" class="back-home" id="back-home">← Volver al inicio</a>
 
 <div class="settings-container" id="settings-container">
   <button class="settings-button" id="settings-button" type="button">⚙ Ajustes</button>
@@ -551,6 +610,36 @@ const params = new URLSearchParams(window.location.search);
 const requestedProfileId = params.get("id");
 
 const $ = id => document.getElementById(id);
+
+/* Volver a la página anterior dentro del sitio */
+(function configureBackButton() {
+  const backButton = $("back-home");
+  const fallback = "index.html";
+
+  try {
+    const referrer = document.referrer;
+
+    if (!referrer) {
+      backButton.href = fallback;
+      return;
+    }
+
+    const previousPage = new URL(referrer);
+    const currentPage = new URL(window.location.href);
+
+    const isSameSite = previousPage.origin === currentPage.origin;
+    const isProfilePage = previousPage.pathname.replace(/\/+$/, "").endsWith("/perfil.html");
+
+    if (isSameSite && !isProfilePage) {
+      backButton.href = previousPage.pathname + previousPage.search + previousPage.hash;
+      backButton.textContent = "← Volver";
+    } else {
+      backButton.href = fallback;
+    }
+  } catch (error) {
+    backButton.href = fallback;
+  }
+})();
 
 function showMessage(message) {
   $("profile-message").textContent = message;
