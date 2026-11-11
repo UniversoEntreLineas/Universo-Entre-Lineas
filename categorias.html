@@ -10,7 +10,7 @@
 :root {
   --paper: #F7F1E8;
   --wine: #713847;
-  --dark: #30272C;
+  --dark: #4d2934;
   --beige: #D8C8B8;
   --gold: #B69A70;
   --white: #FFFCF7;
@@ -23,16 +23,20 @@
 body {
   margin: 0;
   background: var(--paper);
-  color: var(--dark);
+  color: #30272C;
   font-family: Georgia, serif;
+}
+
+a {
+  color: inherit;
 }
 
 /* CABECERA Y NAVEGACIÓN */
 
 .site-header {
   position: relative;
-  padding: 65px 15px 18px;
-  background: var(--wine);
+  padding: 45px 15px 0;
+  background: var(--dark);
 }
 
 nav {
@@ -40,16 +44,16 @@ nav {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 25px;
-  padding: 18px;
-  background: var(--wine);
+  gap: 22px;
+  padding: 10px 16px;
+  background: var(--dark);
   font-family: Arial, sans-serif;
+  font-size: 13px;
 }
 
 nav a {
   color: var(--white);
   text-decoration: none;
-  font-size: 15px;
   transition: color .2s;
 }
 
@@ -61,15 +65,13 @@ nav a:hover {
 
 .account-area {
   position: absolute;
-  top: 17px;
+  top: 12px;
   right: 25px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
   font: 12px Arial, sans-serif;
-
-  /* Oculto hasta comprobar la sesión */
   visibility: hidden;
 }
 
@@ -79,13 +81,13 @@ nav a:hover {
 }
 
 .account-register {
-  padding: 8px 13px;
+  padding: 7px 11px;
   border: 1px solid var(--beige);
 }
 
 .account-register:hover {
   background: var(--white);
-  color: var(--wine);
+  color: var(--dark);
 }
 
 .profile-link {
@@ -122,15 +124,17 @@ nav a:hover {
   display: none;
 }
 
+/* CONTENIDO */
+
 main {
   max-width: 1100px;
   margin: auto;
-  padding: 55px 25px;
+  padding: 45px 25px 55px;
 }
 
 .intro {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 45px;
 }
 
 .intro h2 {
@@ -219,18 +223,20 @@ footer {
   font-size: 13px;
 }
 
+/* ADAPTACIÓN A MÓVILES */
+
 @media (max-width: 600px) {
   nav {
-    gap: 15px;
-    padding: 15px 10px;
+    gap: 13px;
+    padding: 10px;
   }
 
   .site-header {
-    padding: 60px 12px 12px;
+    padding: 45px 12px 0;
   }
 
   .account-area {
-    top: 12px;
+    top: 10px;
     right: 12px;
     left: 12px;
     font-size: 11px;
@@ -243,12 +249,28 @@ footer {
   }
 
   main {
-    padding: 35px 18px;
+    padding: 35px 18px 45px;
+  }
+
+  .intro {
+    margin-bottom: 35px;
+  }
+
+  .intro h2 {
+    font-size: 27px;
   }
 
   .family-header {
     align-items: baseline;
     flex-wrap: wrap;
+  }
+
+  .family-header h3 {
+    font-size: 23px;
+  }
+
+  .categories {
+    grid-template-columns: 1fr;
   }
 }
 </style>
@@ -492,8 +514,12 @@ genreFamilies.forEach(family => {
 
 </script>
 
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+
+<!-- ACCESO A LA CUENTA Y PERFIL -->
 
 <script>
 (async function loadAccount() {
@@ -573,7 +599,6 @@ genreFamilies.forEach(family => {
 
   await updateAccount(session);
 
-  // Mostrar la cuenta después de comprobar la sesión.
   accountArea.style.visibility = "visible";
 
   db.auth.onAuthStateChange((_event, session) => {
