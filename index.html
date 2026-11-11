@@ -45,6 +45,7 @@
     }
 
     header {
+      position: relative;
       text-align: center;
       padding: 34px 20px 25px;
       background: var(--white);
@@ -64,21 +65,16 @@
       letter-spacing: 4px;
     }
 
-    nav {
+    .account-area {
+      position: absolute;
+      top: 18px;
+      right: 25px;
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 25px;
-      padding: 17px 15px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--white);
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
       font-family: Arial, sans-serif;
-      font-size: 13px;
-    }
-
-    nav a:hover {
-      color: var(--wine);
+      font-size: 12px;
     }
 
     .account-link {
@@ -88,8 +84,6 @@
 
     .account-register {
       padding: 8px 13px;
-      margin-top: -8px;
-      margin-bottom: -8px;
       border: 1px solid var(--wine);
     }
 
@@ -101,8 +95,7 @@
     .user-menu {
       display: none;
       align-items: center;
-      flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-end;
       gap: 12px;
     }
 
@@ -125,6 +118,23 @@
     .logout-button:hover {
       background: var(--wine);
       color: var(--white);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      padding: 17px 15px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    nav a:hover {
+      color: var(--wine);
     }
 
     .hero {
@@ -319,6 +329,28 @@
     }
 
     @media (max-width: 650px) {
+      header {
+        padding: 75px 15px 25px;
+      }
+
+      .account-area {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+        justify-content: flex-end;
+        font-size: 11px;
+      }
+
+      .user-menu {
+        gap: 8px;
+      }
+
+      .logout-button,
+      .account-register {
+        padding: 7px 9px;
+        font-size: 11px;
+      }
+
       nav {
         gap: 16px;
         font-size: 12px;
@@ -353,6 +385,22 @@
   <div class="top-line"></div>
 
   <header>
+    <div class="account-area">
+
+      <span id="guest-menu">
+        <a class="account-link" href="login.html">Iniciar sesión</a>
+        <a class="account-link account-register" href="registro.html">Crear cuenta</a>
+      </span>
+
+      <span id="user-menu" class="user-menu">
+        <span id="user-name" class="user-name"></span>
+        <button type="button" id="logout-button" class="logout-button">
+          Cerrar sesión
+        </button>
+      </span>
+
+    </div>
+
     <div class="brand">Universo Entre Líneas</div>
     <div class="brand-subtitle">UN LUGAR PARA CADA HISTORIA</div>
   </header>
@@ -364,18 +412,6 @@
     <a href="categorias.html">Categorías</a>
     <a href="comunidad.html">Comunidad</a>
     <a href="nosotros.html">Nosotros</a>
-
-    <span id="guest-menu">
-      <a class="account-link" href="login.html">Iniciar sesión</a>
-      <a class="account-link account-register" href="registro.html">Crear cuenta</a>
-    </span>
-
-    <span id="user-menu" class="user-menu">
-      <span id="user-name" class="user-name"></span>
-      <button type="button" id="logout-button" class="logout-button">
-        Cerrar sesión
-      </button>
-    </span>
   </nav>
 
   <div class="hero">
